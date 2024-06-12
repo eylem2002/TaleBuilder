@@ -3,6 +3,7 @@ import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/view/screens/Signin/up/signin.dart';
 import 'package:tale/view/screens/Signin/up/signup.dart';
 import 'package:tale/view/screens/home_screen.dart';
+import 'package:tale/view/screens/search_screen.dart';
 import 'package:tale/view/screens/splash_screen.dart';
 
 
@@ -26,7 +27,10 @@ class MyRouter {
         {
           return _route(SingUp());
         }
-
+         case searchScreen:
+        {
+          return _route(SearchScreen());
+        }
       default:
         {
           final arg = settings.name as String;

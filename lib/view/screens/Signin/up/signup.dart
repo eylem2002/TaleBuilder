@@ -167,7 +167,7 @@ class _SingUpState extends State<SingUp> {
                       height: LayoutManager.widthNHeight0(context, 1) * 0.13,
                       onTap: () {
                         Navigator.of(context)
-                            .pushReplacementNamed(signUpScreen);
+                            .pushReplacementNamed(searchScreen);
                       },
                       child: Center(
                         child: GradientText(

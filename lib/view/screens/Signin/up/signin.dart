@@ -119,7 +119,7 @@ class _SignInState extends State<SignIn> {
                     width: LayoutManager.widthNHeight0(context, 1) * 0.5,
                     height: LayoutManager.widthNHeight0(context, 1) * 0.13,
                     onTap: () {
-                      Navigator.of(context).pushReplacementNamed(signInScreen);
+                      Navigator.of(context).pushReplacementNamed(searchScreen);
                     },
                     child: Center(
                       child: GradientText(
