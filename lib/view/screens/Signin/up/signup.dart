@@ -5,6 +5,7 @@ import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
+import 'package:tale/view/widgets/button_design.dart';
 import 'package:tale/view/widgets/sign_form_filde.dart';
 
 //page to create a new account in the app
@@ -63,7 +64,7 @@ class _SingUpState extends State<SingUp> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: LayoutManager.widthNHeight0(context, 1) * 0.23,
+                    height: LayoutManager.widthNHeight0(context, 1) * 0.25,
                   ),
                   SizedBox(
                     child: Column(
@@ -95,7 +96,7 @@ class _SingUpState extends State<SingUp> {
                             str: ''),
                         SizedBox(
                           height:
-                              LayoutManager.widthNHeight0(context, 1) * 0.07,
+                              LayoutManager.widthNHeight0(context, 1) * 0.085,
                         ),
                         TextFormFieldWidgetSign(
                             passToggle: false,
@@ -116,7 +117,7 @@ class _SingUpState extends State<SingUp> {
                             str: ''),
                         SizedBox(
                           height:
-                              LayoutManager.widthNHeight0(context, 1) * 0.07,
+                              LayoutManager.widthNHeight0(context, 1) *0.085,
                         ),
                         TextFormFieldWidgetSign(
                             passToggle: false,
@@ -138,7 +139,7 @@ class _SingUpState extends State<SingUp> {
                             str: ''),
                         SizedBox(
                           height:
-                              LayoutManager.widthNHeight0(context, 1) * 0.07,
+                              LayoutManager.widthNHeight0(context, 1) * 0.085,
                         ),
                         TextFormFieldWidgetSign(
                             passToggle: true,
@@ -158,44 +159,31 @@ class _SingUpState extends State<SingUp> {
                     ),
                   ),
                   SizedBox(
-                    height: LayoutManager.widthNHeight0(context, 1) * 0.08,
+                    height: LayoutManager.widthNHeight0(context, 1) * 0.12,
                   ),
                   Center(
-                    child: SizedBox(
-                      width: LayoutManager.widthNHeight0(context, 1) * 0.55,
-                      height: LayoutManager.widthNHeight0(context, 0) * 0.06,
-                      child: InkWell(
-                        onTap: () async {
-                          if (signUpController.formKey.currentState!
-                              .validate()) {
-                            final user = UserModel(
-                              name: signUpController.firstName.text,
-                              email: signUpController.email.text,
-                              phone: signUpController.phone.text,
-                            );
-
-                            _signUp(
-                                context, user, signUpController.password.text);
-                          }
-                        },
-                        child: Container(
-                          height: LayoutManager.widthNHeight0(context, 0) * .07,
-                          decoration: BoxDecoration(
-                              color: ThemeManager.primary,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Center(
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                  color: ThemeManager.second,
-                                  fontSize: 20,
-                                  fontFamily: ThemeManager.fontFamily,
-                                  fontWeight: FontWeight.w600),
-                            ),
+                    child: OutlinedContainerWithShadow(
+                      width: LayoutManager.widthNHeight0(context, 1) * 0.5,
+                      height: LayoutManager.widthNHeight0(context, 1) * 0.13,
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(signUpScreen);
+                      },
+                      child: Center(
+                        child: GradientText(
+                          'Sign Up',
+                          gradient: ThemeManager.title,
+                          style: TextStyle(
+                            fontSize:
+                                LayoutManager.widthNHeight0(context, 1) * 0.05,
+                            fontFamily: ThemeManager.fontFamily,
                           ),
                         ),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: LayoutManager.widthNHeight0(context, 1) * 0.02,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -203,22 +191,23 @@ class _SingUpState extends State<SingUp> {
                       Text(
                         "Already a member?",
                         style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * .033,
+                            fontSize: MediaQuery.of(context).size.width * .032,
                             fontFamily: ThemeManager.fontFamily,
-                            color: Colors.grey[600]),
+                            color: ThemeManager.second),
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacementNamed(signInScreen);
+                             Navigator.of(context)
+                            .pushReplacementNamed(signInScreen);
                           },
                           child: Text(
                             "Sign In",
                             style: TextStyle(
                                 fontSize:
-                                    MediaQuery.of(context).size.width * .033,
+                                    MediaQuery.of(context).size.width * .03,
                                 fontFamily: ThemeManager.fontFamily,
-                                color: Colors.grey[700]),
+                                fontWeight: FontWeight.bold,
+                                color: ThemeManager.second),
                           ))
                     ],
                   ),

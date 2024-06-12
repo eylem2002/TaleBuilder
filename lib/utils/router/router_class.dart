@@ -20,7 +20,7 @@ class MyRouter {
         }
         case signInScreen:
         {
-          return _route(SignInScreen());
+          return _route(SignIn());
         }
          case signUpScreen:
         {
