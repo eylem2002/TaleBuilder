@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tale/utils/router/router_const.dart';
+import 'package:tale/view/screens/Signin/up/signin.dart';
+import 'package:tale/view/screens/Signin/up/signup.dart';
 import 'package:tale/view/screens/home_screen.dart';
 import 'package:tale/view/screens/splash_screen.dart';
 
@@ -15,6 +17,14 @@ class MyRouter {
         case homeRouteScreen:
         {
           return _route(HomeScreen());
+        }
+        case signInScreen:
+        {
+          return _route(SignInScreen());
+        }
+         case signUpScreen:
+        {
+          return _route(SingUp());
         }
 
       default:

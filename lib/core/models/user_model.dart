@@ -6,38 +6,27 @@ enum UsersRole { user, expert }
 class UserModel {
   String? id;
   String? name;
-  String? role;
-  double? longitude;
-  double? latitude;
-  String? email;
-  List<String>? favList;
 
+  String? email;
 
   String? phone;
   UserModel.empty();
-  UserModel(
-      {this.id,
-      required this.name,
-      required this.email,
-      required this.phone,
-      required this.longitude,
-      required this.latitude}) {
-    role = UsersRole.user.name;
+  UserModel({
+    this.id,
+    required this.name,
+    required this.email,
+    required this.phone,
+  }) {
     id = uuid.v4();
-    favList=[];
   }
 
 //This is a factory Constructor to create UserModel instance from JSON obj
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    longitude = json['longitude'];
-    latitude = json['latitude'];
+
     phone = json['phone'];
     email = json['email'];
-
-
-
   }
 
 //convert the UserModel instance to a JSON object
@@ -46,11 +35,9 @@ class UserModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
-    data['longitude'] = longitude;
-    data['latitude'] = latitude;
+
     data['phone'] = phone;
     data['email'] = email;
-
 
     return data;
   }
