@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tale/core/services/user_service.dart';
 import 'package:tale/utils/layout_manager.dart';
+import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
+import 'package:tale/view/screens/Signin/up/signin.dart';
+import 'package:tale/view/widgets/button_design.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -62,11 +65,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     "Welcome to our innovative platform, designed to transform static reports into compelling \nnarrative stories",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                   wordSpacing: 1,
+                        wordSpacing: 1,
                         fontSize:
                             LayoutManager.widthNHeight0(context, 1) * 0.036,
                         color: Colors.white,
-                         height: 1.5,
+                        height: 1.5,
                         fontFamily: ThemeManager.fontFamily),
                   ),
                 ),
@@ -92,10 +95,57 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: TextStyle(
                                 color: ThemeManager.primary,
                                 fontFamily: ThemeManager.fontFamily),
-                          ))
+                          )),
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: LayoutManager.widthNHeight0(context, 1) * 0.08,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    OutlinedContainerWithShadow(
+                      width: LayoutManager.widthNHeight0(context, 1) * 0.255,
+                      height: LayoutManager.widthNHeight0(context, 1) * 0.13,
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(signUpScreen);
+                      },
+                      child: Center(
+                        child: GradientText(
+                          'Sign Up',
+                          gradient: ThemeManager.title,
+                          style: TextStyle(
+                            fontSize:
+                                LayoutManager.widthNHeight0(context, 1) * 0.05,
+                            fontFamily: ThemeManager.fontFamily,
+                          ),
+                        ),
+                      ),
+                    ),
+                    OutlinedContainerWithShadow(
+                      width: LayoutManager.widthNHeight0(context, 1) * 0.255,
+                      height: LayoutManager.widthNHeight0(context, 1) * 0.13,
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(signInScreen);
+                      },
+                      child: Center(
+                        child: GradientText(
+                          'Sign In',
+                          gradient: ThemeManager.title,
+                          style: TextStyle(
+                            fontSize:
+                                LayoutManager.widthNHeight0(context, 1) * 0.05,
+                            fontFamily: ThemeManager.fontFamily,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           )),

@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:tale/core/models/user_model.dart';
 import 'package:tale/core/services/user_service.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/router/router_const.dart';
+import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/widgets/sign_form_filde.dart';
 
@@ -36,12 +36,24 @@ class _SingUpState extends State<SingUp> {
     super.dispose();
   }
 
-
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key("Tale title"),
-      backgroundColor: const Color(0xffEAEBEF),
-      body: SingleChildScrollView(
+        body: Container(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Color(0xFF0A061C),
+            Color(0xFF110A27),
+            Color(0xFF140B2C),
+            Color(0xFF180D32),
+            Color(0xFF1D103A),
+            Color(0xFF20113D),
+          ],
+        ),
+      ),
+      child: SingleChildScrollView(
         child: Form(
           key: signUpController.formKey,
           child: SizedBox(
@@ -50,54 +62,26 @@ class _SingUpState extends State<SingUp> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(150.0),
-                          bottomRight: Radius.circular(150.0),
-                        ),
-                        child: Transform.scale(
-                          scale: 1.1,
-                          child: Image.asset(
-                            'assets/images/img_png/profile.png',
-                            width: double.infinity,
-                            height:
-                                LayoutManager.widthNHeight0(context, 1) * 0.54,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: LayoutManager.widthNHeight0(context, 1) * 0.155,
-                        left: LayoutManager.widthNHeight0(context, 1) * 0.08,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-
-                              "TaleBulider",
-                              style: TextStyle(
-                                  fontSize:
-                                      LayoutManager.widthNHeight0(context, 1) *
-                                          0.084,
-                                  color: ThemeManager.second,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: ThemeManager.fontFamily),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
                   SizedBox(
-                    height: LayoutManager.widthNHeight0(context, 1) * 0.18,
+                    height: LayoutManager.widthNHeight0(context, 1) * 0.23,
                   ),
                   SizedBox(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        GradientText(
+                          'TaleBuilder',
+                          gradient: ThemeManager.title,
+                          style: TextStyle(
+                              fontSize:
+                                  LayoutManager.widthNHeight0(context, 1) *
+                                      0.085,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: ThemeManager.fontFamily),
+                        ),
+                        SizedBox(
+                          height: LayoutManager.widthNHeight0(context, 1) * 0.1,
+                        ),
                         TextFormFieldWidgetSign(
                             passToggle: false,
                             passController: signUpController.firstName,
@@ -184,20 +168,14 @@ class _SingUpState extends State<SingUp> {
                         onTap: () async {
                           if (signUpController.formKey.currentState!
                               .validate()) {
-                          
-
                             final user = UserModel(
-                           
-                                name: signUpController.firstName.text,
-                                email: signUpController.email.text,
+                              name: signUpController.firstName.text,
+                              email: signUpController.email.text,
+                              phone: signUpController.phone.text,
+                            );
 
-                                phone: signUpController.phone.text,
-                              
-                              );
-
-
-
-                            _signUp(context, user,signUpController.password.text);
+                            _signUp(
+                                context, user, signUpController.password.text);
                           }
                         },
                         child: Container(
@@ -231,7 +209,8 @@ class _SingUpState extends State<SingUp> {
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacementNamed(signInScreen);
+                            Navigator.of(context)
+                                .pushReplacementNamed(signInScreen);
                           },
                           child: Text(
                             "Sign In",
@@ -249,11 +228,11 @@ class _SingUpState extends State<SingUp> {
           ),
         ),
       ),
-    );
+    ));
   }
 
   void _signUp(BuildContext context, UserModel user, String password) async {
-    String str = await _service.addUser(user,password);
+    String str = await _service.addUser(user, password);
 
     if (str == "Done") {
       print("User is successfully created");
@@ -286,30 +265,19 @@ class _SingUpState extends State<SingUp> {
   }
 }
 
-
-
-
-class SignUpController{
-
-
-   TextEditingController _email = TextEditingController();
-   TextEditingController _firstName = TextEditingController();
-   TextEditingController _secondName = TextEditingController();
-   TextEditingController _password = TextEditingController();
-   TextEditingController _phone = TextEditingController();
-   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+class SignUpController {
+  TextEditingController _email = TextEditingController();
+  TextEditingController _firstName = TextEditingController();
+  TextEditingController _secondName = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _phone = TextEditingController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   get formKey => _formKey;
 
   set formKey(value) {
     _formKey = value;
-
-
-   
-
-
   }
-
 
   TextEditingController get phone => _phone;
 
@@ -340,6 +308,4 @@ class SignUpController{
   set email(TextEditingController value) {
     _email = value;
   }
-
-
 }
