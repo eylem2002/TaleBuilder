@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     OutlinedContainerWithShadow(
-                      width: LayoutManager.widthNHeight0(context, 1) * 0.255,
+                      width: LayoutManager.widthNHeight0(context, 1) * 0.3,
                       height: LayoutManager.widthNHeight0(context, 1) * 0.13,
                       onTap: () {
                         Navigator.of(context)
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     OutlinedContainerWithShadow(
-                      width: LayoutManager.widthNHeight0(context, 1) * 0.255,
+                      width: LayoutManager.widthNHeight0(context, 1) * 0.3,
                       height: LayoutManager.widthNHeight0(context, 1) * 0.13,
                       onTap: () {
                         Navigator.of(context)
