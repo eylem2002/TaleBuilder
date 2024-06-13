@@ -1,5 +1,5 @@
 // Initial route for the app
-const String initRoute = '/';
+// const String initRoute = '/';
 
 // Route for the intro screen
 const String introeRouteScreen = '/intro_screen';

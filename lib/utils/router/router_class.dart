@@ -11,10 +11,10 @@ import 'package:tale/view/screens/splash_screen.dart';
 class MyRouter {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case initRoute:
-        {
-          return _route(SplashScreen());
-        }
+      // case initRoute:
+      //   {
+      //     return _route(SplashScreen());
+      //   }
         case introeRouteScreen:
         {
           return _route(IntroScreen());

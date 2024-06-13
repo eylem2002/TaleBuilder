@@ -9,7 +9,6 @@ import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/utils/shared.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
-import 'package:tale/view/screens/search_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 4),
       () async {
         try {
           if (FirebaseAuth.instance.currentUser == null) {
