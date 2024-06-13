@@ -11,7 +11,7 @@ import 'package:tale/view/widgets/sign_form_filde.dart';
 //page to create a new account in the app
 class SingUp extends StatefulWidget {
   const SingUp({super.key});
-
+//
   @override
   State<SingUp> createState() => _SingUpState();
 }
