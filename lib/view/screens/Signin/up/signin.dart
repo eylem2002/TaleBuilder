@@ -178,8 +178,7 @@ class _SignInState extends State<SignIn> {
                             } else {
                               print('sign in');
                               print(result);
-                              // Navigator.of(context)
-                              //     .pushReplacementNamed("search_home_bar");
+                               Navigator.of(context).pushReplacementNamed(searchScreen);
                             }
                           },
                           child: Text(

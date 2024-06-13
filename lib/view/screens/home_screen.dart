@@ -86,8 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             } else {
                               print('sign in');
                               print(result);
-                              // Navigator.of(context)
-                              //     .pushReplacementNamed("search_home_bar");
+                               Navigator.of(context).pushReplacementNamed(searchScreen);
                             }
                           },
                           child: Text(
