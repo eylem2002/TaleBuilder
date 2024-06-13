@@ -1,16 +1,7 @@
 # tale
 
-A new Flutter project.
+At TaleBuilder, we transform complex data findings into compelling narrative stories, enabling data scientists and analysts to communicate their results effectively to stakeholders. Our Al-driven tool simplifies the storytelling process, ensuring clarity and understanding.
+Harnessing Al to Transform Data Insights into Powerful Narratives for
+Clear Communication.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
