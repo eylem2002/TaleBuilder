@@ -4,6 +4,7 @@ import 'package:tale/view/screens/Signin/up/signin.dart';
 import 'package:tale/view/screens/Signin/up/signup.dart';
 import 'package:tale/view/screens/intro_screen.dart';
 import 'package:tale/view/screens/home_screen.dart';
+import 'package:tale/view/screens/search_screen.dart';
 import 'package:tale/view/screens/splash_screen.dart';
 
 // Class responsible for generating routes in the application
@@ -25,6 +26,10 @@ class MyRouter {
       case homeScreen:
         {
           return _route(HomeScreen());
+        }
+      case searchScreen:
+        {
+          return _route(SearchScreen());
         }
       default:
         {

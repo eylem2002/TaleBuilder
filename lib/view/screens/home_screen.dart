@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tale/utils/layout_manager.dart';
+import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/widgets/card_design.dart';
@@ -118,23 +119,27 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  child: TextField(
-                    style: TextStyle(color: ThemeManager.second),
-                    decoration: InputDecoration(
-                      hintText: 'How we can help you?',
-                      hintStyle: TextStyle(color: Colors.grey[600]),
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(searchScreen);
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
                         horizontal:
                             LayoutManager.widthNHeight0(context, 1) * 0.04,
                         vertical:
                             LayoutManager.widthNHeight0(context, 1) * 0.03,
                       ),
-                      suffixIcon: IconButton(
-                        icon: Icon(Icons.search, color: Colors.grey[600]),
-                        onPressed: () {
-                          //back
-                        },
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'How can we help you?',
+                              style: TextStyle(color: Colors.grey[600]),
+                            ),
+                          ),
+                          Icon(Icons.search, color: Colors.grey[600]),
+                        ],
                       ),
                     ),
                   ),
