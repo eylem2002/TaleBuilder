@@ -117,7 +117,7 @@ class _SingUpState extends State<SingUp> {
                             str: ''),
                         SizedBox(
                           height:
-                              LayoutManager.widthNHeight0(context, 1) *0.085,
+                              LayoutManager.widthNHeight0(context, 1) * 0.085,
                         ),
                         TextFormFieldWidgetSign(
                             passToggle: false,
@@ -165,9 +165,19 @@ class _SingUpState extends State<SingUp> {
                     child: OutlinedContainerWithShadow(
                       width: LayoutManager.widthNHeight0(context, 1) * 0.5,
                       height: LayoutManager.widthNHeight0(context, 1) * 0.13,
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushReplacementNamed(searchScreen);
+                      onTap: () async {
+                        if (signUpController.formKey.currentState!.validate()) {
+                          final user = UserModel(
+                            name: signUpController.firstName.text,
+                            email: signUpController.email.text,
+                            phone: signUpController.phone.text,
+                          );
+
+                          _signUp(
+                              context, user, signUpController.password.text);
+                        }
+
+                      
                       },
                       child: Center(
                         child: GradientText(
@@ -197,8 +207,8 @@ class _SingUpState extends State<SingUp> {
                       ),
                       TextButton(
                           onPressed: () {
-                             Navigator.of(context)
-                            .pushReplacementNamed(signInScreen);
+                            Navigator.of(context)
+                                .pushReplacementNamed(signInScreen);
                           },
                           child: Text(
                             "Sign In",
