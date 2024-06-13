@@ -1,10 +1,15 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tale/core/services/user_service.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/router/router_const.dart';
+import 'package:tale/utils/shared.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
+import 'package:tale/view/screens/search_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,27 +19,26 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  UserService userService = UserService();
   @override
   void initState() {
     super.initState();
     Timer(
       const Duration(seconds: 3),
       () async {
-//         try{
-//  if (FirebaseAuth.instance.currentUser == null) {
-//           log("&&&");
-//           Navigator.of(context).pushReplacementNamed(signIn);
-//         } else {
-
-//           sharedUser =  (await userService.getUserByEmail(FirebaseAuth.instance.currentUser!.email!))!;
-//              print(FirebaseAuth.instance.currentUser);
-          Navigator.of(context).pushReplacementNamed(homeRouteScreen);
-
-//         }
-//         }
-//         catch(e){
-//           print("Error $e");
-//         }
+        try {
+          if (FirebaseAuth.instance.currentUser == null) {
+            log("&&&");
+            Navigator.of(context).pushReplacementNamed(signInScreen);
+          } else {
+            sharedUser = (await userService
+                .getUserByEmail(FirebaseAuth.instance.currentUser!.email!))!;
+            print(FirebaseAuth.instance.currentUser);
+            Navigator.of(context).pushReplacementNamed(searchScreen);
+          }
+        } catch (e) {
+          print("Error $e");
+        }
       },
     );
   }
