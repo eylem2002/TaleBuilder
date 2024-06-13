@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:tale/utils/layout_manager.dart';
-import 'package:tale/utils/theme/text_theme.dart';
-import 'package:tale/utils/theme/theme_manager.dart';
-import 'package:tale/view/widgets/card_design.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -23,8 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.of(context)
-                .pop(); // This will navigate back to the previous page
+            Navigator.of(context).pop();
           },
         ),
         actions: <Widget>[

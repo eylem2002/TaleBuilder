@@ -4,7 +4,6 @@ import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
-import 'package:tale/view/screens/Signin/up/signin.dart';
 import 'package:tale/view/widgets/button_design.dart';
 
 class IntroScreen extends StatefulWidget {

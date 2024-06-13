@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tale/utils/router/router_class.dart';
-import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/view/screens/intro_screen.dart';
 import 'package:tale/view/screens/splash_screen.dart';
 
@@ -26,7 +25,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: MyRouter.generateRoute,
-      // initialRoute: initRoute,
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
         '/': (context) => SplashScreen(),

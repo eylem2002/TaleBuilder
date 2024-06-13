@@ -5,6 +5,7 @@ import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/widgets/card_design.dart';
+import 'package:tale/view/widgets/side_menu.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: IconButton(
           icon: Icon(Icons.menu, color: ThemeManager.primary),
           onPressed: () {
-            ///back
+            Scaffold.of(context).openDrawer();
           },
         ),
         actions: <Widget>[
@@ -52,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      drawer: DrawerScreen(),
       body: Container(
         width: double.infinity,
         height: double.infinity,
