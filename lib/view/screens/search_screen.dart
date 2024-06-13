@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
@@ -28,7 +29,11 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.account_circle, color: ThemeManager.primary),
+            icon:Image.asset(
+                    'assets/images/logo.png',
+                   
+                    fit: BoxFit.contain,
+                  ),
             onPressed: () {
               ///back
             },
@@ -80,6 +85,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     fontSize: LayoutManager.widthNHeight0(context, 1) * 0.085,
                     fontFamily: ThemeManager.fontFamily,
                   ),
+                  textAlign: TextAlign.left,
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -93,6 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       fontSize: LayoutManager.widthNHeight0(context, 1) * 0.045,
                       fontFamily: ThemeManager.fontFamily,
                     ),
+                      textAlign: TextAlign.left,
                   ),
                 ),
                 SizedBox(
@@ -146,25 +153,42 @@ class _SearchScreenState extends State<SearchScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CardDesign(
-                          width: LayoutManager.widthNHeight0(context, 1) * 0.43,
-                          height: LayoutManager.widthNHeight0(context, 1) * 0.6,
-                          onTap: () {},
-                          child:Padding(
-                            padding:  EdgeInsets.all(LayoutManager.widthNHeight0(context, 1) * 0.05),
-                            child: Column(children: [
-                               GradientText(
-                              'Sign Up',
-                              gradient: ThemeManager.title,
-                              style: TextStyle(
-                                fontSize:
-                                    LayoutManager.widthNHeight0(context, 1) *
-                                        0.05,
-                                fontFamily: ThemeManager.fontFamily,
+                            width:
+                                LayoutManager.widthNHeight0(context, 1) * 0.43,
+                            height:
+                                LayoutManager.widthNHeight0(context, 1) * 0.6,
+                            onTap: () {},
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                  LayoutManager.widthNHeight0(context, 1) *
+                                      0.05),
+                              child: Column(
+                                children: [
+                                  GradientText(
+                                    'Document Analyze',
+                                    gradient: ThemeManager.title,
+                                    style: TextStyle(
+                                      height: LayoutManager.widthNHeight0(
+                                              context, 1) *
+                                          0.004,
+                                      fontSize: LayoutManager.widthNHeight0(
+                                              context, 1) *
+                                          0.05,
+                                      fontFamily: ThemeManager.fontFamily,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    height:  LayoutManager.widthNHeight0(context, 1) * 0.05,
+                                  ),
+                                  SvgPicture.asset(
+                                    'assets/images/undraw_add_files.svg',
+                                    width: 90, 
+                                    height: 90,
+                                  ),
+                                ],
                               ),
-                            ),
-                            ],),
-                          )
-                        ),
+                            )),
                         //second card
                         CardDesign(
                           width: LayoutManager.widthNHeight0(context, 1) * 0.43,
