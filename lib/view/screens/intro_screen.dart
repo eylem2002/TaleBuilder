@@ -7,14 +7,14 @@ import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/screens/Signin/up/signin.dart';
 import 'package:tale/view/widgets/button_design.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class IntroScreen extends StatefulWidget {
+  const IntroScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _IntroScreenState extends State<IntroScreen> {
   UserService _auth = UserService();
   @override
   Widget build(BuildContext context) {
