@@ -86,7 +86,8 @@ class _IntroScreenState extends State<IntroScreen> {
                             } else {
                               print('sign in');
                               print(result);
-                               Navigator.of(context).pushReplacementNamed(searchScreen);
+                              Navigator.of(context)
+                                  .pushReplacementNamed(homeScreen);
                             }
                           },
                           child: Text(

@@ -135,7 +135,7 @@ class _SignInState extends State<SignIn> {
                                 textController.controllerEmail.text))!;
 
                             Navigator.of(context)
-                                .pushReplacementNamed(searchScreen);
+                                .pushReplacementNamed(homeScreen);
                           } else {
                             print("error is happened");
 
@@ -189,7 +189,7 @@ class _SignInState extends State<SignIn> {
                                 fontWeight: FontWeight.bold,
                                 color: ThemeManager.second),
                           ))
-                    ],//
+                    ], //
                   ),
                   SizedBox(
                     height: LayoutManager.widthNHeight0(context, 1) * 0.4,
@@ -208,7 +208,7 @@ class _SignInState extends State<SignIn> {
                                 print('sign in');
                                 print(result);
                                 Navigator.of(context)
-                                    .pushReplacementNamed(searchScreen);
+                                    .pushReplacementNamed(homeScreen);
                               }
                             },
                             child: Text(

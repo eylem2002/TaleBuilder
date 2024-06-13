@@ -5,14 +5,14 @@ import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/widgets/card_design.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,11 +29,10 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
         actions: <Widget>[
           IconButton(
-            icon:Image.asset(
-                    'assets/images/logo.png',
-                   
-                    fit: BoxFit.contain,
-                  ),
+            icon: Image.asset(
+              'assets/images/logo.png',
+              fit: BoxFit.contain,
+            ),
             onPressed: () {
               ///back
             },
@@ -99,7 +98,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       fontSize: LayoutManager.widthNHeight0(context, 1) * 0.045,
                       fontFamily: ThemeManager.fontFamily,
                     ),
-                      textAlign: TextAlign.left,
+                    textAlign: TextAlign.left,
                   ),
                 ),
                 SizedBox(
@@ -179,11 +178,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                     textAlign: TextAlign.center,
                                   ),
                                   SizedBox(
-                                    height:  LayoutManager.widthNHeight0(context, 1) * 0.05,
+                                    height: LayoutManager.widthNHeight0(
+                                            context, 1) *
+                                        0.05,
                                   ),
                                   SvgPicture.asset(
                                     'assets/images/undraw_add_files.svg',
-                                    width: 90, 
+                                    width: 90,
                                     height: 90,
                                   ),
                                 ],

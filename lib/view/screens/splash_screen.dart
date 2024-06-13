@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
             sharedUser = (await userService
                 .getUserByEmail(FirebaseAuth.instance.currentUser!.email!))!;
             print(FirebaseAuth.instance.currentUser);
-            Navigator.of(context).pushReplacementNamed(searchScreen);
+            Navigator.of(context).pushReplacementNamed(homeScreen);
           }
         } catch (e) {
           print("Error $e");

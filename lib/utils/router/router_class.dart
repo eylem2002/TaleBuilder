@@ -3,33 +3,28 @@ import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/view/screens/Signin/up/signin.dart';
 import 'package:tale/view/screens/Signin/up/signup.dart';
 import 'package:tale/view/screens/intro_screen.dart';
-import 'package:tale/view/screens/search_screen.dart';
+import 'package:tale/view/screens/home_screen.dart';
 import 'package:tale/view/screens/splash_screen.dart';
-
 
 // Class responsible for generating routes in the application
 class MyRouter {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case initRoute:
-      //   {
-      //     return _route(SplashScreen());
-      //   }
-        case introeRouteScreen:
+      case introeRouteScreen:
         {
           return _route(IntroScreen());
         }
-        case signInScreen:
+      case signInScreen:
         {
           return _route(SignIn());
         }
-         case signUpScreen:
+      case signUpScreen:
         {
           return _route(SingUp());
         }
-         case searchScreen:
+      case homeScreen:
         {
-          return _route(SearchScreen());
+          return _route(HomeScreen());
         }
       default:
         {
