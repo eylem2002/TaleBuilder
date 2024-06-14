@@ -20,17 +20,7 @@ class _CardsScreenState extends State<CardsScreen> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color(0xFF071223),
-              Color(0xFF071526),
-              Color(0xFF05273C),
-            ],
-          ),
-        ),
+        decoration: BoxDecoration(gradient: ThemeManager.background),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
@@ -40,6 +30,16 @@ class _CardsScreenState extends State<CardsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Text(
+                //   'TaleBuilder',
+                //   style: TextStyle(
+                //     color: ThemeManager.white,
+                //     fontSize: LayoutManager.widthNHeight0(context, 1) * .085,
+                //     fontFamily: ThemeManager.fontFamily,
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
+
                 GradientText(
                   'TaleBuilder',
                   gradient: ThemeManager.title,
@@ -54,7 +54,20 @@ class _CardsScreenState extends State<CardsScreen> {
                     top: LayoutManager.widthNHeight0(context, 1) * 0.003,
                     left: LayoutManager.widthNHeight0(context, 1) * 0.09,
                   ),
-                  child: GradientText(
+                  child:
+
+                      // Text(
+                      //   'Build, Share, and Enjoy',
+                      //   style: TextStyle(
+                      //     color: ThemeManager.white,
+                      //     height: LayoutManager.widthNHeight0(context, 1) * 0.004,
+                      //     fontSize: LayoutManager.widthNHeight0(context, 1) * 0.05,
+                      //     fontFamily: ThemeManager.fontFamily,
+                      //   ),
+                      //   textAlign: TextAlign.center,
+                      // ),
+
+                      GradientText(
                     'Build, Share, and Enjoy',
                     gradient: ThemeManager.title,
                     style: TextStyle(
@@ -130,10 +143,10 @@ class _CardsScreenState extends State<CardsScreen> {
                                       0.05),
                               child: Column(
                                 children: [
-                                  GradientText(
+                                  Text(
                                     'Document Analyze',
-                                    gradient: ThemeManager.title,
                                     style: TextStyle(
+                                      color: ThemeManager.white,
                                       height: LayoutManager.widthNHeight0(
                                               context, 1) *
                                           0.004,
@@ -143,14 +156,29 @@ class _CardsScreenState extends State<CardsScreen> {
                                       fontFamily: ThemeManager.fontFamily,
                                     ),
                                     textAlign: TextAlign.center,
-                                  ),
+                                  )
+                                  // GradientText(
+                                  //   'Document Analyze',
+                                  //   gradient: ThemeManager.title,
+                                  //   style: TextStyle(
+                                  //     height: LayoutManager.widthNHeight0(
+                                  //             context, 1) *
+                                  //         0.004,
+                                  //     fontSize: LayoutManager.widthNHeight0(
+                                  //             context, 1) *
+                                  //         0.05,
+                                  //     fontFamily: ThemeManager.fontFamily,
+                                  //   ),
+                                  //   textAlign: TextAlign.center,
+                                  // ),
+                                  ,
                                   SizedBox(
                                     height: LayoutManager.widthNHeight0(
                                             context, 1) *
                                         0.05,
                                   ),
                                   SvgPicture.asset(
-                                    'assets/images/undraw_add_files_re_v09g (1).svg',
+                                    'assets/images/undraw_add_files.svg',
                                     width: 90,
                                     height: 90,
                                   ),
