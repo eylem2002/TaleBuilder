@@ -23,7 +23,7 @@ class ThemeManager {
   );
 
   // Color for text elements
-  static Color textColor = const Color(0xff31221D);
+  static Color textColor = const Color(0xFF0A061C);
 
   // Background color for containers
   static Color containerback = const Color(0xffE2D1B9);
@@ -35,6 +35,26 @@ class ThemeManager {
       Color(0xFFF2EFFC),
       Color(0xFFD2D7FC),
       Color(0xFFABC3FD),
+    ],
+  );
+
+  static Gradient sideMenu = const LinearGradient(
+    begin: Alignment.topRight,
+    end: Alignment.bottomLeft,
+    colors: [
+      Color(0xFFD2D7FC),
+      Color(0xFFABC3FD),
+      Color.fromARGB(255, 181, 193, 222),
+    ],
+  );
+
+  static Gradient sideTopMenu = const LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomLeft,
+    colors: [
+      Color(0xFFD2D7FC),
+      Color(0xFFABC3FD),
+      Color.fromARGB(255, 181, 193, 222),
     ],
   );
 

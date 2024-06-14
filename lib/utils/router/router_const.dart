@@ -10,3 +10,6 @@ const String homeScreen = '/home_screen';
 
 // Route for the Search screen
 const String searchScreen = '/search_screen';
+
+// Route for the personal screen
+const String personalScreen = '/personal.dart';
