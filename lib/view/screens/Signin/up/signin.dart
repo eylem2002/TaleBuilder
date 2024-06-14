@@ -47,7 +47,7 @@ class _SignInState extends State<SignIn> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    height: LayoutManager.widthNHeight0(context, 1) * 0.35,
+                    height: LayoutManager.widthNHeight0(context, 1) * 0.4,
                   ),
                   GradientText(
                     'TaleBuilder',
@@ -59,7 +59,7 @@ class _SignInState extends State<SignIn> {
                         fontFamily: ThemeManager.fontFamily),
                   ),
                   SizedBox(
-                    height: LayoutManager.widthNHeight0(context, 1) * 0.18,
+                    height: LayoutManager.widthNHeight0(context, 1) * 0.12,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,7 +107,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   Center(
                     child: OutlinedContainerWithShadow(
-                      width: LayoutManager.widthNHeight0(context, 1) * 0.5,
+                      width: LayoutManager.widthNHeight0(context, 1) * 0.55,
                       height: LayoutManager.widthNHeight0(context, 1) * 0.13,
                       onTap: () async {
                         if (textController.formField.currentState != null &&
@@ -201,8 +201,21 @@ class _SignInState extends State<SignIn> {
                             child: Text(
                               "SignIn As Guest",
                               style: TextStyle(
-                                  color: ThemeManager.dark,
-                                  fontFamily: ThemeManager.fontFamily),
+                                color: ThemeManager.second,
+                                fontFamily: ThemeManager.fontFamily,
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(-1.0, -1.0),
+                                    color: Color(0xFFF2EFFC).withOpacity(0.6),
+                                    blurRadius: 9.0,
+                                  ),
+                                  Shadow(
+                                    offset: Offset(3.0, 3.0),
+                                    color: Color(0xFFD2D7FC).withOpacity(0.5),
+                                    blurRadius: 9.0,
+                                  ),
+                                ],
+                              ),
                             )),
                       ],
                     ),

@@ -35,9 +35,7 @@ class _sideBarState extends State<sideBar> {
       container = TermsScreen();
     } else if (currentPage == DrawerSections.about) {
       container = AboutUsScreen();
-    } else if (currentPage == DrawerSections.signout) {
-      // Placeholder for sign out logic, should not show any container
-    }
+    } else if (currentPage == DrawerSections.signout) {}
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -47,7 +45,7 @@ class _sideBarState extends State<sideBar> {
         automaticallyImplyLeading: false,
         leading: Builder(
           builder: (context) => IconButton(
-            icon: Icon(Icons.menu, color: ThemeManager.dark),
+            icon: Icon(Icons.menu, color: ThemeManager.second),
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
@@ -56,7 +54,7 @@ class _sideBarState extends State<sideBar> {
         actions: <Widget>[
           IconButton(
             icon: Image.asset(
-              'assets/images/blue.png',
+              'assets/images/logo.png',
               fit: BoxFit.contain,
             ),
             onPressed: () {
@@ -65,35 +63,16 @@ class _sideBarState extends State<sideBar> {
           ),
         ],
         flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFF071223),
-                Color(0xFF071526),
-              ],
-            ),
-          ),
+          decoration: BoxDecoration(gradient: ThemeManager.Topbackground),
         ),
       ),
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Color(0xFF0A061C),
-                  Color(0xFF110A27),
-                ],
-              ),
-            ),
+            decoration: BoxDecoration(gradient: ThemeManager.background),
           ),
           Positioned.fill(
-            child:
-                container ?? Container(), // Use container or empty Container()
+            child: container ?? Container(),
           ),
         ],
       ),
@@ -143,7 +122,7 @@ class _sideBarState extends State<sideBar> {
   Widget menuItem(int id, String title, IconData icon, bool selected) {
     return Material(
       color:
-          selected ? ThemeManager.white.withOpacity(0.1) : Colors.transparent,
+          selected ? ThemeManager.second.withOpacity(0.4) : Colors.transparent,
       child: InkWell(
         onTap: () {
           Navigator.pop(context);

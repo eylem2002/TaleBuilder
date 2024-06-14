@@ -25,7 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
         actions: <Widget>[
           IconButton(
             icon: Image.asset(
-              'assets/images/blue.png',
+              'assets/images/logo.png',
               fit: BoxFit.contain,
             ),
             onPressed: () {
