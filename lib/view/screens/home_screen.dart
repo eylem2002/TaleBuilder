@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:tale/utils/layout_manager.dart';
-import 'package:tale/utils/router/router_const.dart';
-import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
-import 'package:tale/view/widgets/card_design.dart';
-import 'package:tale/view/widgets/side_menu.dart';
+import 'package:tale/view/screens/MyHeaderDrawer.dart';
+import 'package:tale/view/screens/cards_screen.dart';
+import 'package:tale/view/screens/menu_screens/about_us.dart';
+import 'package:tale/view/screens/menu_screens/change_info.dart';
+import 'package:tale/view/screens/menu_screens/personal.dart';
+import 'package:tale/view/screens/menu_screens/terms_use.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var currentPage = DrawerSections.card;
+  late Widget container;
   @override
   Widget build(BuildContext context) {
+    if (currentPage == DrawerSections.card) {
+      container = CardsScreen();
+    } else if (currentPage == DrawerSections.personal) {
+      container = PersonalDetailsScreen();
+    } else if (currentPage == DrawerSections.change_info) {
+      container = ChangeInfo();
+    } else if (currentPage == DrawerSections.terms) {
+      container = TermsScreen();
+    } else if (currentPage == DrawerSections.about) {
+      container = AboutUsScreen();
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -38,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               fit: BoxFit.contain,
             ),
             onPressed: () {
-              ///back
+              //back
             },
           ),
         ],
@@ -55,220 +68,116 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      drawer: DrawerScreen(),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color(0xFF0A061C),
-              Color(0xFF110A27),
-              Color(0xFF140B2C),
-              Color(0xFF180D32),
-              Color(0xFF1D103A),
-              Color(0xFF20113D),
-            ],
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Color(0xFF0A061C),
+                  Color(0xFF110A27),
+                ],
+              ),
+            ),
           ),
-        ),
+          Positioned.fill(
+            child: container,
+          ),
+        ],
+      ),
+      drawer: Drawer(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: LayoutManager.widthNHeight0(context, 1) * 0.035,
-              right: LayoutManager.widthNHeight0(context, 1) * 0.035,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GradientText(
-                  'TaleBuilder',
-                  gradient: ThemeManager.title,
-                  style: TextStyle(
-                    fontSize: LayoutManager.widthNHeight0(context, 1) * 0.085,
-                    fontFamily: ThemeManager.fontFamily,
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: LayoutManager.widthNHeight0(context, 1) * 0.003,
-                    left: LayoutManager.widthNHeight0(context, 1) * 0.09,
-                  ),
-                  child: GradientText(
-                    'Build, Share, and Enjoy',
-                    gradient: ThemeManager.title,
-                    style: TextStyle(
-                      fontSize: LayoutManager.widthNHeight0(context, 1) * 0.045,
-                      fontFamily: ThemeManager.fontFamily,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                SizedBox(
-                  height: LayoutManager.widthNHeight0(context, 1) * 0.065,
-                ),
-                //Search bar
-                Container(
-                  decoration: BoxDecoration(
-                    border:
-                        Border.all(color: ThemeManager.second.withOpacity(0.5)),
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        offset: Offset(0, 4),
-                        blurRadius: 4,
-                      ),
-                    ],
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(searchScreen);
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal:
-                            LayoutManager.widthNHeight0(context, 1) * 0.04,
-                        vertical:
-                            LayoutManager.widthNHeight0(context, 1) * 0.03,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'How can we help you?',
-                              style: TextStyle(color: Colors.grey[600]),
-                            ),
-                          ),
-                          Icon(Icons.search, color: Colors.grey[600]),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                SizedBox(
-                  height: LayoutManager.widthNHeight0(context, 1) * 0.09,
-                ),
-
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CardDesign(
-                            width:
-                                LayoutManager.widthNHeight0(context, 1) * 0.43,
-                            height:
-                                LayoutManager.widthNHeight0(context, 1) * 0.6,
-                            onTap: () {},
-                            child: Padding(
-                              padding: EdgeInsets.all(
-                                  LayoutManager.widthNHeight0(context, 1) *
-                                      0.05),
-                              child: Column(
-                                children: [
-                                  GradientText(
-                                    'Document Analyze',
-                                    gradient: ThemeManager.title,
-                                    style: TextStyle(
-                                      height: LayoutManager.widthNHeight0(
-                                              context, 1) *
-                                          0.004,
-                                      fontSize: LayoutManager.widthNHeight0(
-                                              context, 1) *
-                                          0.05,
-                                      fontFamily: ThemeManager.fontFamily,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(
-                                    height: LayoutManager.widthNHeight0(
-                                            context, 1) *
-                                        0.05,
-                                  ),
-                                  SvgPicture.asset(
-                                    'assets/images/undraw_add_files.svg',
-                                    width: 90,
-                                    height: 90,
-                                  ),
-                                ],
-                              ),
-                            )),
-                        //second card
-                        CardDesign(
-                          width: LayoutManager.widthNHeight0(context, 1) * 0.43,
-                          height: LayoutManager.widthNHeight0(context, 1) * 0.6,
-                          onTap: () {},
-                          child: Center(
-                            child: GradientText(
-                              'Sign Up',
-                              gradient: ThemeManager.title,
-                              style: TextStyle(
-                                fontSize:
-                                    LayoutManager.widthNHeight0(context, 1) *
-                                        0.05,
-                                fontFamily: ThemeManager.fontFamily,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: LayoutManager.widthNHeight0(context, 1) * 0.06,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CardDesign(
-                          width: LayoutManager.widthNHeight0(context, 1) * 0.43,
-                          height: LayoutManager.widthNHeight0(context, 1) * 0.6,
-                          onTap: () {},
-                          child: Center(
-                            child: GradientText(
-                              'Sign Up',
-                              gradient: ThemeManager.title,
-                              style: TextStyle(
-                                fontSize:
-                                    LayoutManager.widthNHeight0(context, 1) *
-                                        0.05,
-                                fontFamily: ThemeManager.fontFamily,
-                              ),
-                            ),
-                          ),
-                        ),
-                        CardDesign(
-                          width: LayoutManager.widthNHeight0(context, 1) * 0.43,
-                          height: LayoutManager.widthNHeight0(context, 1) * 0.6,
-                          onTap: () {},
-                          child: Center(
-                            child: GradientText(
-                              'Sign Up',
-                              gradient: ThemeManager.title,
-                              style: TextStyle(
-                                fontSize:
-                                    LayoutManager.widthNHeight0(context, 1) *
-                                        0.05,
-                                fontFamily: ThemeManager.fontFamily,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
+          child: Column(
+            children: [
+              MyHeaderDrawer(),
+              MyDrawerList(),
+            ],
           ),
         ),
       ),
     );
   }
+
+  Widget MyDrawerList() {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: ThemeManager.sideMenu,
+      ),
+      padding: EdgeInsets.only(top: 15),
+      child: Column(
+        children: <Widget>[
+          menuItem(1, "Home", Icons.dashboard_outlined,
+              currentPage == DrawerSections.card ? true : false),
+          menuItem(2, "Personal Details", Icons.people_alt_outlined,
+              currentPage == DrawerSections.personal ? true : false),
+          menuItem(3, "Change Info", Icons.event,
+              currentPage == DrawerSections.change_info ? true : false),
+          menuItem(4, "Terms of Use", Icons.notes,
+              currentPage == DrawerSections.terms ? true : false),
+          menuItem(5, "About Us", Icons.settings_outlined,
+              currentPage == DrawerSections.about ? true : false),
+          SizedBox(
+            height: LayoutManager.widthNHeight0(context, 1) * 0.3,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget menuItem(int id, String title, IconData icon, bool selected) {
+    return Material(
+      color:
+          selected ? ThemeManager.second.withOpacity(0.6) : Colors.transparent,
+      child: InkWell(
+        onTap: () {
+          Navigator.pop(context);
+          setState(() {
+            if (id == 1) {
+              currentPage = DrawerSections.card;
+            } else if (id == 2) {
+              currentPage = DrawerSections.personal;
+            } else if (id == 3) {
+              currentPage = DrawerSections.change_info;
+            } else if (id == 4) {
+              currentPage = DrawerSections.terms;
+            } else if (id == 5) {
+              currentPage = DrawerSections.about;
+            }
+          });
+        },
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                size: 20,
+                color: ThemeManager.textColor,
+              ),
+              SizedBox(width: 15),
+              Text(
+                title,
+                style: TextStyle(
+                  color: ThemeManager.textColor,
+                  fontSize: 16,
+                  fontFamily: ThemeManager.fontFamily,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+enum DrawerSections {
+  card,
+  personal,
+  change_info,
+  terms,
+  about,
 }
