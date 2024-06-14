@@ -4,7 +4,7 @@ class GradientText extends StatelessWidget {
   final String text;
   final TextStyle style;
   final Gradient gradient;
-  final TextAlign? textAlign; 
+  final TextAlign? textAlign;
 
   const GradientText(
     this.text, {
@@ -16,7 +16,9 @@ class GradientText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: textAlign != null ? TextAlignToAlignment(textAlign!) : Alignment.center, // Convert TextAlign to Alignment
+      alignment: textAlign != null
+          ? TextAlignToAlignment(textAlign!)
+          : Alignment.center,
       child: ShaderMask(
         blendMode: BlendMode.srcIn,
         shaderCallback: (bounds) {

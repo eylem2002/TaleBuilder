@@ -23,16 +23,21 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 4),
+      const Duration(seconds: 3),
       () async {
         try {
           if (FirebaseAuth.instance.currentUser == null) {
             log("&&&");
             Navigator.of(context).pushReplacementNamed(signInScreen);
           } else {
-            sharedUser = (await userService
-                .getUserByEmail(FirebaseAuth.instance.currentUser!.email!))!;
-            print(FirebaseAuth.instance.currentUser);
+            if (FirebaseAuth.instance.currentUser!.email == null) {
+              print("Guest");
+            } else {
+              sharedUser = (await userService
+                  .getUserByEmail(FirebaseAuth.instance.currentUser!.email!))!;
+              print(FirebaseAuth.instance.currentUser);
+            }
+
             Navigator.of(context).pushReplacementNamed(homeScreen);
           }
         } catch (e) {
