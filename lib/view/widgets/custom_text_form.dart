@@ -72,14 +72,12 @@ class NumberFormFieldWidget extends StatelessWidget {
           }
           return null;
         },
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly
-        ], // Allow only numbers
-        keyboardType: TextInputType.number, // Show numerical keyboard
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        keyboardType: TextInputType.number,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: TextStyle(
-            color: ThemeManager.primary,
+            color: ThemeManager.second,
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
@@ -166,6 +164,7 @@ class TextFormWidgetRead extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(5))),
             isDense: true,
             hintText: str,
+            hintStyle: TextStyle(color: ThemeManager.second),
             labelText: labely,
             floatingLabelBehavior: FloatingLabelBehavior.always,
           ),

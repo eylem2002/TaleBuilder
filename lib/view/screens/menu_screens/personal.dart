@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/shared.dart';
+import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/screens/Signin/up/signin.dart';
 import 'package:tale/view/screens/Signin/up/signup.dart';
@@ -28,43 +29,11 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        title: Text("data"),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {},
-        ),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFF0A061C),
-                Color(0xFF110A27),
-              ],
-            ),
-          ),
-        ),
-      ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color(0xFF0A061C),
-              Color(0xFF110A27),
-              Color(0xFF140B2C),
-              Color(0xFF180D32),
-              Color(0xFF1D103A),
-              Color(0xFF20113D),
-            ],
-          ),
+        decoration: BoxDecoration(
+          gradient: ThemeManager.background,
         ),
         child: Form(
           key: signUpController.formKey,
@@ -77,17 +46,21 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Divider(height: 1, color: Colors.grey[300]),
                       Padding(
                         padding: const EdgeInsets.only(top: 15.0),
-                        child: Text(
-                          'Name',
+                        child: GradientText(
+                          'Namee',
+                          gradient: ThemeManager.title,
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                            fontSize:
+                                LayoutManager.widthNHeight0(context, 1) * 0.045,
                             fontFamily: ThemeManager.fontFamily,
                           ),
+                          textAlign: TextAlign.left,
                         ),
+                      ),
+                      SizedBox(
+                        height: LayoutManager.widthNHeight0(context, 1) * 0.03,
                       ),
                       TextFormWidgetRead(
                         readly: true,
@@ -103,16 +76,18 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                         passController: signUpController.firstName,
                         str: sharedUser.name.toString().toUpperCase(),
                       ),
-                      SizedBox(
-                        height: LayoutManager.widthNHeight0(context, 1) * 0.008,
-                      ),
-                      Text(
+                      GradientText(
                         'Email Address',
+                        gradient: ThemeManager.title,
                         style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                          fontSize:
+                              LayoutManager.widthNHeight0(context, 1) * 0.045,
                           fontFamily: ThemeManager.fontFamily,
                         ),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(
+                        height: LayoutManager.widthNHeight0(context, 1) * 0.03,
                       ),
                       TextFormWidgetRead(
                         readly: true,
@@ -128,16 +103,18 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                         passController: signUpController.email,
                         str: sharedUser.email.toString(),
                       ),
-                      SizedBox(
-                        height: LayoutManager.widthNHeight0(context, 1) * 0.008,
-                      ),
-                      Text(
+                      GradientText(
                         'Phone',
+                        gradient: ThemeManager.title,
                         style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                          fontSize:
+                              LayoutManager.widthNHeight0(context, 1) * 0.045,
                           fontFamily: ThemeManager.fontFamily,
                         ),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(
+                        height: LayoutManager.widthNHeight0(context, 1) * 0.03,
                       ),
                       TextFormWidgetRead(
                         readly: true,

@@ -5,57 +5,18 @@ import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/widgets/card_design.dart';
-import 'package:tale/view/widgets/side_menu.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class CardsScreen extends StatefulWidget {
+  const CardsScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<CardsScreen> createState() => _CardsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CardsScreenState extends State<CardsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(Icons.menu, color: ThemeManager.primary),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Image.asset(
-              'assets/images/logo.png',
-              fit: BoxFit.contain,
-            ),
-            onPressed: () {
-              ///back
-            },
-          ),
-        ],
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFF0A061C),
-                Color(0xFF110A27),
-              ],
-            ),
-          ),
-        ),
-      ),
-      drawer: DrawerScreen(),
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -64,12 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
-              Color(0xFF0A061C),
-              Color(0xFF110A27),
-              Color(0xFF140B2C),
-              Color(0xFF180D32),
-              Color(0xFF1D103A),
-              Color(0xFF20113D),
+              Color(0xFF071223),
+              Color(0xFF071526),
+              Color(0xFF05273C),
             ],
           ),
         ),
@@ -192,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         0.05,
                                   ),
                                   SvgPicture.asset(
-                                    'assets/images/undraw_add_files.svg',
+                                    'assets/images/undraw_add_files_re_v09g (1).svg',
                                     width: 90,
                                     height: 90,
                                   ),
