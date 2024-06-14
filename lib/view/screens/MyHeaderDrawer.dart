@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tale/utils/layout_manager.dart';
+import 'package:tale/utils/shared.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 
 class MyHeaderDrawer extends StatefulWidget {
@@ -8,6 +9,31 @@ class MyHeaderDrawer extends StatefulWidget {
 }
 
 class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
+  String _greeting = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _setGreeting();
+  }
+
+  void _setGreeting() {
+    DateTime now = DateTime.now();
+    if (now.hour < 12) {
+      setState(() {
+        _greeting = 'Good Morning';
+      });
+    } else if (now.hour < 18) {
+      setState(() {
+        _greeting = 'Good Afternoon';
+      });
+    } else {
+      setState(() {
+        _greeting = 'Good Evening';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,11 +51,13 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Good Morning',
+                  _greeting,
                   style: TextStyle(
+                    letterSpacing: 4,
                     color: ThemeManager.textColor,
                     fontFamily: ThemeManager.fontFamily,
-                    fontSize: LayoutManager.widthNHeight0(context, 1) * 0.048,
+                    fontWeight: FontWeight.bold,
+                    fontSize: LayoutManager.widthNHeight0(context, 1) * 0.05,
                   ),
                 ),
                 SizedBox(height: 5),
@@ -37,8 +65,10 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
                   padding: EdgeInsets.only(
                       left: LayoutManager.widthNHeight0(context, 1) * 0.045),
                   child: Text(
-                    'Anders Booker',
+                    "Hi ${sharedUser.name} !".toUpperCase(),
                     style: TextStyle(
+                      letterSpacing: 2,
+                      fontWeight: FontWeight.bold,
                       color: ThemeManager.textColor,
                       fontFamily: ThemeManager.fontFamily,
                       fontSize: LayoutManager.widthNHeight0(context, 1) * 0.048,

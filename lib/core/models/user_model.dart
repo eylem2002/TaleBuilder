@@ -5,8 +5,7 @@ enum UsersRole { user, expert }
 // Model class representing a UserModel
 class UserModel {
   String? id;
-  String? name;
-
+  String? name = "Guest";
   String? email;
 
   String? phone;

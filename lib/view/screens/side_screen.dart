@@ -1,12 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tale/core/services/user_service.dart';
 import 'package:tale/utils/layout_manager.dart';
+import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/screens/MyHeaderDrawer.dart';
+import 'package:tale/view/screens/Signin/up/signin.dart';
 import 'package:tale/view/screens/cards_screen.dart';
 import 'package:tale/view/screens/menu_screens/about_us.dart';
 import 'package:tale/view/screens/menu_screens/change_info.dart';
 import 'package:tale/view/screens/menu_screens/personal.dart';
 import 'package:tale/view/screens/menu_screens/terms_use.dart';
+import 'package:tale/view/widgets/dialogAlert.dart';
 
 class sideBar extends StatefulWidget {
   @override
@@ -16,6 +21,8 @@ class sideBar extends StatefulWidget {
 class _sideBarState extends State<sideBar> {
   var currentPage = DrawerSections.card;
   late Widget container;
+  UserService userService = UserService();
+
   @override
   Widget build(BuildContext context) {
     if (currentPage == DrawerSections.card) {
@@ -28,6 +35,8 @@ class _sideBarState extends State<sideBar> {
       container = TermsScreen();
     } else if (currentPage == DrawerSections.about) {
       container = AboutUsScreen();
+    } else if (currentPage == DrawerSections.signout) {
+      // Placeholder for sign out logic, should not show any container
     }
 
     return Scaffold(
@@ -38,7 +47,7 @@ class _sideBarState extends State<sideBar> {
         automaticallyImplyLeading: false,
         leading: Builder(
           builder: (context) => IconButton(
-            icon: Icon(Icons.menu, color: ThemeManager.primary),
+            icon: Icon(Icons.menu, color: ThemeManager.dark),
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
@@ -47,7 +56,7 @@ class _sideBarState extends State<sideBar> {
         actions: <Widget>[
           IconButton(
             icon: Image.asset(
-              'assets/images/logo.png',
+              'assets/images/blue.png',
               fit: BoxFit.contain,
             ),
             onPressed: () {
@@ -61,8 +70,8 @@ class _sideBarState extends State<sideBar> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Color(0xFF0A061C),
-                Color(0xFF110A27),
+                Color(0xFF071223),
+                Color(0xFF071526),
               ],
             ),
           ),
@@ -83,7 +92,8 @@ class _sideBarState extends State<sideBar> {
             ),
           ),
           Positioned.fill(
-            child: container,
+            child:
+                container ?? Container(), // Use container or empty Container()
           ),
         ],
       ),
@@ -103,23 +113,25 @@ class _sideBarState extends State<sideBar> {
   Widget MyDrawerList() {
     return Container(
       width: double.infinity,
-      height: double.infinity,
+      height: LayoutManager.widthNHeight0(context, 1) * 1.8,
       decoration: BoxDecoration(
         gradient: ThemeManager.sideMenu,
       ),
       padding: EdgeInsets.only(top: 15),
       child: Column(
         children: <Widget>[
-          menuItem(1, "Home", Icons.dashboard_outlined,
+          menuItem(1, "Home", Icons.home,
               currentPage == DrawerSections.card ? true : false),
           menuItem(2, "Personal Details", Icons.people_alt_outlined,
               currentPage == DrawerSections.personal ? true : false),
-          menuItem(3, "Change Info", Icons.event,
+          menuItem(3, "Change Info", Icons.change_circle,
               currentPage == DrawerSections.change_info ? true : false),
           menuItem(4, "Terms of Use", Icons.notes,
               currentPage == DrawerSections.terms ? true : false),
-          menuItem(5, "About Us", Icons.settings_outlined,
+          menuItem(5, "About Us", Icons.info,
               currentPage == DrawerSections.about ? true : false),
+          menuItem(6, "Sign Out", Icons.logout,
+              currentPage == DrawerSections.signout ? true : false),
           SizedBox(
             height: LayoutManager.widthNHeight0(context, 1) * 0.3,
           ),
@@ -131,7 +143,7 @@ class _sideBarState extends State<sideBar> {
   Widget menuItem(int id, String title, IconData icon, bool selected) {
     return Material(
       color:
-          selected ? ThemeManager.second.withOpacity(0.6) : Colors.transparent,
+          selected ? ThemeManager.white.withOpacity(0.1) : Colors.transparent,
       child: InkWell(
         onTap: () {
           Navigator.pop(context);
@@ -146,6 +158,9 @@ class _sideBarState extends State<sideBar> {
               currentPage = DrawerSections.terms;
             } else if (id == 5) {
               currentPage = DrawerSections.about;
+            } else if (id == 6) {
+              // Sign out logic
+              signOut();
             }
           });
         },
@@ -173,12 +188,12 @@ class _sideBarState extends State<sideBar> {
       ),
     );
   }
+
+  void signOut() async {
+    await userService.signOut();
+
+    Navigator.of(context).pushReplacementNamed(signInScreen);
+  }
 }
 
-enum DrawerSections {
-  card,
-  personal,
-  change_info,
-  terms,
-  about,
-}
+enum DrawerSections { card, personal, change_info, terms, about, signout }

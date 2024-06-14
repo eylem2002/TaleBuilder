@@ -40,20 +40,7 @@ class _SingUpState extends State<SingUp> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [
-            Color(0xFF0A061C),
-            Color(0xFF110A27),
-            Color(0xFF140B2C),
-            Color(0xFF180D32),
-            Color(0xFF1D103A),
-            Color(0xFF20113D),
-          ],
-        ),
-      ),
+      decoration: BoxDecoration(gradient: ThemeManager.background),
       child: SingleChildScrollView(
         child: Form(
           key: signUpController.formKey,
@@ -64,7 +51,7 @@ class _SingUpState extends State<SingUp> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: LayoutManager.widthNHeight0(context, 1) * 0.25,
+                    height: LayoutManager.widthNHeight0(context, 1) * 0.35,
                   ),
                   SizedBox(
                     child: Column(
@@ -176,8 +163,6 @@ class _SingUpState extends State<SingUp> {
                           _signUp(
                               context, user, signUpController.password.text);
                         }
-
-                      
                       },
                       child: Center(
                         child: GradientText(

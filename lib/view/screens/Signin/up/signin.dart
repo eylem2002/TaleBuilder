@@ -36,20 +36,7 @@ class _SignInState extends State<SignIn> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color(0xFF0A061C),
-              Color(0xFF110A27),
-              Color(0xFF140B2C),
-              Color(0xFF180D32),
-              Color(0xFF1D103A),
-              Color(0xFF20113D),
-            ],
-          ),
-        ),
+        decoration: BoxDecoration(gradient: ThemeManager.background),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 7),
@@ -192,7 +179,7 @@ class _SignInState extends State<SignIn> {
                     ], //
                   ),
                   SizedBox(
-                    height: LayoutManager.widthNHeight0(context, 1) * 0.4,
+                    height: LayoutManager.widthNHeight0(context, 1) * 0.3,
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -214,7 +201,7 @@ class _SignInState extends State<SignIn> {
                             child: Text(
                               "SignIn As Guest",
                               style: TextStyle(
-                                  color: ThemeManager.primary,
+                                  color: ThemeManager.dark,
                                   fontFamily: ThemeManager.fontFamily),
                             )),
                       ],
