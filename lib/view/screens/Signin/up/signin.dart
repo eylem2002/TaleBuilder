@@ -135,7 +135,7 @@ class _SignInState extends State<SignIn> {
                                 textController.controllerEmail.text))!;
 
                             Navigator.of(context)
-                                .pushReplacementNamed(homeScreen);
+                                .pushReplacementNamed(sideBarScreen);
                           } else {
                             print("error is happened");
 
@@ -208,7 +208,7 @@ class _SignInState extends State<SignIn> {
                                 print('sign in');
                                 print(result);
                                 Navigator.of(context)
-                                    .pushReplacementNamed(homeScreen);
+                                    .pushReplacementNamed(sideBarScreen);
                               }
                             },
                             child: Text(

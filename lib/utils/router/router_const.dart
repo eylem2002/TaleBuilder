@@ -6,7 +6,7 @@ const String signInScreen = '/signin';
 const String signUpScreen = '/signup';
 
 // Route for the Home screen
-const String homeScreen = '/home_screen';
+const String sideBarScreen = '/side_screen';
 
 // Route for the Search screen
 const String searchScreen = '/search_screen';

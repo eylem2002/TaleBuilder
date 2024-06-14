@@ -8,12 +8,12 @@ import 'package:tale/view/screens/menu_screens/change_info.dart';
 import 'package:tale/view/screens/menu_screens/personal.dart';
 import 'package:tale/view/screens/menu_screens/terms_use.dart';
 
-class HomeScreen extends StatefulWidget {
+class sideBar extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _sideBarState createState() => _sideBarState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _sideBarState extends State<sideBar> {
   var currentPage = DrawerSections.card;
   late Widget container;
   @override
@@ -103,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget MyDrawerList() {
     return Container(
       width: double.infinity,
+      height: double.infinity,
       decoration: BoxDecoration(
         gradient: ThemeManager.sideMenu,
       ),

@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
               print(FirebaseAuth.instance.currentUser);
             }
 
-            Navigator.of(context).pushReplacementNamed(homeScreen);
+            Navigator.of(context).pushReplacementNamed(sideBarScreen);
           }
         } catch (e) {
           print("Error $e");
