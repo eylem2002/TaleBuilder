@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tale/utils/theme/theme_manager.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
         actions: <Widget>[
           IconButton(
             icon: Image.asset(
-              'assets/images/logo.png',
+              'assets/images/blue.png',
               fit: BoxFit.contain,
             ),
             onPressed: () {
@@ -33,34 +34,16 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ],
         flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFF0A061C),
-                Color(0xFF110A27),
-              ],
-            ),
+          decoration: BoxDecoration(
+            gradient: ThemeManager.background,
           ),
         ),
       ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color(0xFF0A061C),
-              Color(0xFF110A27),
-              Color(0xFF140B2C),
-              Color(0xFF180D32),
-              Color(0xFF1D103A),
-              Color(0xFF20113D),
-            ],
-          ),
+        decoration: BoxDecoration(
+          gradient: ThemeManager.background,
         ),
         child: SingleChildScrollView(),
       ),
