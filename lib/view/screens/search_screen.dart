@@ -106,16 +106,16 @@ class _SearchScreenState extends State<SearchScreen> {
             ChatMessage? lastMessage = messages.firstOrNull;
             if (lastMessage != null && lastMessage.user == geminiUser) {
               lastMessage = messages.removeAt(0);
-              String response = event.content?.parts?.fold("",
-                      (previous, current) => "$previous ${current.text}}") ??
+              String response = event.content?.parts?.fold(
+                      "", (previous, current) => "$previous ${current.text}") ??
                   "";
               lastMessage.text += response;
               setState(() {
                 messages = [lastMessage!, ...messages];
               });
             } else {
-              String response = event.content?.parts?.fold("",
-                      (previous, current) => "$previous ${current.text}}") ??
+              String response = event.content?.parts?.fold(
+                      "", (previous, current) => "$previous ${current.text}") ??
                   "";
               ChatMessage message = ChatMessage(
                   user: geminiUser, createdAt: DateTime.now(), text: response);
