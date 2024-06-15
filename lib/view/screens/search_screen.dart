@@ -5,6 +5,8 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tale/utils/layout_manager.dart';
+import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -26,9 +28,20 @@ class _SearchScreenState extends State<SearchScreen> {
           "https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png");
   @override
   Widget build(BuildContext context) {
+    backgroundcolor:
+    Color(0xFF0A061C);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
+        title: GradientText(
+          'Chat With Gemini',
+          gradient: ThemeManager.title,
+          style: TextStyle(
+            fontSize: LayoutManager.widthNHeight0(context, 1) * 0.05,
+            fontFamily: ThemeManager.fontFamily,
+          ),
+          textAlign: TextAlign.center,
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -37,17 +50,17 @@ class _SearchScreenState extends State<SearchScreen> {
             Navigator.of(context).pop();
           },
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Image.asset(
-              'assets/images/logo.png',
-              fit: BoxFit.contain,
-            ),
-            onPressed: () {
-              ///back
-            },
-          ),
-        ],
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: Image.asset(
+        //       'assets/images/logo.png',
+        //       fit: BoxFit.contain,
+        //     ),
+        //     onPressed: () {
+        //       ///back
+        //     },
+        //   ),
+        // ],
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: ThemeManager.background,
@@ -59,17 +72,20 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildUI() {
-    return DashChat(
-        inputOptions: InputOptions(trailing: [
-          IconButton(
-              onPressed: () {
-                _sendMediaMessage();
-              },
-              icon: const Icon(Icons.image))
-        ]),
-        currentUser: currentUser,
-        onSend: _sendMessage,
-        messages: messages);
+    return Container(
+      decoration: BoxDecoration(gradient: ThemeManager.background),
+      child: DashChat(
+          inputOptions: InputOptions(trailing: [
+            IconButton(
+                onPressed: () {
+                  _sendMediaMessage();
+                },
+                icon: const Icon(Icons.image, color: Colors.white))
+          ]),
+          currentUser: currentUser,
+          onSend: _sendMessage,
+          messages: messages),
+    );
   }
 
   void _sendMessage(ChatMessage chatMessage) {
