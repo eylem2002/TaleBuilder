@@ -141,7 +141,7 @@ class _SearchScreenState extends State<SearchScreen> {
       ChatMessage chatMessage = ChatMessage(
           user: currentUser,
           createdAt: DateTime.now(),
-          text: "Descibe This Picture?",
+          text: "Describe This Image?",
           medias: [
             ChatMedia(url: file.path, fileName: "", type: MediaType.image)
           ]);
