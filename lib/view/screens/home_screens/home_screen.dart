@@ -6,14 +6,14 @@ import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/widgets/card_design.dart';
 
-class CardsScreen extends StatefulWidget {
-  const CardsScreen({Key? key}) : super(key: key);
+class Homescreen extends StatefulWidget {
+  const Homescreen({Key? key}) : super(key: key);
 
   @override
-  State<CardsScreen> createState() => _CardsScreenState();
+  State<Homescreen> createState() => _HomescreenState();
 }
 
-class _CardsScreenState extends State<CardsScreen> {
+class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,7 +136,11 @@ class _CardsScreenState extends State<CardsScreen> {
                                 LayoutManager.widthNHeight0(context, 1) * 0.43,
                             height:
                                 LayoutManager.widthNHeight0(context, 1) * 0.6,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamed(documentScreen);
+
+                              //back
+                            },
                             child: Padding(
                               padding: EdgeInsets.all(
                                   LayoutManager.widthNHeight0(context, 1) *
