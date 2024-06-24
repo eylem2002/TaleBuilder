@@ -138,6 +138,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   }
 
   Future<void> _sendMediaMessage() async {
+    String Extraction_text = "";
     FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -149,17 +150,13 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       try {
         Uint8List fileBytes = await _readDocumentData(file!.path);
 
-        // Load an existing PDF document from bytes.
         PdfDocument document = PdfDocument(inputBytes: fileBytes);
 
-        // Create a new instance of the PdfTextExtractor.
         PdfTextExtractor extractor = PdfTextExtractor(document);
 
-        // Extract all the text from the document.
-        String text = extractor.extractText();
+        Extraction_text = extractor.extractText();
 
-        // Display the text.
-        _showResult(text);
+        // _showResult(Extraction_text);
       } catch (e) {
         _showErrorDialog('Error', 'Failed to load the PDF document.');
       }
@@ -168,16 +165,17 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
           'No File Selected', 'Please select a PDF file to upload.');
     }
 
-    // if (file != null) {
-    //   ChatMessage chatMessage = ChatMessage(
-    //       user: currentUser,
-    //       createdAt: DateTime.now(),
-    //       text: "Explain This PDF",
-    //       medias: [
-    //         ChatMedia(url: file!.path, fileName: "", type: MediaType.file)
-    //       ]);
-    //   _sendMessage(chatMessage);
-    // }
+    if (file != null) {
+      ChatMessage chatMessage = ChatMessage(
+        user: currentUser,
+        createdAt: DateTime.now(),
+        text: "Explain this text for me\n" + Extraction_text,
+        // medias: [
+        //   ChatMedia(url: file!.path, fileName: "", type: MediaType.file)
+        // ]
+      );
+      _sendMessage(chatMessage);
+    }
   }
 
   Future<Uint8List> _readDocumentData(String filePath) async {
