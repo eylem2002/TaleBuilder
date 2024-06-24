@@ -1045,6 +1045,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_pdfview (1.0.2):
     - Flutter
+  - flutter_tts (0.0.1):
+    - Flutter
   - GoogleUtilities/AppDelegateSwizzler (7.13.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -1184,6 +1186,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
+  - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - rive_common (from `.symlinks/plugins/rive_common/ios`)
@@ -1231,6 +1234,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_pdfview:
     :path: ".symlinks/plugins/flutter_pdfview/ios"
+  flutter_tts:
+    :path: ".symlinks/plugins/flutter_tts/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   path_provider_foundation:
@@ -1266,6 +1271,7 @@ SPEC CHECKSUMS:
   FirebaseSharedSwift: a03fe7a59ee646fef71099a887f774fe25d745b8
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
+  flutter_tts: 0f492aab6accf87059b72354fcb4ba934304771d
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
   "gRPC-C++": e725ef63c4475d7cdb7e2cf16eb0fde84bd9ee51
   gRPC-Core: eee4be35df218649fe66d721a05a7f27a28f069b
