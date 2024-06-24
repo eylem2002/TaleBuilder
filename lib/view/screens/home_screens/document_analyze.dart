@@ -174,7 +174,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         createdAt: DateTime.now(),
         text: "Explain this text for me\n" + Extraction_text,
         // medias: [
-        //   ChatMedia(url: file!.path, fileName: "", type: MediaType.file)
+        //   ChatMedia(url: file!.path, fileName: "", type: MediaType.image)
         // ]
       );
       _sendMessage(chatMessage);
