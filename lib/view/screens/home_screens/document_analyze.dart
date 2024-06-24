@@ -1,12 +1,9 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/theme/text_theme.dart';
@@ -33,8 +30,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
           "https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png");
   @override
   Widget build(BuildContext context) {
-    backgroundcolor:
-    Color(0xFF0A061C);
+    const Color(0xFF0A061C);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -138,6 +134,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   }
 
   Future<void> _sendMediaMessage() async {
+    String Extraction_text = "";
     FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -149,17 +146,13 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       try {
         Uint8List fileBytes = await _readDocumentData(file!.path);
 
-        // Load an existing PDF document from bytes.
         PdfDocument document = PdfDocument(inputBytes: fileBytes);
 
-        // Create a new instance of the PdfTextExtractor.
         PdfTextExtractor extractor = PdfTextExtractor(document);
 
-        // Extract all the text from the document.
-        String text = extractor.extractText();
+        Extraction_text = extractor.extractText();
 
-        // Display the text.
-        _showResult(text);
+        // _showResult(Extraction_text);
       } catch (e) {
         _showErrorDialog('Error', 'Failed to load the PDF document.');
       }
@@ -168,16 +161,17 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
           'No File Selected', 'Please select a PDF file to upload.');
     }
 
-    // if (file != null) {
-    //   ChatMessage chatMessage = ChatMessage(
-    //       user: currentUser,
-    //       createdAt: DateTime.now(),
-    //       text: "Explain This PDF",
-    //       medias: [
-    //         ChatMedia(url: file!.path, fileName: "", type: MediaType.file)
-    //       ]);
-    //   _sendMessage(chatMessage);
-    // }
+    if (file != null) {
+      ChatMessage chatMessage = ChatMessage(
+        user: currentUser,
+        createdAt: DateTime.now(),
+        text: "Explain this text for me\n" + Extraction_text,
+        // medias: [
+        //   ChatMedia(url: file!.path, fileName: "", type: MediaType.file)
+        // ]
+      );
+      _sendMessage(chatMessage);
+    }
   }
 
   Future<Uint8List> _readDocumentData(String filePath) async {
