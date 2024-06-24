@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:tale/core/models/file_text_model.dart';
+import 'package:tale/core/services/file_service.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
@@ -17,6 +19,7 @@ class DocumentAnalyze extends StatefulWidget {
 }
 
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
+  FileService fileService = FileService();
   String? msg;
   File? file;
   final Gemini gemini = Gemini.instance;
@@ -160,6 +163,10 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       _showErrorDialog(
           'No File Selected', 'Please select a PDF file to upload.');
     }
+
+    //add the text to the firebase
+    if (Extraction_text != "")
+      fileService.addFileText(FileTextModel(text: Extraction_text));
 
     if (file != null) {
       ChatMessage chatMessage = ChatMessage(
