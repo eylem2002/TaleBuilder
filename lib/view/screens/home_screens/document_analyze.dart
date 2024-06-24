@@ -1,12 +1,9 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/theme/text_theme.dart';
@@ -33,8 +30,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
           "https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png");
   @override
   Widget build(BuildContext context) {
-    backgroundcolor:
-    Color(0xFF0A061C);
+    const Color(0xFF0A061C);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
