@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/view/screens/Signin/up/signin.dart';
 import 'package:tale/view/screens/Signin/up/signup.dart';
-import 'package:tale/view/screens/intro_screen.dart';
-import 'package:tale/view/screens/side_screen.dart';
+import 'package:tale/view/screens/home_screens/document_analyze.dart';
+import 'package:tale/view/screens/intro/intro_screen.dart';
+import 'package:tale/view/screens/home_screens/side_screen.dart';
 import 'package:tale/view/screens/menu_screens/personal.dart';
-import 'package:tale/view/screens/search_screen.dart';
+import 'package:tale/view/screens/home_screens/search_screen.dart';
 
 // Class responsible for generating routes in the application
 class MyRouter {
@@ -34,6 +35,10 @@ class MyRouter {
       case personalScreen:
         {
           return _route(PersonalDetailsScreen());
+        }
+      case documentScreen:
+        {
+          return _route(DocumentAnalyze());
         }
       default:
         {

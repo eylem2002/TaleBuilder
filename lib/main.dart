@@ -7,8 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tale/core/consts.dart';
 import 'package:tale/utils/router/router_class.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
-import 'package:tale/view/screens/intro_screen.dart';
-import 'package:tale/view/screens/splash_screen.dart';
+import 'package:tale/view/screens/intro/intro_screen.dart';
+import 'package:tale/view/screens/intro/splash_screen.dart';
 
 int? initScreen = 0;
 void main() async {

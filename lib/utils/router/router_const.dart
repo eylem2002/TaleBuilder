@@ -13,3 +13,6 @@ const String searchScreen = '/search_screen';
 
 // Route for the personal screen
 const String personalScreen = '/personal.dart';
+
+// Route for the document screen
+const String documentScreen = '/document_analyze.dart';

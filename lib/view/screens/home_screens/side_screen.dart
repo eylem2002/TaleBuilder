@@ -4,9 +4,9 @@ import 'package:tale/core/services/user_service.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
-import 'package:tale/view/screens/MyHeaderDrawer.dart';
+import 'package:tale/view/screens/menu_screens/MyHeaderDrawer.dart';
 import 'package:tale/view/screens/Signin/up/signin.dart';
-import 'package:tale/view/screens/cards_screen.dart';
+import 'package:tale/view/screens/home_screens/home_screen.dart';
 import 'package:tale/view/screens/menu_screens/about_us.dart';
 import 'package:tale/view/screens/menu_screens/change_info.dart';
 import 'package:tale/view/screens/menu_screens/personal.dart';
@@ -26,7 +26,7 @@ class _sideBarState extends State<sideBar> {
   @override
   Widget build(BuildContext context) {
     if (currentPage == DrawerSections.card) {
-      container = CardsScreen();
+      container = Homescreen();
     } else if (currentPage == DrawerSections.personal) {
       container = PersonalDetailsScreen();
     } else if (currentPage == DrawerSections.change_info) {
