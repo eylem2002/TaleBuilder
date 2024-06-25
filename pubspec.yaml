@@ -57,6 +57,7 @@ dependencies:
   image: ^4.2.0
   pdf_render: ^1.4.7
   pdfx: ^2.6.0
+  flutter_js: ^0.8.1
 
 
 dev_dependencies:

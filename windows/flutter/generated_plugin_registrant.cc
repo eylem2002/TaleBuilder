@@ -10,6 +10,7 @@
 #include <file_selector_windows/file_selector_windows.h>
 #include <firebase_auth/firebase_auth_plugin_c_api.h>
 #include <firebase_core/firebase_core_plugin_c_api.h>
+#include <flutter_js/flutter_js_plugin.h>
 #include <flutter_tts/flutter_tts_plugin.h>
 #include <pdfx/pdfx_plugin.h>
 #include <rive_common/rive_plugin.h>
@@ -24,6 +25,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FirebaseAuthPluginCApi"));
   FirebaseCorePluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
+  FlutterJsPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FlutterJsPlugin"));
   FlutterTtsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterTtsPlugin"));
   PdfxPluginRegisterWithRegistrar(

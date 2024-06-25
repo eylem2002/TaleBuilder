@@ -3,8 +3,8 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:flutter_js/flutter_js.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/core/models/file_text_model.dart';
 import 'package:tale/core/services/file_service.dart';
@@ -250,4 +250,17 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       },
     );
   }
+
+  // static Future<JavascriptRuntime> _initialize() async {
+  //   final library = await rootBundle.loadString("assets/files/extraction.js");
+  //   final runtime = getJavascriptRuntime();
+  //   await runtime.evaluateAsync(library);
+  //   return runtime;
+  // }
+
+  // static Future<dynamic> evaluate(File file) async {
+  //   final result = await (await _instance)
+  //       .evaluateAsync("extractFirstImageFromPDF('${file}')");
+  //   return result.rawResult;
+  // }
 }
