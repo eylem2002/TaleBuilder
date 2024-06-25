@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tale/core/models/file_text_model.dart';
-import 'package:tale/utils/shared.dart';
 
 // Service class To Manage fileText in Database
 class FileService {

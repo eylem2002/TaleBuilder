@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_js/flutter_js.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/core/models/file_text_model.dart';
 import 'package:tale/core/services/file_service.dart';
@@ -19,6 +20,7 @@ class DocumentAnalyze extends StatefulWidget {
 }
 
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
+  // static final Future<JavascriptRuntime> _instance = _initialize();
   FileService fileService = FileService();
   String? msg;
   File? file;
@@ -137,6 +139,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   }
 
   Future<void> _sendMediaMessage() async {
+    String extractionResult = "";
     String Extraction_text = "";
     FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -168,14 +171,30 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     if (Extraction_text != "")
       fileService.addFileText(FileTextModel(text: Extraction_text));
 
-    if (file != null) {
+//here i want to make image extraction
+    try {
+      // extractionResult = await evaluate(file!); //back
+    } catch (e) {
+      print(e.toString());
+    }
+//
+
+    if (file != null && extractionResult != "") {
+      print("LOLLLLL");
+      ChatMessage chatMessage = ChatMessage(
+          user: currentUser,
+          createdAt: DateTime.now(),
+          text: "Explain this text for me\n" + Extraction_text,
+          medias: [
+            ChatMedia(
+                url: extractionResult, fileName: "", type: MediaType.image)
+          ]);
+      _sendMessage(chatMessage);
+    } else {
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
         createdAt: DateTime.now(),
         text: "Explain this text for me\n" + Extraction_text,
-        // medias: [
-        //   ChatMedia(url: file!.path, fileName: "", type: MediaType.image)
-        // ]
       );
       _sendMessage(chatMessage);
     }
@@ -190,10 +209,10 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     }
   } //read from user upload
 
-  // Future<List<int>> _readDocumentData(String name) async {
-  //   final ByteData data = await rootBundle.load('assets/$name');
+  // Future<List<int>> _readDocumentData2(String name) async {
+  //   final ByteData data = await rootBundle.load('assets/files/sample.pdf');
   //   return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-  // }//read from assests folder
+  // } //read from assests folder
 
   void _showResult(String text) {
     showDialog(
