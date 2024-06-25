@@ -168,6 +168,10 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     if (Extraction_text != "")
       fileService.addFileText(FileTextModel(text: Extraction_text));
 
+//here i want to make image extraction
+
+//
+
     if (file != null) {
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,

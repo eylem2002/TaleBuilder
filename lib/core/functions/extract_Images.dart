@@ -1,52 +1,60 @@
 // import 'dart:io';
+// import 'package:flutter/material.dart';
+// import 'package:pdfx/pdfx.dart' as pdfx; // Alias for pdfx
 // import 'package:path_provider/path_provider.dart';
-// import 'package:pdf_render/pdf_render.dart';
 // import 'package:image/image.dart' as img;
 
-// Future<List<File>> extractImagesFromPdf(File pdfFile) async {
-//   // Get the temporary directory for storing extracted images
-//   final outputDir = await getTemporaryDirectory();
-  
-//   // Open the PDF document
-//   final document = await PdfDocument.openFile(pdfFile.path);
+// class PDFExtractor {
+//   final String pdfPath;
 
-//   List<File> extractedImages = [];
+//   PDFExtractor(this.pdfPath);
 
-//   // Loop through each page in the PDF
-//   for (var i = 1; i <= document.pageCount; i++) {
-//     // Get the page
-//     final page = await document.getPage(i);
-    
-//     // Convert page dimensions to integers
-//     final width = page.width.toInt();
-//     final height = page.height.toInt();
-    
-//     // Render the page as an image
-//     final pageImage = await page.render(
-//       width: width,
-//       height: height,
-//       fullWidth: width,
-//       fullHeight: height,
-//     );
+//   Future<void> extractImages() async {
+//     // Use the alias to specify which PdfDocument to use
+//     final document = await pdfx.PdfDocument.openFile(pdfPath);
+//     final outputDir = await getApplicationDocumentsDirectory();
 
-//     // Create an image object from the rendered bytes
-//     final image = img.Image.fromBytes(
-//       pageImage.width.toInt(),
-//       pageImage.height,
-//       pageImage.bytes,
-//     );
+//     for (int pageIndex = 0; pageIndex < document.pagesCount; pageIndex++) {
+//       final page = await document.getPage(pageIndex + 1);
 
-//     // Save the image to a file in the temporary directory
-//     final file = File('${outputDir.path}/image_page${i}_${DateTime.now().millisecondsSinceEpoch}.png');
-//     file.writeAsBytesSync(img.encodePng(image));
-//     extractedImages.add(file);
+//       // Render the page to an image
+//       final pageImage = await page.render(
+//         width: page.width,
+//         height: page.height,
+//       );
 
-//     // Dispose of the page to free up resources
-//     await page.dispose();
+//       if (pageImage != null) {
+//         final bytes = pageImage.bytes;
+
+//         // Save the rendered page as an image for further processing
+//         final filePath = '${outputDir.path}/page_$pageIndex.png';
+//         final file = File(filePath);
+//         await file.writeAsBytes(bytes);
+//         print('Saved page image to $filePath');
+
+//         // Use the image package to manipulate the image and extract portions
+//         final image = img.decodeImage(bytes);
+//         if (image != null) {
+//           await _extractImagesFromPage(image, outputDir, pageIndex);
+//         }
+//       }
+
+//       await page.close();
+//     }
+
+//     await document.close();
 //   }
 
-//   // Close the PDF document to free up resources
-//   await document.dispose();
+//   Future<void> _extractImagesFromPage(
+//       img.Image image, Directory outputDir, int pageIndex) async {
+//     // Placeholder for extracting specific regions
+//     // For simplicity, this example treats the entire page as a single image
+//     // You can implement more complex logic to detect and extract individual images
 
-//   return extractedImages;
+//     // Save the entire page as an image
+//     final imageFilePath = '${outputDir.path}/extracted_page_$pageIndex.png';
+//     final imageFile = File(imageFilePath);
+//     await imageFile.writeAsBytes(img.encodePng(image));
+//     print('Extracted image saved to $imageFilePath');
+//   }
 // }
