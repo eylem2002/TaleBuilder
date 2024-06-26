@@ -20,6 +20,7 @@ class DocumentAnalyze extends StatefulWidget {
   State<DocumentAnalyze> createState() => _DocumentAnalyzeState();
 }
 
+//ew
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   // static final Future<JavascriptRuntime> _instance = _initialize();
   FileService fileService = FileService();
