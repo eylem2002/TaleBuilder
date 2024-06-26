@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_gemini/flutter_gemini.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/core/models/file_text_model.dart';
@@ -22,7 +23,15 @@ class DocumentAnalyze extends StatefulWidget {
 
 //ew
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
+  String TTS_OUTPUT = "";
   // static final Future<JavascriptRuntime> _instance = _initialize();
+  FlutterTts _flutterTts = FlutterTts();
+
+  List<Map> _voices = [];
+  Map? _currentVoice;
+
+  int? _currentWordStart, _currentWordEnd;
+
   FileService fileService = FileService();
   String? msg;
   File? file;
@@ -35,6 +44,38 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       firstName: "Gemini",
       profileImage:
           "https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png");
+  @override
+  void initState() {
+    super.initState();
+    initTTS();
+  }
+
+  Future<void> initTTS() async {
+    _flutterTts.setProgressHandler((text, start, end, word) {
+      setState(() {
+        _currentWordStart = start;
+        _currentWordEnd = end;
+      });
+    });
+    _flutterTts.getVoices.then((data) {
+      try {
+        List<Map> voices = List<Map>.from(data);
+        setState(() {
+          _voices =
+              voices.where((voice) => voice["name"].contains("en")).toList();
+          _currentVoice = _voices.first;
+          setVoice(_currentVoice!);
+        });
+      } catch (e) {
+        print(e);
+      }
+    });
+  }
+
+  void setVoice(Map voice) {
+    _flutterTts.setVoice({"name": voice["name"], "locale": voice["locale"]});
+  }
+
   @override
   Widget build(BuildContext context) {
     const Color(0xFF0A061C);
@@ -58,17 +99,25 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
             Navigator.of(context).pop();
           },
         ),
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: Image.asset(
-        //       'assets/images/logo.png',
-        //       fit: BoxFit.contain,
-        //     ),
-        //     onPressed: () {
-        //       ///back
-        //     },
-        //   ),
-        // ],
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: DropdownButton(
+              value: _currentVoice,
+              items: _voices
+                  .map(
+                    (_voice) => DropdownMenuItem(
+                      value: _voice,
+                      child: Text(
+                        _voice["name"],
+                      ),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) {},
+            ),
+          ),
+        ],
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: ThemeManager.background,
@@ -94,6 +143,39 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                   _sendMediaMessageImage();
                 },
                 icon: const Icon(Icons.image_search_sharp, color: Colors.white))
+
+          ], leading: [
+            IconButton(
+                onPressed: () async {
+                  try {
+                    await _flutterTts.setSharedInstance(true);
+                    await _flutterTts.setIosAudioCategory(
+                      IosTextToSpeechAudioCategory.ambient,
+                      [
+                        IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+                        IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
+                        IosTextToSpeechAudioCategoryOptions.mixWithOthers,
+                        IosTextToSpeechAudioCategoryOptions.defaultToSpeaker,
+                      ],
+                      IosTextToSpeechAudioMode.defaultMode,
+                    );
+
+                    if (TTS_OUTPUT != "") {
+                      await _flutterTts.speak(
+                          "TTS_OUTPUT TTS_OUTPUT TTS_OUTPUT TTS_OUTPUT TTS_OUTPUT"); //back
+                      print("object1");
+                    } else {
+                      _flutterTts.speak(
+                          "Sorry Try again Sorry Try again Sorry Try again Sorry Try again Sorry Try again");
+                      print("object2");
+                    }
+                  } catch (e) {
+                    print("Error $e");
+                  }
+                },
+                icon: const Icon(Icons.multitrack_audio_rounded,
+                    color: Colors.white)),
+
           ]),
           currentUser: currentUser,
           onSend: _sendMessage,
@@ -101,12 +183,25 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     );
   }
 
-  void _sendMessage(ChatMessage chatMessage) {
+  Future<void> _sendMessage(ChatMessage chatMessage) async {
+    await _flutterTts.setIosAudioCategory(
+      IosTextToSpeechAudioCategory.ambient,
+      [
+        IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+        IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
+        IosTextToSpeechAudioCategoryOptions.mixWithOthers,
+        IosTextToSpeechAudioCategoryOptions.defaultToSpeaker,
+        IosTextToSpeechAudioCategoryOptions.duckOthers,
+      ],
+      IosTextToSpeechAudioMode.defaultMode,
+    );
+
     setState(() {
       messages = [
         chatMessage,
         ...messages
       ]; //spread operator --take the messages list and add here
+      // Customizing the text style of sent messages
 
       try {
         String question = chatMessage.text!;
@@ -132,6 +227,8 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                   "";
               ChatMessage message = ChatMessage(
                   user: geminiUser, createdAt: DateTime.now(), text: response);
+
+              TTS_OUTPUT = response; //here
 
               setState(() {
                 messages = [message, ...messages];
