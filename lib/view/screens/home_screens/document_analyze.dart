@@ -400,7 +400,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         user: currentUser,
         createdAt: DateTime.now(),
         text:
-            "I want you to be my data analyst and make a compelling storytelling based on the image of the chart provided.",
+            "I want you to be my data analyst and make a full compelling storytelling based on the image of the chart provided and give each part title.",
         medias: [
           ChatMedia(url: file.path, fileName: "", type: MediaType.image)
         ],
