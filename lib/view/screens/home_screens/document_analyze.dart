@@ -161,8 +161,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                     );
 
                     if (TTS_OUTPUT != "") {
-                      await _flutterTts.speak(
-                          "TTS_OUTPUT TTS_OUTPUT TTS_OUTPUT TTS_OUTPUT TTS_OUTPUT"); //back
+                      await _flutterTts.speak(TTS_OUTPUT); //back
                       print("object1");
                     } else {
                       _flutterTts.speak(
