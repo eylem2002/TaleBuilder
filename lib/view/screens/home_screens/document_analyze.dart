@@ -3,7 +3,11 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+// import 'package:flutter_tts/flutter_tts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/core/models/file_text_model.dart';
 import 'package:tale/core/services/file_service.dart';
@@ -19,7 +23,15 @@ class DocumentAnalyze extends StatefulWidget {
 }
 
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
+  String TTS_OUTPUT = "";
   // static final Future<JavascriptRuntime> _instance = _initialize();
+  FlutterTts _flutterTts = FlutterTts();
+
+  List<Map> _voices = [];
+  Map? _currentVoice;
+
+  int? _currentWordStart, _currentWordEnd;
+
   FileService fileService = FileService();
   String? msg;
   File? file;
@@ -32,6 +44,38 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       firstName: "Gemini",
       profileImage:
           "https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png");
+  @override
+  void initState() {
+    super.initState();
+    initTTS();
+  }
+
+  Future<void> initTTS() async {
+    _flutterTts.setProgressHandler((text, start, end, word) {
+      setState(() {
+        _currentWordStart = start;
+        _currentWordEnd = end;
+      });
+    });
+    _flutterTts.getVoices.then((data) {
+      try {
+        List<Map> voices = List<Map>.from(data);
+        setState(() {
+          _voices =
+              voices.where((voice) => voice["name"].contains("en")).toList();
+          _currentVoice = _voices.first;
+          setVoice(_currentVoice!);
+        });
+      } catch (e) {
+        print(e);
+      }
+    });
+  }
+
+  void setVoice(Map voice) {
+    _flutterTts.setVoice({"name": voice["name"], "locale": voice["locale"]});
+  }
+
   @override
   Widget build(BuildContext context) {
     const Color(0xFF0A061C);
@@ -55,17 +99,25 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
             Navigator.of(context).pop();
           },
         ),
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: Image.asset(
-        //       'assets/images/logo.png',
-        //       fit: BoxFit.contain,
-        //     ),
-        //     onPressed: () {
-        //       ///back
-        //     },
-        //   ),
-        // ],
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: DropdownButton(
+              value: _currentVoice,
+              items: _voices
+                  .map(
+                    (_voice) => DropdownMenuItem(
+                      value: _voice,
+                      child: Text(
+                        _voice["name"],
+                      ),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) {},
+            ),
+          ),
+        ],
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: ThemeManager.background,
@@ -85,7 +137,43 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                 onPressed: () {
                   _sendMediaMessage();
                 },
-                icon: const Icon(Icons.document_scanner, color: Colors.white))
+                icon: const Icon(Icons.document_scanner, color: Colors.white)),
+            IconButton(
+                onPressed: () {
+                  _sendMediaMessageImage();
+                },
+                icon: const Icon(Icons.image_search_sharp, color: Colors.white))
+          ], leading: [
+            IconButton(
+                onPressed: () async {
+                  try {
+                    await _flutterTts.setSharedInstance(true);
+                    await _flutterTts.setIosAudioCategory(
+                      IosTextToSpeechAudioCategory.ambient,
+                      [
+                        IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+                        IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
+                        IosTextToSpeechAudioCategoryOptions.mixWithOthers,
+                        IosTextToSpeechAudioCategoryOptions.defaultToSpeaker,
+                      ],
+                      IosTextToSpeechAudioMode.defaultMode,
+                    );
+
+                    if (TTS_OUTPUT != "") {
+                      await _flutterTts.speak(
+                          "TTS_OUTPUT TTS_OUTPUT TTS_OUTPUT TTS_OUTPUT TTS_OUTPUT"); //back
+                      print("object1");
+                    } else {
+                      _flutterTts.speak(
+                          "Sorry Try again Sorry Try again Sorry Try again Sorry Try again Sorry Try again");
+                      print("object2");
+                    }
+                  } catch (e) {
+                    print("Error $e");
+                  }
+                },
+                icon: const Icon(Icons.multitrack_audio_rounded,
+                    color: Colors.white)),
           ]),
           currentUser: currentUser,
           onSend: _sendMessage,
@@ -93,12 +181,25 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     );
   }
 
-  void _sendMessage(ChatMessage chatMessage) {
+  Future<void> _sendMessage(ChatMessage chatMessage) async {
+    await _flutterTts.setIosAudioCategory(
+      IosTextToSpeechAudioCategory.ambient,
+      [
+        IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+        IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
+        IosTextToSpeechAudioCategoryOptions.mixWithOthers,
+        IosTextToSpeechAudioCategoryOptions.defaultToSpeaker,
+        IosTextToSpeechAudioCategoryOptions.duckOthers,
+      ],
+      IosTextToSpeechAudioMode.defaultMode,
+    );
+
     setState(() {
       messages = [
         chatMessage,
         ...messages
       ]; //spread operator --take the messages list and add here
+      // Customizing the text style of sent messages
 
       try {
         String question = chatMessage.text!;
@@ -125,6 +226,8 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
               ChatMessage message = ChatMessage(
                   user: geminiUser, createdAt: DateTime.now(), text: response);
 
+              TTS_OUTPUT = response; //here
+
               setState(() {
                 messages = [message, ...messages];
               });
@@ -138,8 +241,8 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   }
 
   Future<void> _sendMediaMessage() async {
-    String extractionResult = "";
     String Extraction_text = "";
+    bool flag = true;
     FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -156,8 +259,6 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         PdfTextExtractor extractor = PdfTextExtractor(document);
 
         Extraction_text = extractor.extractText();
-
-        // _showResult(Extraction_text);
       } catch (e) {
         _showErrorDialog('Error', 'Failed to load the PDF document.');
       }
@@ -169,31 +270,17 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     //add the text to the firebase
     if (Extraction_text != "")
       fileService.addFileText(FileTextModel(text: Extraction_text));
-
-//here i want to make image extraction
-    try {
-      // extractionResult = await evaluate(file!); //back
-    } catch (e) {
-      print(e.toString());
+    else {
+      flag = false;
     }
-//
 
-    if (file != null && extractionResult != "") {
-      print("LOLLLLL");
-      ChatMessage chatMessage = ChatMessage(
-          user: currentUser,
-          createdAt: DateTime.now(),
-          text: "Explain this text for me\n" + Extraction_text,
-          medias: [
-            ChatMedia(
-                url: extractionResult, fileName: "", type: MediaType.image)
-          ]);
-      _sendMessage(chatMessage);
-    } else {
+    if (file != null && flag) {
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
         createdAt: DateTime.now(),
-        text: "Explain this text for me\n" + Extraction_text,
+        text:
+            "I want you to be my data analyst and make a compelling storytelling based on the pdf provided.\n" +
+                Extraction_text,
       );
       _sendMessage(chatMessage);
     }
@@ -249,4 +336,35 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       },
     );
   }
+
+  void _sendMediaMessageImage() async {
+    ImagePicker picker = ImagePicker();
+    XFile? file = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (file != null) {
+      ChatMessage chatMessage = ChatMessage(
+          user: currentUser,
+          createdAt: DateTime.now(),
+          text:
+              "I want you to be my data analyst and make a compelling storytelling based on the image of the chart provided.",
+          medias: [
+            ChatMedia(url: file.path, fileName: "", type: MediaType.image)
+          ]);
+      _sendMessage(chatMessage);
+    }
+  }
+
+  // static Future<JavascriptRuntime> _initialize() async {
+  //   final library = await rootBundle.loadString("assets/files/extraction.js");
+  //   final runtime = getJavascriptRuntime();
+  //   await runtime.evaluateAsync(library);
+  //   return runtime;
+  // }
+
+  // static Future<dynamic> evaluate(File file) async {
+  //   final result = await (await _instance)
+  //       .evaluateAsync("extractFirstImageFromPDF('${file}')");
+  //   return result.rawResult;
+  // }
 }
