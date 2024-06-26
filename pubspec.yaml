@@ -52,6 +52,7 @@ dependencies:
   flutter_tts: ^4.0.2
   pdf: ^3.10.8
   pdfx: ^2.6.0
+  flutter_js: ^0.8.1
 
 
 dev_dependencies:

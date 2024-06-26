@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:flutter_tts/flutter_tts.dart';
-// import 'package:flutter_tts/flutter_tts.dart';
-//tets
+
 import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/core/models/file_text_model.dart';
@@ -23,6 +21,7 @@ class DocumentAnalyze extends StatefulWidget {
   State<DocumentAnalyze> createState() => _DocumentAnalyzeState();
 }
 
+//ew
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   String TTS_OUTPUT = "";
   // static final Future<JavascriptRuntime> _instance = _initialize();
@@ -144,6 +143,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                   _sendMediaMessageImage();
                 },
                 icon: const Icon(Icons.image_search_sharp, color: Colors.white))
+
           ], leading: [
             IconButton(
                 onPressed: () async {
@@ -175,6 +175,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                 },
                 icon: const Icon(Icons.multitrack_audio_rounded,
                     color: Colors.white)),
+
           ]),
           currentUser: currentUser,
           onSend: _sendMessage,

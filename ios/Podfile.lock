@@ -1190,6 +1190,7 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
   - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
@@ -1240,6 +1241,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+
   flutter_pdfview:
     :path: ".symlinks/plugins/flutter_pdfview/ios"
   flutter_tts:
@@ -1281,6 +1283,7 @@ SPEC CHECKSUMS:
   FirebaseFirestoreInternal: 7ba63f170a554ae49392da44f9430e5b7915a7ff
   FirebaseSharedSwift: a03fe7a59ee646fef71099a887f774fe25d745b8
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+
   flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
   flutter_tts: 0f492aab6accf87059b72354fcb4ba934304771d
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
