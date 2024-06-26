@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
@@ -143,7 +144,6 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                   _sendMediaMessageImage();
                 },
                 icon: const Icon(Icons.image_search_sharp, color: Colors.white))
-
           ], leading: [
             IconButton(
                 onPressed: () async {
@@ -175,7 +175,6 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                 },
                 icon: const Icon(Icons.multitrack_audio_rounded,
                     color: Colors.white)),
-
           ]),
           currentUser: currentUser,
           onSend: _sendMessage,
