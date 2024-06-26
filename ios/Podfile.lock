@@ -1045,11 +1045,6 @@ PODS:
     - nanopb (< 2.30911.0, >= 2.30908.0)
   - FirebaseSharedSwift (10.27.0)
   - Flutter (1.0.0)
-  - flutter_image_compress_common (1.0.0):
-    - Flutter
-    - Mantle
-    - SDWebImage
-    - SDWebImageWebPCoder
   - flutter_pdfview (1.0.2):
     - Flutter
   - flutter_tts (0.0.1):
@@ -1158,21 +1153,6 @@ PODS:
   - image_picker_ios (0.0.1):
     - Flutter
   - leveldb-library (1.22.5)
-  - libwebp (1.3.2):
-    - libwebp/demux (= 1.3.2)
-    - libwebp/mux (= 1.3.2)
-    - libwebp/sharpyuv (= 1.3.2)
-    - libwebp/webp (= 1.3.2)
-  - libwebp/demux (1.3.2):
-    - libwebp/webp
-  - libwebp/mux (1.3.2):
-    - libwebp/demux
-  - libwebp/sharpyuv (1.3.2)
-  - libwebp/webp (1.3.2):
-    - libwebp/sharpyuv
-  - Mantle (2.2.0):
-    - Mantle/extobjc (= 2.2.0)
-  - Mantle/extobjc (2.2.0)
   - nanopb (2.30910.0):
     - nanopb/decode (= 2.30910.0)
     - nanopb/encode (= 2.30910.0)
@@ -1181,10 +1161,6 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - pdf_image_renderer (0.0.1):
-    - Flutter
-  - pdf_render (0.0.1):
-    - Flutter
   - pdfx (1.0.0):
     - Flutter
   - PromisesObjC (2.4.0)
@@ -1194,9 +1170,6 @@ PODS:
   - SDWebImage (5.19.2):
     - SDWebImage/Core (= 5.19.2)
   - SDWebImage/Core (5.19.2)
-  - SDWebImageWebPCoder (0.14.6):
-    - libwebp (~> 1.0)
-    - SDWebImage/Core (~> 5.17)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -1217,13 +1190,10 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
-  - flutter_image_compress_common (from `.symlinks/plugins/flutter_image_compress_common/ios`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
   - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
-  - pdf_image_renderer (from `.symlinks/plugins/pdf_image_renderer/ios`)
-  - pdf_render (from `.symlinks/plugins/pdf_render/ios`)
   - pdfx (from `.symlinks/plugins/pdfx/ios`)
   - rive_common (from `.symlinks/plugins/rive_common/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -1251,13 +1221,10 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - leveldb-library
-    - libwebp
-    - Mantle
     - nanopb
     - PromisesObjC
     - RecaptchaInterop
     - SDWebImage
-    - SDWebImageWebPCoder
     - SwiftyGif
 
 EXTERNAL SOURCES:
@@ -1273,8 +1240,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
-  flutter_image_compress_common:
-    :path: ".symlinks/plugins/flutter_image_compress_common/ios"
   flutter_pdfview:
     :path: ".symlinks/plugins/flutter_pdfview/ios"
   flutter_tts:
@@ -1283,10 +1248,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
-  pdf_image_renderer:
-    :path: ".symlinks/plugins/pdf_image_renderer/ios"
-  pdf_render:
-    :path: ".symlinks/plugins/pdf_render/ios"
   pdfx:
     :path: ".symlinks/plugins/pdfx/ios"
   rive_common:
@@ -1320,7 +1281,6 @@ SPEC CHECKSUMS:
   FirebaseFirestoreInternal: 7ba63f170a554ae49392da44f9430e5b7915a7ff
   FirebaseSharedSwift: a03fe7a59ee646fef71099a887f774fe25d745b8
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_image_compress_common: ec1d45c362c9d30a3f6a0426c297f47c52007e3e
   flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
   flutter_tts: 0f492aab6accf87059b72354fcb4ba934304771d
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
@@ -1329,18 +1289,13 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 8000756fc1c19d2e5697b90311f7832d2e33f6cd
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
   leveldb-library: e8eadf9008a61f9e1dde3978c086d2b6d9b9dc28
-  libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
-  Mantle: c5aa8794a29a022dfbbfc9799af95f477a69b62d
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  pdf_image_renderer: dc5cf3f09a47e742ed9438adda12d2f386993bc6
-  pdf_render: 0b4e1a615aab83ce88b26c57753049424908a755
   pdfx: 7b876b09de8b7a0bf444a4f82b439ffcff4ee1ec
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   rive_common: cbbac3192af00d7341f19dae2f26298e9e37d99e
   SDWebImage: dfe95b2466a9823cf9f0c6d01217c06550d7b29a
-  SDWebImageWebPCoder: e38c0a70396191361d60c092933e22c20d5b1380
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4

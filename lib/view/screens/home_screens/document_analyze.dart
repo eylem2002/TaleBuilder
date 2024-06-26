@@ -4,7 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:flutter_js/flutter_js.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/core/models/file_text_model.dart';
 import 'package:tale/core/services/file_service.dart';

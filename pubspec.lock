@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _flutterfire_internals
-      sha256: "0816f12bbbd9e21f72ea8592b11bce4a628d4e5cb7a81ff9f1eee4f3dc23206e"
+      sha256: "37a42d06068e2fe3deddb2da079a8c4d105f241225ba27b7122b37e9865fd8f7"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.37"
+    version: "1.3.35"
   archive:
     dependency: transitive
     description:
@@ -117,26 +117,26 @@ packages:
     dependency: "direct main"
     description:
       name: cloud_firestore
-      sha256: f8c3db7baacb47b85bd273b620dcf4ca521adc54619d9897f5e31b4e8919bdc8
+      sha256: a0f161b92610e078b4962d7e6ebeb66dc9cce0ada3514aeee442f68165d78185
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.1"
+    version: "4.17.5"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
       name: cloud_firestore_platform_interface
-      sha256: e677e42adf901ceb9724aeacfa9bb23f0cf5f0ea7bb8e9d28c458cc0e49a40fa
+      sha256: "6a55b319f8d33c307396b9104512e8130a61904528ab7bd8b5402678fca54b81"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.7"
+    version: "6.2.5"
   cloud_firestore_web:
     dependency: transitive
     description:
       name: cloud_firestore_web
-      sha256: d920a9f1e4b9071af10f9b0c62403c7c55017a396069694c70abe1b8fcb0b476
+      sha256: "89dfa1304d3da48b3039abbb2865e3d30896ef858e569a16804a99f4362283a9"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "3.12.5"
   collection:
     dependency: transitive
     description:
@@ -293,34 +293,34 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_auth
-      sha256: "3af60a78e92567af3d9a5e25d3955f0f6a3f7a33b900724c1c4c336ff5e44200"
+      sha256: cfc2d970829202eca09e2896f0a5aa7c87302817ecc0bdfa954f026046bf10ba
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.0"
+    version: "4.20.0"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
       name: firebase_auth_platform_interface
-      sha256: "6941c07a1d129a8b834f85b6673d3455f24102b6338346596c26ef3be2c106ce"
+      sha256: a0270e1db3b2098a14cb2a2342b3cd2e7e458e0c391b1f64f6f78b14296ec093
       url: "https://pub.dev"
     source: hosted
-    version: "7.4.0"
+    version: "7.3.0"
   firebase_auth_web:
     dependency: transitive
     description:
       name: firebase_auth_web
-      sha256: "5c3f6b45dc141cec858c050d6a6f07bdbfab45ab92a68b32be4b08805bdcadaa"
+      sha256: "64e067e763c6378b7e774e872f0f59f6812885e43020e25cde08f42e9459837b"
       url: "https://pub.dev"
     source: hosted
-    version: "5.12.2"
+    version: "5.12.0"
   firebase_core:
     dependency: "direct main"
     description:
       name: firebase_core
-      sha256: fae4ab4317c2a7afb13d44ef1e3f9f28a630e10016bc5cfe761e8e6a0ed7816a
+      sha256: "26de145bb9688a90962faec6f838247377b0b0d32cc0abecd9a4e43525fc856c"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "2.32.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -366,54 +366,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.4"
-  flutter_image_compress:
-    dependency: "direct main"
-    description:
-      name: flutter_image_compress
-      sha256: "45a3071868092a61b11044c70422b04d39d4d9f2ef536f3c5b11fb65a1e7dd90"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.0"
-  flutter_image_compress_common:
-    dependency: transitive
-    description:
-      name: flutter_image_compress_common
-      sha256: "7f79bc6c8a363063620b4e372fa86bc691e1cb28e58048cd38e030692fbd99ee"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
-  flutter_image_compress_macos:
-    dependency: transitive
-    description:
-      name: flutter_image_compress_macos
-      sha256: "26df6385512e92b3789dc76b613b54b55c457a7f1532e59078b04bf189782d47"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.2"
-  flutter_image_compress_ohos:
-    dependency: transitive
-    description:
-      name: flutter_image_compress_ohos
-      sha256: e76b92bbc830ee08f5b05962fc78a532011fcd2041f620b5400a593e96da3f51
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
-  flutter_image_compress_platform_interface:
-    dependency: transitive
-    description:
-      name: flutter_image_compress_platform_interface
-      sha256: "579cb3947fd4309103afe6442a01ca01e1e6f93dc53bb4cbd090e8ce34a41889"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
-  flutter_image_compress_web:
-    dependency: transitive
-    description:
-      name: flutter_image_compress_web
-      sha256: f02fe352b17f82b72f481de45add240db062a2585850bea1667e82cc4cd6c311
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.4+1"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -488,14 +440,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  font_awesome_flutter:
-    dependency: "direct main"
-    description:
-      name: font_awesome_flutter
-      sha256: "275ff26905134bcb59417cf60ad979136f1f8257f2f449914b2c3e05bbb4cd6f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "10.7.0"
   freezed_annotation:
     dependency: transitive
     description:
@@ -537,7 +481,7 @@ packages:
     source: hosted
     version: "4.0.2"
   image:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: image
       sha256: "2237616a36c0d69aef7549ab439b833fb7f9fb9fc861af2cc9ac3eedddd69ca8"
@@ -784,22 +728,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.10.8"
-  pdf_image_renderer:
-    dependency: "direct main"
-    description:
-      name: pdf_image_renderer
-      sha256: b5420b7f3e0671deedd68fdd9fe6a63c696fa90170de8d4c57c061aa83f08131
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.0"
-  pdf_render:
-    dependency: "direct main"
-    description:
-      name: pdf_render
-      sha256: "51b588a5e52e416a4f7fe5c8d9842b13edb234508d5572d574e7a7c37ea09d95"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.10"
   pdfx:
     dependency: "direct main"
     description:
@@ -993,18 +921,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "2cd3a1c59bd9c2863eee96cc5400429ecc7b42cd1e7379f3eb5ccd9fc2e9306b"
+      sha256: "963e414e06abe520c9d0e039738bc6cbcf8eabf8c5964eb2181a76da1274a942"
       url: "https://pub.dev"
     source: hosted
-    version: "26.1.38"
+    version: "26.1.39"
   syncfusion_flutter_pdf:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_pdf
-      sha256: "6412b286e2946f4865d835500fe08293a171f6e3d0907843088fb66e7d004cd9"
+      sha256: f1bf84c6b9b8cd4949082adcedd64aa1f4e976fc918e3c3bb43d7d63138efb1a
       url: "https://pub.dev"
     source: hosted
-    version: "26.1.38"
+    version: "26.1.39"
   synchronized:
     dependency: transitive
     description:
