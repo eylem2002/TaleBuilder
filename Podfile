@@ -1,6 +1,9 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '12.0'
-
+platform :ios, '14.0'
+target 'Talebuilder' do
+  # Pods for your application
+  # Add other pods as needed
+end
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
