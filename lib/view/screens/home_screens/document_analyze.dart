@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -25,6 +26,8 @@ class DocumentAnalyze extends StatefulWidget {
 //ew
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   String TTS_OUTPUT = "";
+
+  bool imageCheck = false;
   // static final Future<JavascriptRuntime> _instance = _initialize();
   FlutterTts _flutterTts = FlutterTts();
 
@@ -131,57 +134,90 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
 
   Widget _buildUI() {
     return Container(
-      decoration: BoxDecoration(gradient: ThemeManager.background),
+      decoration: BoxDecoration(color: Color(0xFF180D32)),
       child: DashChat(
-          inputOptions: InputOptions(trailing: [
-            IconButton(
-                onPressed: () {
-                  _sendMediaMessage();
-                },
-                icon: const Icon(Icons.document_scanner, color: Colors.white)),
-            IconButton(
-                onPressed: () {
-                  _sendMediaMessageImage();
-                },
-                icon: const Icon(Icons.image_search_sharp, color: Colors.white))
-          ], leading: [
-            IconButton(
-                onPressed: () async {
-                  try {
-                    await _flutterTts.setSharedInstance(true);
-                    await _flutterTts.setIosAudioCategory(
-                      IosTextToSpeechAudioCategory.ambient,
-                      [
-                        IosTextToSpeechAudioCategoryOptions.allowBluetooth,
-                        IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
-                        IosTextToSpeechAudioCategoryOptions.mixWithOthers,
-                        IosTextToSpeechAudioCategoryOptions.defaultToSpeaker,
-                      ],
-                      IosTextToSpeechAudioMode.defaultMode,
-                    );
+          inputOptions: InputOptions(
+              inputTextStyle: TextStyle(color: ThemeManager.dark),
+              trailing: [
+                IconButton(
+                    onPressed: () {
+                      _sendMediaMessage();
+                    },
+                    icon: const Icon(Icons.document_scanner,
+                        color: Colors.white)),
+                IconButton(
+                    onPressed: () {
+                      _sendMediaMessageImage();
+                    },
+                    icon: const Icon(Icons.image_search_sharp,
+                        color: Colors.white))
+              ],
+              leading: [
+                IconButton(
+                    onPressed: () async {
+                      try {
+                        await _flutterTts.setSharedInstance(true);
+                        await _flutterTts.setIosAudioCategory(
+                          IosTextToSpeechAudioCategory.ambient,
+                          [
+                            IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+                            IosTextToSpeechAudioCategoryOptions
+                                .allowBluetoothA2DP,
+                            IosTextToSpeechAudioCategoryOptions.mixWithOthers,
+                            IosTextToSpeechAudioCategoryOptions
+                                .defaultToSpeaker,
+                          ],
+                          IosTextToSpeechAudioMode.defaultMode,
+                        );
 
-                    if (TTS_OUTPUT != "") {
-                      await _flutterTts.speak(TTS_OUTPUT); //back
-                      print("object1");
-                    } else {
-                      _flutterTts.speak(
-                          "Sorry Try again Sorry Try again Sorry Try again Sorry Try again Sorry Try again");
-                      print("object2");
-                    }
-                  } catch (e) {
-                    print("Error $e");
-                  }
-                },
-                icon: const Icon(Icons.multitrack_audio_rounded,
-                    color: Colors.white)),
-          ]),
+                        if (TTS_OUTPUT != "") {
+                          await _flutterTts.setSharedInstance(true);
+                          await _flutterTts.awaitSynthCompletion(true);
+                          await _flutterTts.setIosAudioCategory(
+                              IosTextToSpeechAudioCategory.ambient,
+                              [
+                                IosTextToSpeechAudioCategoryOptions
+                                    .allowBluetooth,
+                                IosTextToSpeechAudioCategoryOptions
+                                    .allowBluetoothA2DP,
+                                IosTextToSpeechAudioCategoryOptions
+                                    .mixWithOthers
+                              ],
+                              IosTextToSpeechAudioMode.voicePrompt);
+                          await _flutterTts.setSharedInstance(true);
+                          await _flutterTts.speak(TTS_OUTPUT); //back
+                          print("object1");
+                        } else {
+                          _flutterTts.speak(
+                              "Sorry Try again Sorry Try again Sorry Try again Sorry Try again Sorry Try again");
+                          print("object2");
+                        }
+                      } catch (e) {
+                        print("Error $e");
+                      }
+                    },
+                    icon: const Icon(Icons.multitrack_audio_rounded,
+                        color: Colors.white)),
+              ]),
+          messageOptions: MessageOptions(
+            textBeforeMedia: false,
+            currentUserContainerColor: Color(0xFF180D32),
+            currentUserTextColor: Color(0xFF180D32),
+            containerColor: ThemeManager.second,
+          ),
           currentUser: currentUser,
-          onSend: _sendMessage,
+          onSend: (chatMessage) async {
+            await _sendMessage(chatMessage);
+            setState(() {
+              imageCheck = false;
+            });
+          },
           messages: messages),
     );
   }
 
-  Future<void> _sendMessage(ChatMessage chatMessage) async {
+  Future<void> _sendMessage(ChatMessage chatMessage,
+      {bool hideInChat = false}) async {
     await _flutterTts.setIosAudioCategory(
       IosTextToSpeechAudioCategory.ambient,
       [
@@ -194,50 +230,62 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       IosTextToSpeechAudioMode.defaultMode,
     );
 
-    setState(() {
-      messages = [
-        chatMessage,
-        ...messages
-      ]; //spread operator --take the messages list and add here
-      // Customizing the text style of sent messages
+    if (!hideInChat) {
+      setState(() {
+        messages = [
+          chatMessage,
+          ...messages
+        ]; // Spread operator --take the messages list and add here
+      });
+    }
 
-      try {
-        String question = chatMessage.text!;
-        List<Uint8List>? images;
-        if (chatMessage.medias?.isNotEmpty ?? false) {
-          images = [File(chatMessage.medias!.first.url).readAsBytesSync()];
-        }
-        gemini.streamGenerateContent(question, images: images).listen(
-          (event) {
-            ChatMessage? lastMessage = messages.firstOrNull;
-            if (lastMessage != null && lastMessage.user == geminiUser) {
-              lastMessage = messages.removeAt(0);
-              String response = event.content?.parts?.fold(
-                      "", (previous, current) => "$previous ${current.text}") ??
-                  "";
-              lastMessage.text += response;
-              setState(() {
-                messages = [lastMessage!, ...messages];
-              });
-            } else {
-              String response = event.content?.parts?.fold(
-                      "", (previous, current) => "$previous ${current.text}") ??
-                  "";
-              ChatMessage message = ChatMessage(
-                  user: geminiUser, createdAt: DateTime.now(), text: response);
-
-              TTS_OUTPUT = response; //here
-
-              setState(() {
-                messages = [message, ...messages];
-              });
-            }
-          },
-        );
-      } catch (e) {
-        print(e);
+    try {
+      String question = chatMessage.text!;
+      List<Uint8List>? images;
+      if (chatMessage.medias?.isNotEmpty ?? false) {
+        images = [File(chatMessage.medias!.first.url).readAsBytesSync()];
       }
-    });
+      gemini.streamGenerateContent(question, images: images).listen(
+        (event) {
+          ChatMessage? lastMessage = messages.firstOrNull;
+          if (lastMessage != null && lastMessage.user == geminiUser) {
+            lastMessage = messages.removeAt(0);
+            String response = event.content?.parts?.fold(
+                    "", (previous, current) => "$previous ${current.text}") ??
+                "";
+            lastMessage.text += response;
+            setState(() {
+              messages = [lastMessage!, ...messages];
+            });
+          } else {
+            String response = event.content?.parts?.fold(
+                    "", (previous, current) => "$previous ${current.text}") ??
+                "";
+            ChatMessage message = ChatMessage(
+                user: geminiUser, createdAt: DateTime.now(), text: response);
+
+            TTS_OUTPUT = response;
+
+            setState(() {
+              messages = [message, ...messages];
+            });
+          }
+          ;
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  List<ChatMessage> getGeminiSpacer() {
+    return [
+      ChatMessage(
+        user: geminiUser,
+        createdAt: DateTime.now(),
+        text: '\n',
+      ),
+    ];
   }
 
   Future<void> _sendMediaMessage() async {
@@ -253,11 +301,8 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
 
       try {
         Uint8List fileBytes = await _readDocumentData(file!.path);
-
         PdfDocument document = PdfDocument(inputBytes: fileBytes);
-
         PdfTextExtractor extractor = PdfTextExtractor(document);
-
         Extraction_text = extractor.extractText();
       } catch (e) {
         _showErrorDialog('Error', 'Failed to load the PDF document.');
@@ -267,10 +312,13 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
           'No File Selected', 'Please select a PDF file to upload.');
     }
 
-    //add the text to the firebase
-    if (Extraction_text != "")
+    if (Extraction_text != "") {
+      setState(() {
+        imageCheck = true;
+      });
       fileService.addFileText(FileTextModel(text: Extraction_text));
-    else {
+    } else {
+      imageCheck = false;
       flag = false;
     }
 
@@ -282,7 +330,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
             "I want you to be my data analyst and make a compelling storytelling based on the pdf provided.\n" +
                 Extraction_text,
       );
-      _sendMessage(chatMessage);
+      _sendMessage(chatMessage, hideInChat: true);
     }
   }
 
@@ -343,15 +391,26 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       source: ImageSource.gallery,
     );
     if (file != null) {
+      setState(() {
+        imageCheck = true;
+      });
+
+      // Construct the chat message with text and image
       ChatMessage chatMessage = ChatMessage(
-          user: currentUser,
-          createdAt: DateTime.now(),
-          text:
-              "I want you to be my data analyst and make a compelling storytelling based on the image of the chart provided.",
-          medias: [
-            ChatMedia(url: file.path, fileName: "", type: MediaType.image)
-          ]);
-      _sendMessage(chatMessage);
+        user: currentUser,
+        createdAt: DateTime.now(),
+        text:
+            "I want you to be my data analyst and make a compelling storytelling based on the image of the chart provided.",
+        medias: [
+          ChatMedia(url: file.path, fileName: "", type: MediaType.image)
+        ],
+      );
+
+      // Send the message without updating the UI prompt
+      await _sendMessage(chatMessage);
+    } else {
+      _showErrorDialog(
+          'No Image Selected', 'Please select an image to upload.');
     }
   }
 
