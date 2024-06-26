@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/core/models/file_text_model.dart';
 import 'package:tale/core/services/file_service.dart';
@@ -86,7 +87,12 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                 onPressed: () {
                   _sendMediaMessage();
                 },
-                icon: const Icon(Icons.document_scanner, color: Colors.white))
+                icon: const Icon(Icons.document_scanner, color: Colors.white)),
+            IconButton(
+                onPressed: () {
+                  _sendMediaMessageImage();
+                },
+                icon: const Icon(Icons.image_search_sharp, color: Colors.white))
           ]),
           currentUser: currentUser,
           onSend: _sendMessage,
@@ -139,8 +145,8 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   }
 
   Future<void> _sendMediaMessage() async {
-    String extractionResult = "";
     String Extraction_text = "";
+    bool flag = true;
     FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -157,8 +163,6 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         PdfTextExtractor extractor = PdfTextExtractor(document);
 
         Extraction_text = extractor.extractText();
-
-        // _showResult(Extraction_text);
       } catch (e) {
         _showErrorDialog('Error', 'Failed to load the PDF document.');
       }
@@ -170,31 +174,17 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     //add the text to the firebase
     if (Extraction_text != "")
       fileService.addFileText(FileTextModel(text: Extraction_text));
-
-//here i want to make image extraction
-    try {
-      // extractionResult = await evaluate(file!); //back
-    } catch (e) {
-      print(e.toString());
+    else {
+      flag = false;
     }
-//
 
-    if (file != null && extractionResult != "") {
-      print("LOLLLLL");
-      ChatMessage chatMessage = ChatMessage(
-          user: currentUser,
-          createdAt: DateTime.now(),
-          text: "Explain this text for me\n" + Extraction_text,
-          medias: [
-            ChatMedia(
-                url: extractionResult, fileName: "", type: MediaType.image)
-          ]);
-      _sendMessage(chatMessage);
-    } else {
+    if (file != null && flag) {
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
         createdAt: DateTime.now(),
-        text: "Explain this text for me\n" + Extraction_text,
+        text:
+            "I want you to be my data analyst and make a compelling storytelling based on the pdf provided.\n" +
+                Extraction_text,
       );
       _sendMessage(chatMessage);
     }
@@ -249,6 +239,24 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         );
       },
     );
+  }
+
+  void _sendMediaMessageImage() async {
+    ImagePicker picker = ImagePicker();
+    XFile? file = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (file != null) {
+      ChatMessage chatMessage = ChatMessage(
+          user: currentUser,
+          createdAt: DateTime.now(),
+          text:
+              "I want you to be my data analyst and make a compelling storytelling based on the image of the chart provided.",
+          medias: [
+            ChatMedia(url: file.path, fileName: "", type: MediaType.image)
+          ]);
+      _sendMessage(chatMessage);
+    }
   }
 
   // static Future<JavascriptRuntime> _initialize() async {
