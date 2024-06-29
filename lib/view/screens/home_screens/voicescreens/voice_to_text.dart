@@ -218,6 +218,9 @@ class _VoiceToTextState extends State<VoiceToText> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+              height: LayoutManager.widthNHeight0(context, 1) * 0.06,
+            ),
             const SizedBox(height: 5),
             TextFieldX(
               controller: textController,
@@ -245,6 +248,10 @@ class _VoiceToTextState extends State<VoiceToText> {
               children: [
                 Obx(
                   () => ListDropDown(
+                    decoration2: BoxDecoration(
+                        color: ThemeManager.dark,
+                        borderRadius: BorderRadius.circular(10.0),
+                        boxShadow: [shadowGlow]),
                     dropDownList: voiceList.value.toList(),
                     onListSelect: onVoiceSelect,
                   ),

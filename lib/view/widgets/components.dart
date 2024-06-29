@@ -45,12 +45,15 @@ class CircularMic extends StatelessWidget {
 
 class ListDropDown extends StatefulWidget {
   final List<String> dropDownList;
-  final Function onListSelect;
+  final Function(String) onListSelect;
+  final BoxDecoration decoration2;
+
   const ListDropDown({
-    super.key,
+    Key? key,
     required this.dropDownList,
     required this.onListSelect,
-  });
+    required this.decoration2,
+  }) : super(key: key);
 
   @override
   State<ListDropDown> createState() => _ListDropDownState();
@@ -58,45 +61,45 @@ class ListDropDown extends StatefulWidget {
 
 class _ListDropDownState extends State<ListDropDown> {
   String? selectedValue;
+
   @override
   void initState() {
     super.initState();
     selectedValue =
-        widget.dropDownList.isNotEmpty ? widget.dropDownList[0] : '';
+        widget.dropDownList.isNotEmpty ? widget.dropDownList[0] : null;
   }
-
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 0),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-            color: ThemeManager.dark,
-            borderRadius: BorderRadius.circular(10.0),
-            boxShadow: [shadowGlow]),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
+        decoration: widget.decoration2,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DropdownButton<String>(
-              dropdownColor: ThemeManager.backlist, //
+              dropdownColor: ThemeManager.backlist,
               value: selectedValue,
               icon: Icon(
                 Icons.arrow_drop_down,
-                color: ThemeManager.dark,
+                color: ThemeManager.primary,
               ),
               iconSize: 24,
               elevation: 16,
+              alignment: Alignment.center,
               style: TextStyle(
-                color: ThemeManager.white,
+                fontSize: 14,
+                color: Theme.of(context).primaryColorLight,
               ),
               underline: Container(),
               onChanged: (newValue) {
                 setState(() {
-                  selectedValue = newValue!;
-                  widget.onListSelect(newValue);
+                  selectedValue = newValue;
+                  if (newValue != null) {
+                    widget.onListSelect(newValue);
+                  }
                 });
               },
               items: widget.dropDownList
@@ -107,8 +110,9 @@ class _ListDropDownState extends State<ListDropDown> {
                     child: Text(
                       value,
                       style: TextStyle(
-                          color: ThemeManager.second,
-                          fontWeight: FontWeight.w900),
+                        color: ThemeManager.second,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   ),
                 );

@@ -7,14 +7,20 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:tale/core/functions/all_actions.dart';
 import 'package:tale/core/models/file_text_model.dart';
+import 'package:tale/core/services/elevenlabs_api.dart';
 import 'package:tale/core/services/file_service.dart';
+import 'package:tale/utils/consts.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
+import 'package:tale/view/widgets/components.dart';
 
 class DocumentAnalyze extends StatefulWidget {
   const DocumentAnalyze({Key? key}) : super(key: key);
@@ -25,7 +31,7 @@ class DocumentAnalyze extends StatefulWidget {
 
 //ew
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
-  String TTS_OUTPUT = "";
+  String TTS_OUTPUT = "hello";
 
   bool imageCheck = false;
   // static final Future<JavascriptRuntime> _instance = _initialize();
@@ -34,12 +40,55 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   List<Map> _voices = [];
   Map? _currentVoice;
 
+  String text = '';
+  RxString selectedVoice = 'Adam'.obs;
+  String reselectedVoice = 'Adam';
+  RxString externalStorage = '/storage/emulated/0/T2V'.obs;
   int? _currentWordStart, _currentWordEnd;
+  http.Response? response;
+
+  File? audioFile;
+
+  final textController = TextEditingController();
+  final apiKey = TextEditingController();
+
+  RxBool isTalking = false.obs;
+  RxBool isGettingVoice = false.obs;
+  RxBool isGettingUser = false.obs;
+  RxBool isGeneratingVoice = false.obs;
+
+  RxDouble voiceStability = 0.75.obs;
+  RxDouble similarityBoost = 1.0.obs;
+  double reStability = 0.75;
+  double reBoost = 1.0;
 
   FileService fileService = FileService();
   String? msg;
   File? file;
   final Gemini gemini = Gemini.instance;
+  RxList<String> voiceList =
+      ['Adam', 'Antoni', 'Arnold', 'Bella', 'Callum', 'Charlie', 'Dorothy'].obs;
+  Map<String, String> voiceMap = {
+    'Adam': 'pNInz6obpgDQGcFmaJgB',
+    'Antoni': 'ErXwobaYiN019PkySvjV',
+    'Arnold': 'VR6AewLTigWG4xSOukaG',
+    'Bella': 'EXAVITQu4vr4xnSDxMaL',
+    'Callum': 'N2lVS1w4EtoT3dr4eOWO',
+    'Charlie': 'IKne3meq5aSn9XLyUdCD',
+    'Dorothy': 'ThT5KcBeYPX3keUQqHPh',
+  };
+  onVoiceSelect(String selectedName) {
+    selectedVoice.value = selectedName;
+  }
+
+  onVoiceFetch() async {
+    isGettingVoice.value = !isGettingVoice.value;
+    voiceMap = await getVoiceList();
+    if (voiceMap != null) {
+      voiceList.value = voiceMap.keys.toList();
+    }
+    isGettingVoice.value = !isGettingVoice.value;
+  }
 
   List<ChatMessage> messages = [];
   ChatUser currentUser = ChatUser(id: "0", firstName: "User");
@@ -61,23 +110,94 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         _currentWordEnd = end;
       });
     });
-    _flutterTts.getVoices.then((data) {
+  }
+
+  RxInt textCount = 0.obs;
+  RxInt voiceLimit = 0.obs;
+
+  @override
+  void onInit() async {
+    final api = await AllActions().getSharedPref('API_Key');
+    if (api != '') {
+      apiKey.text = "";
+    }
+
+    Future.delayed(const Duration(seconds: 3));
+
+    await AllActions().requestPermission();
+    final direct = Directory(externalStorage.value);
+    if (await direct.exists()) {
+    } else {
       try {
-        List<Map> voices = List<Map>.from(data);
-        setState(() {
-          _voices =
-              voices.where((voice) => voice["name"].contains("en")).toList();
-          _currentVoice = _voices.first;
-          setVoice(_currentVoice!);
-        });
+        await direct.create(recursive: true);
       } catch (e) {
-        print(e);
+        Get.snackbar(
+            'No Storage Permission', 'Please check the storage Permission!');
       }
-    });
+    }
   }
 
   void setVoice(Map voice) {
     _flutterTts.setVoice({"name": voice["name"], "locale": voice["locale"]});
+  }
+
+  onUserInfo() async {
+    isGettingUser.value = !isGettingUser.value;
+    final limit = await getUserInfo("");
+    if (limit != null) {
+      voiceLimit.value = limit;
+    } else {
+      voiceLimit.value = 0;
+    }
+    isGettingUser.value = !isGettingUser.value;
+  }
+
+  onTextToVoice() async {
+    if (TTS_OUTPUT == '') {
+      Get.snackbar('Fill in!', 'Please Enter Text!');
+    } else {
+      if (ELEVENLABS_API_KEY == '') {
+        Get.snackbar('Misssing API!', 'Please Enter Your API Key!');
+      } else {
+        if (TTS_OUTPUT == '') {
+          Get.snackbar('Enter Text!', 'Please Enter Your Text!');
+        } else {
+          if (text == TTS_OUTPUT &&
+              reselectedVoice == selectedVoice.value &&
+              reStability == voiceStability.value &&
+              reBoost == similarityBoost.value) {
+            isTalking.value = !isTalking.value;
+            await AllActions().playAutio(audioFile);
+            isTalking.value = !isTalking.value;
+          } else {
+            isGeneratingVoice.value = !isGeneratingVoice.value;
+            response = await getVoiceFromText(
+                ELEVENLABS_API_KEY,
+                TTS_OUTPUT,
+                voiceMap[selectedVoice.value]!,
+                voiceStability.value,
+                similarityBoost.value);
+            if (response != null) {
+              print("Alaais${TTS_OUTPUT}");
+              audioFile = await AllActions().saveTemp(response!);
+              await onUserInfo();
+              isGeneratingVoice.value = !isGeneratingVoice.value;
+              isTalking.value = !isTalking.value;
+
+              await AllActions().playAutio(audioFile);
+              isTalking.value = !isTalking.value;
+              text = TTS_OUTPUT;
+              reselectedVoice = selectedVoice.value;
+              reStability = voiceStability.value;
+              reBoost = similarityBoost.value;
+              print("Alaais${TTS_OUTPUT}");
+            } else {
+              isGeneratingVoice.value = !isGeneratingVoice.value;
+            }
+          }
+        }
+      }
+    }
   }
 
   @override
@@ -106,20 +226,27 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: DropdownButton(
-              value: _currentVoice,
-              items: _voices
-                  .map(
-                    (_voice) => DropdownMenuItem(
-                      value: _voice,
-                      child: Text(
-                        _voice["name"],
-                      ),
-                    ),
-                  )
-                  .toList(),
-              onChanged: (value) {},
+            child: Obx(
+              () => ListDropDown(
+                decoration2: BoxDecoration(),
+                dropDownList: voiceList.value.toList(),
+                onListSelect: onVoiceSelect,
+              ),
             ),
+            //  DropdownButton(
+            //   value: _currentVoice,
+            //   items: _voices
+            //       .map(
+            //         (_voice) => DropdownMenuItem(
+            //           value: _voice,
+            //           child: Text(
+            //             _voice["name"],
+            //           ),
+            //         ),
+            //       )
+            //       .toList(),
+            //   onChanged: (value) {},
+            // ),
           ),
         ],
         flexibleSpace: Container(
@@ -153,51 +280,42 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                         color: Colors.white))
               ],
               leading: [
-                IconButton(
-                    onPressed: () async {
-                      try {
-                        await _flutterTts.setSharedInstance(true);
-                        await _flutterTts.setIosAudioCategory(
-                          IosTextToSpeechAudioCategory.ambient,
-                          [
-                            IosTextToSpeechAudioCategoryOptions.allowBluetooth,
-                            IosTextToSpeechAudioCategoryOptions
-                                .allowBluetoothA2DP,
-                            IosTextToSpeechAudioCategoryOptions.mixWithOthers,
-                            IosTextToSpeechAudioCategoryOptions
-                                .defaultToSpeaker,
-                          ],
-                          IosTextToSpeechAudioMode.defaultMode,
-                        );
-
-                        if (TTS_OUTPUT != "") {
-                          await _flutterTts.setSharedInstance(true);
-                          await _flutterTts.awaitSynthCompletion(true);
-                          await _flutterTts.setIosAudioCategory(
-                              IosTextToSpeechAudioCategory.ambient,
-                              [
-                                IosTextToSpeechAudioCategoryOptions
-                                    .allowBluetooth,
-                                IosTextToSpeechAudioCategoryOptions
-                                    .allowBluetoothA2DP,
-                                IosTextToSpeechAudioCategoryOptions
-                                    .mixWithOthers
-                              ],
-                              IosTextToSpeechAudioMode.voicePrompt);
-                          await _flutterTts.setSharedInstance(true);
-                          await _flutterTts.speak(TTS_OUTPUT); //back
-                          print("object1");
-                        } else {
-                          _flutterTts.speak(
-                              "Sorry Try again Sorry Try again Sorry Try again Sorry Try again Sorry Try again");
-                          print("object2");
-                        }
-                      } catch (e) {
-                        print("Error $e");
-                      }
-                    },
-                    icon: const Icon(Icons.multitrack_audio_rounded,
-                        color: Colors.white)),
+                Obx(
+                  () => GestureDetector(
+                      onTap: onTextToVoice,
+                      child: Stack(
+                        children: [
+                          isGeneratingVoice.value
+                              ? Center(
+                                  child: Container(
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                        color: ThemeManager.primary,
+                                        shape: BoxShape.circle,
+                                        boxShadow: [shadowGlow]),
+                                    child: CircularProgressIndicator(
+                                      color: ThemeManager.primary,
+                                    ),
+                                  ),
+                                )
+                              : Center(
+                                  child: Container(
+                                    height: 30,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                        color: ThemeManager.second,
+                                        shape: BoxShape.circle,
+                                        boxShadow: [shadowGlow]),
+                                    child: Icon(
+                                      Icons.multitrack_audio_rounded,
+                                      color: ThemeManager.dark,
+                                    ),
+                                  ),
+                                ),
+                        ],
+                      )),
+                ),
               ]),
           messageOptions: MessageOptions(
             textBeforeMedia: false,
@@ -341,12 +459,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     } catch (e) {
       throw Exception('Failed to read file data: $e');
     }
-  } //read from user upload
-
-  // Future<List<int>> _readDocumentData2(String name) async {
-  //   final ByteData data = await rootBundle.load('assets/files/sample.pdf');
-  //   return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-  // } //read from assests folder
+  }
 
   void _showResult(String text) {
     showDialog(
@@ -395,7 +508,6 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         imageCheck = true;
       });
 
-      // Construct the chat message with text and image
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
         createdAt: DateTime.now(),
@@ -406,24 +518,10 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         ],
       );
 
-      // Send the message without updating the UI prompt
       await _sendMessage(chatMessage);
     } else {
       _showErrorDialog(
           'No Image Selected', 'Please select an image to upload.');
     }
   }
-
-  // static Future<JavascriptRuntime> _initialize() async {
-  //   final library = await rootBundle.loadString("assets/files/extraction.js");
-  //   final runtime = getJavascriptRuntime();
-  //   await runtime.evaluateAsync(library);
-  //   return runtime;
-  // }
-
-  // static Future<dynamic> evaluate(File file) async {
-  //   final result = await (await _instance)
-  //       .evaluateAsync("extractFirstImageFromPDF('${file}')");
-  //   return result.rawResult;
-  // }
 }
