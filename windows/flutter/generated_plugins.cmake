@@ -10,6 +10,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_js
   flutter_tts
   pdfx
+  permission_handler_windows
   rive_common
   url_launcher_windows
 )

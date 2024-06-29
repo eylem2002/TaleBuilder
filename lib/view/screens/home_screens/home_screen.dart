@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:tale/utils/app_pages.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/utils/theme/text_theme.dart';
@@ -193,10 +195,12 @@ class _HomescreenState extends State<Homescreen> {
                         CardDesign(
                           width: LayoutManager.widthNHeight0(context, 1) * 0.43,
                           height: LayoutManager.widthNHeight0(context, 1) * 0.6,
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(VoiceScreen);
+                          },
                           child: Center(
                             child: GradientText(
-                              'Sign Up',
+                              'Voice To Text',
                               gradient: ThemeManager.title,
                               style: TextStyle(
                                 fontSize:

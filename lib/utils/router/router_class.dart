@@ -8,7 +8,10 @@ import 'package:tale/view/screens/home_screens/side_screen.dart';
 import 'package:tale/view/screens/menu_screens/personal.dart';
 import 'package:tale/view/screens/home_screens/search_screen.dart';
 
+import '../../view/screens/home_screens/voicescreens/voice_to_text.dart';
+
 // Class responsible for generating routes in the application
+
 class MyRouter {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -40,6 +43,11 @@ class MyRouter {
         {
           return _route(DocumentAnalyze());
         }
+      case VoiceScreen:
+        {
+          return _route(VoiceToText());
+        }
+
       default:
         {
           final arg = settings.name as String;

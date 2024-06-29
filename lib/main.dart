@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tale/utils/app_pages.dart';
 import 'package:tale/utils/consts.dart';
 import 'package:tale/utils/router/router_class.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
@@ -29,17 +31,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log("dsf");
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: ThemeManager.second),
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: MyRouter.generateRoute,
-      initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
+      initialRoute: initScreen != null && initScreen != 0 ? "/" : "first",
       routes: {
         '/': (context) => SplashScreen(),
         "first": (context) => IntroScreen(),
       },
+      // getPages: AppPages.pages,
     );
   }
 }

@@ -53,6 +53,9 @@ dependencies:
   pdf: ^3.10.8
   pdfx: ^2.6.0
   flutter_js: ^0.8.1
+  get: ^4.6.6
+  permission_handler: ^11.3.1
+  just_audio: ^0.9.38
 
 
 dev_dependencies:
