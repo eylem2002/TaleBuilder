@@ -5,6 +5,7 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tale/core/functions/all_actions.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
@@ -50,17 +51,14 @@ class _SearchScreenState extends State<SearchScreen> {
             Navigator.of(context).pop();
           },
         ),
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: Image.asset(
-        //       'assets/images/logo.png',
-        //       fit: BoxFit.contain,
-        //     ),
-        //     onPressed: () {
-        //       ///back
-        //     },
-        //   ),
-        // ],
+        actions: [
+          IconButton(
+              onPressed: AllActions().showDevInfo,
+              icon: Icon(
+                Icons.info_outline_rounded,
+                color: ThemeManager.primary,
+              ))
+        ],
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: ThemeManager.background,
