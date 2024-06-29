@@ -191,25 +191,66 @@ class _HomescreenState extends State<Homescreen> {
                               ),
                             )),
                         //second card
+                        // CardDesign(
+                        //   width: LayoutManager.widthNHeight0(context, 1) * 0.43,
+                        //   height: LayoutManager.widthNHeight0(context, 1) * 0.6,
+                        //   onTap: () {
+                        //     Get.toNamed(VoiceScreen);
+                        //   },
+                        //   child: Center(
+                        //     child: GradientText(
+                        //       'Voice To Text',
+                        //       gradient: ThemeManager.title,
+                        //       style: TextStyle(
+                        //         fontSize:
+                        //             LayoutManager.widthNHeight0(context, 1) *
+                        //                 0.05,
+                        //         fontFamily: ThemeManager.fontFamily,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         CardDesign(
-                          width: LayoutManager.widthNHeight0(context, 1) * 0.43,
-                          height: LayoutManager.widthNHeight0(context, 1) * 0.6,
-                          onTap: () {
-                            Get.toNamed(VoiceScreen);
-                          },
-                          child: Center(
-                            child: GradientText(
-                              'Voice To Text',
-                              gradient: ThemeManager.title,
-                              style: TextStyle(
-                                fontSize:
-                                    LayoutManager.widthNHeight0(context, 1) *
+                            width:
+                                LayoutManager.widthNHeight0(context, 1) * 0.43,
+                            height:
+                                LayoutManager.widthNHeight0(context, 1) * 0.6,
+                            onTap: () {
+                              Get.toNamed(VoiceScreen);
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                  LayoutManager.widthNHeight0(context, 1) *
+                                      0.05),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Voice To Text',
+                                    style: TextStyle(
+                                      color: ThemeManager.white,
+                                      height: LayoutManager.widthNHeight0(
+                                              context, 1) *
+                                          0.004,
+                                      fontSize: LayoutManager.widthNHeight0(
+                                              context, 1) *
+                                          0.05,
+                                      fontFamily: ThemeManager.fontFamily,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    height: LayoutManager.widthNHeight0(
+                                            context, 1) *
                                         0.05,
-                                fontFamily: ThemeManager.fontFamily,
+                                  ),
+                                  SvgPicture.asset(
+                                    'assets/images/undraw_audio_player.svg',
+                                    width: 90,
+                                    height: 90,
+                                  ), //
+                                ],
                               ),
-                            ),
-                          ),
-                        ),
+                            )),
                       ],
                     ),
                     SizedBox(
