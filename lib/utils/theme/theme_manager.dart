@@ -115,3 +115,19 @@ class BodyText extends StatelessWidget {
     );
   }
 }
+
+class BodyInfo extends StatelessWidget {
+  final String text;
+  const BodyInfo(this.text, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontSize: MediaQuery.of(context).size.width * 0.045,
+          fontFamily: ThemeManager.fontFamily,
+          color: ThemeManager.second),
+    );
+  }
+}

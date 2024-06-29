@@ -23,14 +23,6 @@ class AllActions {
     }
   }
 
-  saveMp3ToFile(
-      http.Response response, String filename, String directory) async {
-    List<int> bytes = response.bodyBytes;
-    final file = File('$directory/$filename');
-    await file.writeAsBytes(bytes);
-    Get.snackbar("Success", "File saved!");
-  }
-
   saveTemp(http.Response response) async {
     List<int> bytes = response.bodyBytes;
     var directory = await getApplicationDocumentsDirectory();
@@ -74,7 +66,7 @@ class AllActions {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(10),
                 child: Container(
                   height: 5,
                   width: 35,
@@ -83,9 +75,18 @@ class AllActions {
                       borderRadius: BorderRadius.circular(50)),
                 ),
               ),
-              // const BodyText("Created By:"),
-              // const TitleText(title: "Md Rezaul Hasan Mahadie"),
-              // const BodyText("mahadie02@gmail.com"),
+              Padding(
+                padding: EdgeInsets.all(40),
+                child: Column(
+                  children: [
+                    const BodyInfo("Connect Us for any problem!"),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    const BodyInfo("alaajam02@gmail.com"),
+                  ],
+                ),
+              )
             ],
           ),
         ),

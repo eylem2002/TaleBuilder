@@ -18,8 +18,6 @@ import 'package:tale/core/functions/all_actions.dart';
 import 'package:tale/core/services/elevenlabs_api.dart';
 import 'package:tale/utils/consts.dart';
 
-import '../../../../core/Controllers/voice_controller.dart';
-
 class VoiceToText extends StatefulWidget {
   const VoiceToText({super.key});
 
@@ -169,22 +167,6 @@ class _VoiceToTextState extends State<VoiceToText> {
     }
   }
 
-  onSave() async {
-    await AllActions().requestPermission();
-    if (response != null && fileName.text != '') {
-      AllActions().saveMp3ToFile(
-          response!,
-          '${fileName.text}${selectedFormat.value}',
-          directory.text.replaceFirst('Directory: ', ''));
-    } else {
-      if (fileName.text == '') {
-        Get.snackbar('No File Name!', 'Please Enter a file name to save!');
-      } else {
-        Get.snackbar('No Voice!', 'Please convert Text to Voice First!');
-      }
-    }
-  }
-
   String extractFirstLine(String input) {
     RegExp regExp = RegExp(r'^([^\n.;:!,]*[.;:!,])');
     Match? match = regExp.firstMatch(input);
@@ -253,11 +235,10 @@ class _VoiceToTextState extends State<VoiceToText> {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             VoiceSettingsSlider(value: voiceStability),
             VoiceSettingsSlider(value: similarityBoost),
-            const SizedBox(height: 10),
+            const SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -293,35 +274,8 @@ class _VoiceToTextState extends State<VoiceToText> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextFieldX(
-              controller: directory,
-              hintText: "Save Directory",
-              isPass: false,
-            ),
-            Row(
-              children: [
-                Flexible(
-                  child: TextFieldX(
-                    controller: fileName,
-                    hintText: "File Name",
-                    isPass: false,
-                  ),
-                ),
-                ListDropDown(
-                    dropDownList: fileFormats.value.toList(),
-                    onListSelect: onFormatSelect)
-              ],
-            ),
-            const SizedBox(height: 10),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: onSave,
-        child: const Icon(Icons.save),
       ),
     );
   }

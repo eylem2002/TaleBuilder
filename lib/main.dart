@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tale/utils/app_pages.dart';
 import 'package:tale/utils/consts.dart';
 import 'package:tale/utils/router/router_class.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
@@ -42,7 +41,6 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         "first": (context) => IntroScreen(),
       },
-      // getPages: AppPages.pages,
     );
   }
 }

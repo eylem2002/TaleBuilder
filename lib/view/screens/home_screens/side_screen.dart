@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tale/core/functions/all_actions.dart';
 import 'package:tale/core/services/user_service.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/router/router_const.dart';
@@ -51,16 +52,13 @@ class _sideBarState extends State<sideBar> {
             },
           ),
         ),
-        actions: <Widget>[
+        actions: [
           IconButton(
-            icon: Image.asset(
-              'assets/images/logo.png',
-              fit: BoxFit.contain,
-            ),
-            onPressed: () {
-              //back
-            },
-          ),
+              onPressed: AllActions().showDevInfo,
+              icon: Icon(
+                Icons.info_outline_rounded,
+                color: ThemeManager.primary,
+              ))
         ],
         flexibleSpace: Container(
           decoration: BoxDecoration(gradient: ThemeManager.Topbackground),

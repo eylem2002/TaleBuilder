@@ -31,7 +31,6 @@ getVoiceFromText(String apiKey, String text, String voiceId,
       Get.snackbar("API Error", "Please Check Your API Key!");
       return null;
     }
-    // ignore: empty_catches
   } catch (error) {
     Get.snackbar("Error!", "An Error Occurred!");
     return null;
