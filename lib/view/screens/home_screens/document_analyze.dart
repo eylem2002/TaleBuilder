@@ -386,7 +386,9 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                 "";
             ChatMessage message = ChatMessage(
                 user: geminiUser, createdAt: DateTime.now(), text: response);
+            final regExp = RegExp(r'\*');
 
+            response = response.replaceAll(regExp, '');
             TTS_OUTPUT = response;
 
             setState(() {
