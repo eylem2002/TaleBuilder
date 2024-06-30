@@ -153,6 +153,11 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   }
 
   onTextToVoice() async {
+    final regExp = RegExp(r'\*');
+
+    TTS_OUTPUT = TTS_OUTPUT.replaceAll(regExp, '');
+
+    ///here filter the text
     if (TTS_OUTPUT == '') {
       Get.snackbar('Fill in!', 'Please Enter Text!');
     } else {
