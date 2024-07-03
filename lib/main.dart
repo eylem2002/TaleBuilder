@@ -31,9 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     log("dsf");
     return GetMaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: ThemeManager.second),
-      ),
+      theme: ThemeData.light(),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: MyRouter.generateRoute,
       initialRoute: initScreen != null && initScreen != 0 ? "/" : "first",

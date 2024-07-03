@@ -29,12 +29,12 @@ class DocumentAnalyze extends StatefulWidget {
   State<DocumentAnalyze> createState() => _DocumentAnalyzeState();
 }
 
-//ew
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   String TTS_OUTPUT = "Hello How can i hep";
 
   bool imageCheck = false;
-  // static final Future<JavascriptRuntime> _instance = _initialize();
+  bool isGeminiTyping = false;
+
   FlutterTts _flutterTts = FlutterTts();
 
   List<Map> _voices = [];
@@ -270,74 +270,79 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     return Container(
       decoration: BoxDecoration(color: Color(0xFF180D32)),
       child: DashChat(
-          inputOptions: InputOptions(
-              inputTextStyle: TextStyle(color: ThemeManager.dark),
-              trailing: [
-                IconButton(
-                    onPressed: () {
-                      _sendMediaMessage();
-                    },
-                    icon: const Icon(Icons.document_scanner,
-                        color: Colors.white)),
-                IconButton(
-                    onPressed: () {
-                      _sendMediaMessageImage();
-                    },
-                    icon: const Icon(Icons.image_search_sharp,
-                        color: Colors.white))
-              ],
-              leading: [
-                Obx(
-                  () => GestureDetector(
-                      onTap: onTextToVoice,
-                      child: Stack(
-                        children: [
-                          isGeneratingVoice.value
-                              ? Center(
-                                  child: Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                        color: ThemeManager.primary,
-                                        shape: BoxShape.circle,
-                                        boxShadow: [shadowGlow]),
-                                    child: CircularProgressIndicator(
+        inputOptions: InputOptions(
+            inputTextStyle: TextStyle(color: ThemeManager.dark),
+            trailing: [
+              IconButton(
+                  onPressed: () {
+                    _sendMediaMessage();
+                    isGeminiTyping = true;
+                  },
+                  icon:
+                      const Icon(Icons.document_scanner, color: Colors.white)),
+              IconButton(
+                  onPressed: () {
+                    _sendMediaMessageImage();
+                    isGeminiTyping = true;
+                  },
+                  icon:
+                      const Icon(Icons.image_search_sharp, color: Colors.white))
+            ],
+            leading: [
+              Obx(
+                () => GestureDetector(
+                    onTap: onTextToVoice,
+                    child: Stack(
+                      children: [
+                        isGeneratingVoice.value
+                            ? Center(
+                                child: Container(
+                                  height: 30,
+                                  width: 30,
+                                  decoration: BoxDecoration(
                                       color: ThemeManager.primary,
-                                    ),
-                                  ),
-                                )
-                              : Center(
-                                  child: Container(
-                                    height: 30,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                        color: ThemeManager.second,
-                                        shape: BoxShape.circle,
-                                        boxShadow: [shadowGlow]),
-                                    child: Icon(
-                                      Icons.multitrack_audio_rounded,
-                                      color: ThemeManager.dark,
-                                    ),
+                                      shape: BoxShape.circle,
+                                      boxShadow: [shadowGlow]),
+                                  child: CircularProgressIndicator(
+                                    color: ThemeManager.primary,
                                   ),
                                 ),
-                        ],
-                      )),
-                ),
-              ]),
-          messageOptions: MessageOptions(
-            textBeforeMedia: false,
-            currentUserContainerColor: Color(0xFF180D32),
-            currentUserTextColor: Color(0xFF180D32),
-            containerColor: ThemeManager.second,
-          ),
-          currentUser: currentUser,
-          onSend: (chatMessage) async {
-            await _sendMessage(chatMessage);
-            setState(() {
-              imageCheck = false;
-            });
-          },
-          messages: messages),
+                              )
+                            : Center(
+                                child: Container(
+                                  height: 30,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: ThemeManager.second,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [shadowGlow]),
+                                  child: Icon(
+                                    Icons.multitrack_audio_rounded,
+                                    color: ThemeManager.dark,
+                                  ),
+                                ),
+                              ),
+                      ],
+                    )),
+              ),
+            ]),
+        messageOptions: MessageOptions(
+          textBeforeMedia: false,
+          currentUserContainerColor: Color(0xFF180D32),
+          currentUserTextColor: Color(0xFF180D32),
+          containerColor: ThemeManager.second,
+        ),
+        currentUser: currentUser,
+        typingUsers: isGeminiTyping ? [geminiUser] : [],
+        onSend: (chatMessage) async {
+          await _sendMessage(chatMessage);
+          setState(() {
+            imageCheck = false;
+            isGeminiTyping = true;
+          });
+        },
+        messages: messages,
+      ),
     );
   }
 
@@ -357,10 +362,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
 
     if (!hideInChat) {
       setState(() {
-        messages = [
-          chatMessage,
-          ...messages
-        ]; // Spread operator --take the messages list and add here
+        messages = [chatMessage, ...messages];
       });
     }
 
@@ -381,6 +383,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
             lastMessage.text += response;
             setState(() {
               messages = [lastMessage!, ...messages];
+              isGeminiTyping = false;
             });
           } else {
             String response = event.content?.parts?.fold(
@@ -395,6 +398,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
 
             setState(() {
               messages = [message, ...messages];
+              isGeminiTyping = false;
             });
           }
           ;
