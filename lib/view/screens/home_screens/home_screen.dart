@@ -225,7 +225,7 @@ class _HomescreenState extends State<Homescreen> {
                               child: Column(
                                 children: [
                                   Text(
-                                    'Voice To Text',
+                                    'Text To Speech',
                                     style: TextStyle(
                                       color: ThemeManager.white,
                                       height: LayoutManager.widthNHeight0(

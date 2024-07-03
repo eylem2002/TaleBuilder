@@ -30,7 +30,7 @@ class DocumentAnalyze extends StatefulWidget {
 }
 
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
-  String TTS_OUTPUT = "Hello How can i hep";
+  String TTS_OUTPUT = "Hello How can i help you?";
 
   bool imageCheck = false;
   bool isGeminiTyping = false;

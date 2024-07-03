@@ -40,7 +40,7 @@ getVoiceFromText(String apiKey, String text, String voiceId,
 getUserInfo(String apiKey) async {
   Map<String, String>? headers = {
     "Content-Type": "application/json",
-    "xi-api-key": "sk_94d986dd79615272ad5110e386f0f560fc31cebbabfe05e2",
+    "xi-api-key": "sk_e38bdb64d35d3cdd7e6a23d7eadb375f4c137f3eb58d2bbe",
   };
   final response = await http
       .get(Uri.parse("https://api.elevenlabs.io/v1/user"), headers: headers);
