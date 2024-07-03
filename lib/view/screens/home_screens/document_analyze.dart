@@ -31,7 +31,7 @@ class DocumentAnalyze extends StatefulWidget {
 
 //ew
 class _DocumentAnalyzeState extends State<DocumentAnalyze> {
-  String TTS_OUTPUT = "hello";
+  String TTS_OUTPUT = "Hello How can i hep";
 
   bool imageCheck = false;
   // static final Future<JavascriptRuntime> _instance = _initialize();
@@ -156,6 +156,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     final regExp = RegExp(r'\*');
 
     TTS_OUTPUT = TTS_OUTPUT.replaceAll(regExp, '');
+    print("After RegEx ${TTS_OUTPUT}");
 
     ///here filter the text
     if (TTS_OUTPUT == '') {
@@ -183,13 +184,14 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                 voiceStability.value,
                 similarityBoost.value);
             if (response != null) {
-              print("Alaais${TTS_OUTPUT}");
+              //  print("Alaa is ${TTS_OUTPUT}");
               audioFile = await AllActions().saveTemp(response!);
               await onUserInfo();
               isGeneratingVoice.value = !isGeneratingVoice.value;
               isTalking.value = !isTalking.value;
 
               await AllActions().playAutio(audioFile);
+
               isTalking.value = !isTalking.value;
               text = TTS_OUTPUT;
               reselectedVoice = selectedVoice.value;

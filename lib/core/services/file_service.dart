@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tale/core/models/file_text_model.dart';
@@ -20,6 +21,8 @@ class FileService {
     });
     return "Done";
   }
+
+  extractTextFromPdf(File selectedFile) {}
 
   // // get the user notifications from database
   // Future<FileTextList> getUserNotifications() async {

@@ -40,7 +40,7 @@ getVoiceFromText(String apiKey, String text, String voiceId,
 getUserInfo(String apiKey) async {
   Map<String, String>? headers = {
     "Content-Type": "application/json",
-    "xi-api-key": "sk_ec791b21902997061cebd7a7cac269570a6e9a62993b86b5",
+    "xi-api-key": "sk_94d986dd79615272ad5110e386f0f560fc31cebbabfe05e2",
   };
   final response = await http
       .get(Uri.parse("https://api.elevenlabs.io/v1/user"), headers: headers);
@@ -49,6 +49,7 @@ getUserInfo(String apiKey) async {
     Map<String, dynamic> jsonMap = json.decode(jsonResponse);
     int characterLimit = jsonMap['subscription']['character_limit'];
     int characterCount = jsonMap['subscription']['character_count'];
+    print("object $characterCount ----- $characterLimit");
     return (characterLimit - characterCount);
   } else {
     Get.snackbar("Error!", "Invalid API Key!");

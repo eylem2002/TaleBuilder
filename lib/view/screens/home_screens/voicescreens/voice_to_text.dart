@@ -2,19 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:tale/core/functions/all_actions.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/widgets/components.dart';
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:http/http.dart' as http;
-import 'package:tale/core/functions/all_actions.dart';
 import 'package:tale/core/services/elevenlabs_api.dart';
 import 'package:tale/utils/consts.dart';
 
@@ -49,7 +44,6 @@ class _VoiceToTextState extends State<VoiceToText> {
   String text = '';
   RxString selectedVoice = 'Adam'.obs;
   String reselectedVoice = 'Adam';
-  RxString externalStorage = '/storage/emulated/0/T2V'.obs;
   RxString selectedFormat = '.mp3'.obs;
 
   Map<String, String> voiceMap = {
@@ -72,7 +66,6 @@ class _VoiceToTextState extends State<VoiceToText> {
 
   @override
   void onInit() async {
-    directory.text = 'Directory: ${externalStorage.value}';
     final api = await AllActions().getSharedPref('API_Key');
     if (api != '') {
       apiKey.text = "";
@@ -81,24 +74,10 @@ class _VoiceToTextState extends State<VoiceToText> {
     Future.delayed(const Duration(seconds: 3));
 
     await AllActions().requestPermission();
-    final direct = Directory(externalStorage.value);
-    if (await direct.exists()) {
-    } else {
-      try {
-        await direct.create(recursive: true);
-      } catch (e) {
-        Get.snackbar(
-            'No Storage Permission', 'Please check the storage Permission!');
-      }
-    }
   }
 
   onVoiceSelect(String selectedName) {
     selectedVoice.value = selectedName;
-  }
-
-  onFormatSelect(String format) {
-    selectedFormat.value = format;
   }
 
   onVoiceFetch() async {
