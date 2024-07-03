@@ -67,13 +67,13 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   File? file;
   final Gemini gemini = Gemini.instance;
   RxList<String> voiceList =
-      ['Adam', 'Antoni', 'Arnold', 'Bella', 'Callum', 'Charlie', 'Malak'].obs;
+      ['Adam', 'Antoni', 'Rei', 'Bella', 'Conan', 'Charlie', 'Malak'].obs;
   Map<String, String> voiceMap = {
     'Adam': 'pNInz6obpgDQGcFmaJgB',
     'Antoni': 'ErXwobaYiN019PkySvjV',
-    'Arnold': 'VR6AewLTigWG4xSOukaG',
+    'Rei': 'VR6AewLTigWG4xSOukaG',
     'Bella': 'EXAVITQu4vr4xnSDxMaL',
-    'Callum': 'N2lVS1w4EtoT3dr4eOWO',
+    'Conan': 'N2lVS1w4EtoT3dr4eOWO',
     'Charlie': 'IKne3meq5aSn9XLyUdCD',
     'Malak': 'ThT5KcBeYPX3keUQqHPh',
   };
