@@ -49,15 +49,15 @@ class _VoiceToTextState extends State<VoiceToText> {
   Map<String, String> voiceMap = {
     'Adam': 'pNInz6obpgDQGcFmaJgB',
     'Antoni': 'ErXwobaYiN019PkySvjV',
-    'Arnold': 'VR6AewLTigWG4xSOukaG',
+    'Rei': 'VR6AewLTigWG4xSOukaG',
     'Bella': 'EXAVITQu4vr4xnSDxMaL',
-    'Callum': 'N2lVS1w4EtoT3dr4eOWO',
+    'Conan': 'N2lVS1w4EtoT3dr4eOWO',
     'Charlie': 'IKne3meq5aSn9XLyUdCD',
-    'Dorothy': 'ThT5KcBeYPX3keUQqHPh',
+    'Malak': 'ThT5KcBeYPX3keUQqHPh',
   };
 
   RxList<String> voiceList =
-      ['Adam', 'Antoni', 'Arnold', 'Bella', 'Callum', 'Charlie', 'Dorothy'].obs;
+      ['Adam', 'Antoni', 'Rei', 'Bella', 'Conan', 'Charlie', 'Malak'].obs;
 
   RxInt textCount = 0.obs;
   RxInt voiceLimit = 0.obs;
