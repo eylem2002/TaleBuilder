@@ -325,6 +325,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
                       ],
                     )),
               ),
+              SizedBox(width: LayoutManager.widthNHeight0(context, 1) * 0.02),
             ]),
         messageOptions: MessageOptions(
           textBeforeMedia: false,
@@ -359,7 +360,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       ],
       IosTextToSpeechAudioMode.defaultMode,
     );
-
+    TTS_OUTPUT = "";
     if (!hideInChat) {
       setState(() {
         messages = [chatMessage, ...messages];
@@ -385,6 +386,10 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
               messages = [lastMessage!, ...messages];
               isGeminiTyping = false;
             });
+            print("+++++++++${response}");
+            setState(() {
+              TTS_OUTPUT += response;
+            });
           } else {
             String response = event.content?.parts?.fold(
                     "", (previous, current) => "$previous ${current.text}") ??
@@ -394,13 +399,18 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
             final regExp = RegExp(r'\*');
 
             response = response.replaceAll(regExp, '');
-            TTS_OUTPUT = response;
+            setState(() {
+              TTS_OUTPUT += response;
+            });
+            print("object +++++${TTS_OUTPUT}");
 
             setState(() {
               messages = [message, ...messages];
+
               isGeminiTyping = false;
             });
           }
+
           ;
         },
       );

@@ -56,8 +56,6 @@ class _VoiceToTextState extends State<VoiceToText> {
     'Dorothy': 'ThT5KcBeYPX3keUQqHPh',
   };
 
-  RxList<String> fileFormats = ['.mp3', '.wav'].obs;
-
   RxList<String> voiceList =
       ['Adam', 'Antoni', 'Arnold', 'Bella', 'Callum', 'Charlie', 'Dorothy'].obs;
 
