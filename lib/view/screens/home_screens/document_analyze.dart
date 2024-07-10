@@ -468,7 +468,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         user: currentUser,
         createdAt: DateTime.now(),
         text:
-            "I want you to be my data analyst and make a compelling storytelling based on the pdf provided.\n" +
+            "I want you to be my data analyst and make a compelling storytelling based on the pdf provided and give me a conclusion.\n" +
                 Extraction_text,
       );
       _sendMessage(chatMessage, hideInChat: true);
