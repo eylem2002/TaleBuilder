@@ -298,7 +298,7 @@ class _OCRScreenState extends State<OCRScreen> {
               borderRadius: BorderRadius.circular(30),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -308,8 +308,8 @@ class _OCRScreenState extends State<OCRScreen> {
                     child: Obx(
                       () => isGeneratingVoice.value
                           ? Container(
-                              height: 40,
-                              width: 40,
+                              height: 35,
+                              width: 35,
                               decoration: BoxDecoration(
                                 color: ThemeManager.primary,
                                 shape: BoxShape.circle,
@@ -320,8 +320,8 @@ class _OCRScreenState extends State<OCRScreen> {
                               ),
                             )
                           : Container(
-                              height: 40,
-                              width: 50,
+                              height: 35,
+                              width: 45,
                               decoration: BoxDecoration(
                                 color: ThemeManager.second,
                                 shape: BoxShape.circle,
@@ -342,7 +342,7 @@ class _OCRScreenState extends State<OCRScreen> {
                     icon: Icon(
                       Icons.document_scanner_rounded,
                       color: Colors.white,
-                      size: 30,
+                      size: 27,
                     ),
                   ),
                 ],
