@@ -24,9 +24,9 @@ class _SearchScreenState extends State<SearchScreen> {
   ChatUser currentUser = ChatUser(id: "0", firstName: "User");
   ChatUser geminiUser = ChatUser(
       id: "1",
-      firstName: "Gemini",
+      firstName: "TaleBuilder",
       profileImage:
-          "https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png");
+          "https://firebasestorage.googleapis.com/v0/b/tale-ce0cb.appspot.com/o/taleface.png?alt=media&token=e7630d76-702b-4bcd-bc27-07aff1c04771");
   @override
   Widget build(BuildContext context) {
     backgroundcolor:
