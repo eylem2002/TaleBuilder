@@ -35,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: GradientText(
-          'Chat With Gemini',
+          'Chat With TaleBuilder',
           gradient: ThemeManager.title,
           style: TextStyle(
             fontSize: LayoutManager.widthNHeight0(context, 1) * 0.05,
