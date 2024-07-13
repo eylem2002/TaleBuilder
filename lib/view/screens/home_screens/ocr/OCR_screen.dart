@@ -22,14 +22,14 @@ import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/widgets/components.dart';
 
-class DocumentAnalyze extends StatefulWidget {
-  const DocumentAnalyze({Key? key}) : super(key: key);
+class OCRScreen extends StatefulWidget {
+  const OCRScreen({Key? key}) : super(key: key);
 
   @override
-  State<DocumentAnalyze> createState() => _DocumentAnalyzeState();
+  State<OCRScreen> createState() => _OCRScreenState();
 }
 
-class _DocumentAnalyzeState extends State<DocumentAnalyze> {
+class _OCRScreenState extends State<OCRScreen> {
   String TTS_OUTPUT = "Hello How can i help you?";
 
   bool imageCheck = false;
@@ -215,7 +215,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: GradientText(
-          'Document Analyze',
+          'OCR Arabic',
           gradient: ThemeManager.title,
           style: TextStyle(
             fontSize: LayoutManager.widthNHeight0(context, 1) * 0.05,
@@ -254,84 +254,173 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   }
 
   Widget _buildUI() {
-    return Container(
-      decoration: BoxDecoration(color: Color(0xFF180D32)),
-      child: DashChat(
-        inputOptions: InputOptions(
-            inputTextStyle: TextStyle(color: ThemeManager.dark),
-            trailing: [
-              IconButton(
-                  onPressed: () {
-                    _sendMediaMessage();
-                    isGeminiTyping = true;
-                  },
-                  icon: const Icon(Icons.description, color: Colors.white)),
-              IconButton(
-                  onPressed: () {
-                    _sendMediaMessageImage();
-                    isGeminiTyping = true;
-                  },
-                  icon:
-                      const Icon(Icons.image_search_sharp, color: Colors.white))
-            ],
-            leading: [
-              Obx(
-                () => GestureDetector(
-                    onTap: onTextToVoice,
-                    child: Stack(
-                      children: [
-                        isGeneratingVoice.value
-                            ? Center(
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                      color: ThemeManager.primary,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [shadowGlow]),
-                                  child: CircularProgressIndicator(
-                                    color: ThemeManager.primary,
-                                  ),
-                                ),
-                              )
-                            : Center(
-                                child: Container(
-                                  height: 30,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: ThemeManager.second,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [shadowGlow]),
-                                  child: Icon(
-                                    Icons.multitrack_audio_rounded,
-                                    color: ThemeManager.dark,
-                                  ),
-                                ),
-                              ),
-                      ],
-                    )),
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(color: Color(0xFF180D32)),
+          child: DashChat(
+            inputOptions: InputOptions(
+              inputDecoration: InputDecoration(
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                contentPadding: EdgeInsets.zero,
               ),
-              SizedBox(width: LayoutManager.widthNHeight0(context, 1) * 0.02),
-            ]),
-        messageOptions: MessageOptions(
-          textBeforeMedia: false,
-          currentUserContainerColor: Color(0xFF180D32),
-          currentUserTextColor: Color(0xFF180D32),
-          containerColor: ThemeManager.second,
+              inputTextStyle: TextStyle(height: 0),
+              alwaysShowSend: false,
+              inputMaxLines: 1,
+              trailing: [],
+              leading: [],
+            ),
+            messageOptions: MessageOptions(
+              textBeforeMedia: false,
+              currentUserContainerColor: Color(0xFF180D32),
+              currentUserTextColor: Color(0xFF180D32),
+              containerColor: ThemeManager.second,
+            ),
+            currentUser: currentUser,
+            typingUsers: isGeminiTyping ? [geminiUser] : [],
+            onSend: (chatMessage) async {
+              await _sendMessage(chatMessage);
+              setState(() {
+                imageCheck = false;
+                isGeminiTyping = true;
+              });
+            },
+            messages: messages,
+          ),
         ),
-        currentUser: currentUser,
-        typingUsers: isGeminiTyping ? [geminiUser] : [],
-        onSend: (chatMessage) async {
-          await _sendMessage(chatMessage);
-          setState(() {
-            imageCheck = false;
-            isGeminiTyping = true;
-          });
-        },
-        messages: messages,
-      ),
+        Positioned(
+          bottom: 40,
+          left: 35,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: onTextToVoice,
+                child: Obx(
+                  () => isGeneratingVoice.value
+                      ? Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: ThemeManager.primary,
+                            shape: BoxShape.circle,
+                            boxShadow: [shadowGlow],
+                          ),
+                          child: CircularProgressIndicator(
+                            color: ThemeManager.primary,
+                          ),
+                        )
+                      : Container(
+                          height: 40,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: ThemeManager.second,
+                            shape: BoxShape.circle,
+                            boxShadow: [shadowGlow],
+                          ),
+                          child: Icon(
+                            Icons.multitrack_audio_rounded,
+                            color: ThemeManager.dark,
+                          ),
+                        ),
+                ),
+              ),
+              SizedBox(width: 230),
+              IconButton(
+                onPressed: () {
+                  isGeminiTyping = true;
+                  _sendMediaMessageImage();
+                },
+                icon: Icon(
+                  Icons.document_scanner_rounded,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
+
+  // Widget _buildUI() {
+  //   return Container(
+  //     decoration: BoxDecoration(color: Color(0xFF180D32)),
+  //     child: DashChat(
+  //       inputOptions: InputOptions(
+  //           inputDisabled: true,
+  //           inputTextStyle: TextStyle(color: ThemeManager.dark, height: 0),
+  //           trailing: [
+  //             IconButton(
+  //                 onPressed: () {
+  //                   _sendMediaMessageImage();
+  //                   isGeminiTyping = true;
+  //                 },
+  //                 icon: const Icon(
+  //                   Icons.document_scanner_rounded,
+  //                   color: Colors.white,
+  //                 ))
+  //           ],
+  //           leading: [
+  //             Obx(
+  //               () => GestureDetector(
+  //                   onTap: onTextToVoice,
+  //                   child: Stack(
+  //                     children: [
+  //                       isGeneratingVoice.value
+  //                           ? Center(
+  //                               child: Container(
+  //                                 height: 30,
+  //                                 width: 30,
+  //                                 decoration: BoxDecoration(
+  //                                     color: ThemeManager.primary,
+  //                                     shape: BoxShape.circle,
+  //                                     boxShadow: [shadowGlow]),
+  //                                 child: CircularProgressIndicator(
+  //                                   color: ThemeManager.primary,
+  //                                 ),
+  //                               ),
+  //                             )
+  //                           : Center(
+  //                               child: Container(
+  //                                 height: 30,
+  //                                 width: 40,
+  //                                 decoration: BoxDecoration(
+  //                                     color: ThemeManager.second,
+  //                                     shape: BoxShape.circle,
+  //                                     boxShadow: [shadowGlow]),
+  //                                 child: Icon(
+  //                                   Icons.multitrack_audio_rounded,
+  //                                   color: ThemeManager.dark,
+  //                                 ),
+  //                               ),
+  //                             ),
+  //                     ],
+  //                   )),
+  //             ),
+  //             SizedBox(width: LayoutManager.widthNHeight0(context, 1) * 0.02),
+  //           ]),
+  //       messageOptions: MessageOptions(
+  //         textBeforeMedia: false,
+  //         currentUserContainerColor: Color(0xFF180D32),
+  //         currentUserTextColor: Color(0xFF180D32),
+  //         containerColor: ThemeManager.second,
+  //       ),
+  //       currentUser: currentUser,
+  //       typingUsers: isGeminiTyping ? [geminiUser] : [],
+  //       onSend: (chatMessage) async {
+  //         await _sendMessage(chatMessage);
+  //         setState(() {
+  //           imageCheck = false;
+  //           isGeminiTyping = true;
+  //         });
+  //       },
+  //       messages: messages,
+  //     ),
+  //   );
+  // }
 
   Future<void> _sendMessage(ChatMessage chatMessage,
       {bool hideInChat = false}) async {
@@ -415,78 +504,6 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     ];
   }
 
-  Future<void> _sendMediaMessage() async {
-    String Extraction_text = "";
-    bool flag = true;
-    FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-
-    if (pickedFile != null) {
-      file = File(pickedFile.files.single.path!);
-
-      try {
-        Uint8List fileBytes = await _readDocumentData(file!.path);
-        PdfDocument document = PdfDocument(inputBytes: fileBytes);
-        PdfTextExtractor extractor = PdfTextExtractor(document);
-        Extraction_text = extractor.extractText();
-      } catch (e) {
-        _showErrorDialog('Error', 'Failed to load the PDF document.');
-      }
-    } else {
-      _showErrorDialog(
-          'No File Selected', 'Please select a PDF file to upload.');
-    }
-
-    if (Extraction_text != "") {
-      setState(() {
-        imageCheck = true;
-      });
-      fileService.addFileText(FileTextModel(text: Extraction_text));
-    } else {
-      imageCheck = false;
-      flag = false;
-    }
-
-    if (file != null && flag) {
-      ChatMessage chatMessage = ChatMessage(
-        user: currentUser,
-        createdAt: DateTime.now(),
-        text:
-            "I want you to be my data analyst and make a compelling storytelling based on the pdf provided and give me a conclusion.\n" +
-                Extraction_text,
-      );
-      _sendMessage(chatMessage, hideInChat: true);
-    }
-  }
-
-  Future<Uint8List> _readDocumentData(String filePath) async {
-    try {
-      File file = File(filePath);
-      return await file.readAsBytes();
-    } catch (e) {
-      throw Exception('Failed to read file data: $e');
-    }
-  }
-
-  void _showResult(String text) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Extracted text'),
-            content: Scrollbar(
-              child: SingleChildScrollView(
-                child: Text(text),
-                physics: BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-              ),
-            ),
-          );
-        });
-  }
-
   void _showErrorDialog(String title, String message) {
     showDialog(
       context: context,
@@ -521,7 +538,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
         user: currentUser,
         createdAt: DateTime.now(),
         text:
-            "I want you to be my data analyst and make a full compelling storytelling based on the image of the chart provided and give each part title.",
+            "I have an image containing Arabic text. Please extract the exact text in Arabic without change and ensure the following: Accuracy: Extract the text accurately, ", //including diacritics (vowel markings). Grammar: Check the extracted text for grammatical errors and correct them. Completeness: Provide the entire extracted text in its corrected form. Note to not change the text meaning and try as possable to use the words in the image",
         medias: [
           ChatMedia(url: file.path, fileName: "", type: MediaType.image)
         ],

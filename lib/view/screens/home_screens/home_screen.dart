@@ -161,62 +161,27 @@ class _HomescreenState extends State<Homescreen> {
                                       fontFamily: ThemeManager.fontFamily,
                                     ),
                                     textAlign: TextAlign.center,
-                                  )
-                                  // GradientText(
-                                  //   'Document Analyze',
-                                  //   gradient: ThemeManager.title,
-                                  //   style: TextStyle(
-                                  //     height: LayoutManager.widthNHeight0(
-                                  //             context, 1) *
-                                  //         0.004,
-                                  //     fontSize: LayoutManager.widthNHeight0(
-                                  //             context, 1) *
-                                  //         0.05,
-                                  //     fontFamily: ThemeManager.fontFamily,
-                                  //   ),
-                                  //   textAlign: TextAlign.center,
-                                  // ),
-                                  ,
+                                  ),
                                   SizedBox(
                                     height: LayoutManager.widthNHeight0(
                                             context, 1) *
                                         0.05,
                                   ),
                                   SvgPicture.asset(
-                                    'assets/images/undraw_add_files.svg',
+                                    'assets/images/doc.svg',
                                     width: 90,
                                     height: 90,
                                   ),
                                 ],
                               ),
                             )),
-                        //second card
-                        // CardDesign(
-                        //   width: LayoutManager.widthNHeight0(context, 1) * 0.43,
-                        //   height: LayoutManager.widthNHeight0(context, 1) * 0.6,
-                        //   onTap: () {
-                        //     Get.toNamed(VoiceScreen);
-                        //   },
-                        //   child: Center(
-                        //     child: GradientText(
-                        //       'Voice To Text',
-                        //       gradient: ThemeManager.title,
-                        //       style: TextStyle(
-                        //         fontSize:
-                        //             LayoutManager.widthNHeight0(context, 1) *
-                        //                 0.05,
-                        //         fontFamily: ThemeManager.fontFamily,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                         CardDesign(
                             width:
                                 LayoutManager.widthNHeight0(context, 1) * 0.43,
                             height:
                                 LayoutManager.widthNHeight0(context, 1) * 0.6,
                             onTap: () {
-                              Get.toNamed(VoiceScreen);
+                              Get.toNamed(voiceScreen);
                             },
                             child: Padding(
                               padding: EdgeInsets.all(
@@ -261,22 +226,46 @@ class _HomescreenState extends State<Homescreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CardDesign(
-                          width: LayoutManager.widthNHeight0(context, 1) * 0.43,
-                          height: LayoutManager.widthNHeight0(context, 1) * 0.6,
-                          onTap: () {},
-                          child: Center(
-                            child: GradientText(
-                              'Sign Up',
-                              gradient: ThemeManager.title,
-                              style: TextStyle(
-                                fontSize:
-                                    LayoutManager.widthNHeight0(context, 1) *
+                            width:
+                                LayoutManager.widthNHeight0(context, 1) * 0.43,
+                            height:
+                                LayoutManager.widthNHeight0(context, 1) * 0.6,
+                            onTap: () {
+                              Get.toNamed(oCRScreen);
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                  LayoutManager.widthNHeight0(context, 1) *
+                                      0.05),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Arabic OCR',
+                                    style: TextStyle(
+                                      color: ThemeManager.white,
+                                      height: LayoutManager.widthNHeight0(
+                                              context, 1) *
+                                          0.004,
+                                      fontSize: LayoutManager.widthNHeight0(
+                                              context, 1) *
+                                          0.05,
+                                      fontFamily: ThemeManager.fontFamily,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    height: LayoutManager.widthNHeight0(
+                                            context, 1) *
                                         0.05,
-                                fontFamily: ThemeManager.fontFamily,
+                                  ),
+                                  SvgPicture.asset(
+                                    'assets/images/abc.svg',
+                                    width: 90,
+                                    height: 90,
+                                  ), //
+                                ],
                               ),
-                            ),
-                          ),
-                        ),
+                            )),
                         CardDesign(
                           width: LayoutManager.widthNHeight0(context, 1) * 0.43,
                           height: LayoutManager.widthNHeight0(context, 1) * 0.6,

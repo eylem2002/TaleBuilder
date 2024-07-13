@@ -154,7 +154,7 @@ class _TextFieldXState extends State<TextFieldX> {
           CupertinoTextField(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             maxLines: widget.multiLine ?? 1,
-            maxLength: 2500,
+            maxLength: 1000,
             style: TextStyle(
               fontSize: width / 23,
               color: ThemeManager.white,
@@ -209,7 +209,7 @@ class _TextFieldXState extends State<TextFieldX> {
               bottom: 5,
               right: 5,
               child: Text(
-                '${widget.controller.text.length}/2500',
+                '${widget.controller.text.length}/1000',
                 style: TextStyle(
                   color: ThemeManager.white,
                 ),
