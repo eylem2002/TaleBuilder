@@ -290,55 +290,64 @@ class _OCRScreenState extends State<OCRScreen> {
             messages: messages,
           ),
         ),
-        Positioned(
-          bottom: 40,
-          left: 35,
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: onTextToVoice,
-                child: Obx(
-                  () => isGeneratingVoice.value
-                      ? Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            color: ThemeManager.primary,
-                            shape: BoxShape.circle,
-                            boxShadow: [shadowGlow],
-                          ),
-                          child: CircularProgressIndicator(
-                            color: ThemeManager.primary,
-                          ),
-                        )
-                      : Container(
-                          height: 40,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: ThemeManager.second,
-                            shape: BoxShape.circle,
-                            boxShadow: [shadowGlow],
-                          ),
-                          child: Icon(
-                            Icons.multitrack_audio_rounded,
-                            color: ThemeManager.dark,
-                          ),
-                        ),
-                ),
+        Padding(
+          padding: const EdgeInsets.only(top: 640.0, right: 20, left: 20),
+          child: Container(
+            decoration: BoxDecoration(
+              color: ThemeManager.second.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: onTextToVoice,
+                    child: Obx(
+                      () => isGeneratingVoice.value
+                          ? Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                color: ThemeManager.primary,
+                                shape: BoxShape.circle,
+                                boxShadow: [shadowGlow],
+                              ),
+                              child: CircularProgressIndicator(
+                                color: ThemeManager.primary,
+                              ),
+                            )
+                          : Container(
+                              height: 40,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                color: ThemeManager.second,
+                                shape: BoxShape.circle,
+                                boxShadow: [shadowGlow],
+                              ),
+                              child: Icon(
+                                Icons.multitrack_audio_rounded,
+                                color: ThemeManager.dark,
+                              ),
+                            ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      isGeminiTyping = true;
+                      _sendMediaMessageImage();
+                    },
+                    icon: Icon(
+                      Icons.document_scanner_rounded,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(width: 230),
-              IconButton(
-                onPressed: () {
-                  isGeminiTyping = true;
-                  _sendMediaMessageImage();
-                },
-                icon: Icon(
-                  Icons.document_scanner_rounded,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ],
