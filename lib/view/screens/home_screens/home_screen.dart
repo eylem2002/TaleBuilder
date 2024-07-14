@@ -240,7 +240,7 @@ class _HomescreenState extends State<Homescreen> {
                               child: Column(
                                 children: [
                                   Text(
-                                    'Arabic OCR',
+                                    'Arabic Text OCR',
                                     style: TextStyle(
                                       color: ThemeManager.white,
                                       height: LayoutManager.widthNHeight0(
@@ -256,7 +256,7 @@ class _HomescreenState extends State<Homescreen> {
                                   SizedBox(
                                     height: LayoutManager.widthNHeight0(
                                             context, 1) *
-                                        0.13,
+                                        0.07,
                                   ),
                                   SvgPicture.asset(
                                     'assets/images/abc.svg',
@@ -267,22 +267,46 @@ class _HomescreenState extends State<Homescreen> {
                               ),
                             )),
                         CardDesign(
-                          width: LayoutManager.widthNHeight0(context, 1) * 0.43,
-                          height: LayoutManager.widthNHeight0(context, 1) * 0.6,
-                          onTap: () {},
-                          child: Center(
-                            child: GradientText(
-                              'Sign Up',
-                              gradient: ThemeManager.title,
-                              style: TextStyle(
-                                fontSize:
-                                    LayoutManager.widthNHeight0(context, 1) *
+                            width:
+                                LayoutManager.widthNHeight0(context, 1) * 0.43,
+                            height:
+                                LayoutManager.widthNHeight0(context, 1) * 0.6,
+                            onTap: () {
+                              Get.toNamed(oCRScreen);
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                  LayoutManager.widthNHeight0(context, 1) *
+                                      0.05),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Chart Creator',
+                                    style: TextStyle(
+                                      color: ThemeManager.white,
+                                      height: LayoutManager.widthNHeight0(
+                                              context, 1) *
+                                          0.004,
+                                      fontSize: LayoutManager.widthNHeight0(
+                                              context, 1) *
+                                          0.05,
+                                      fontFamily: ThemeManager.fontFamily,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    height: LayoutManager.widthNHeight0(
+                                            context, 1) *
                                         0.05,
-                                fontFamily: ThemeManager.fontFamily,
+                                  ),
+                                  SvgPicture.asset(
+                                    'assets/images/chart2.svg',
+                                    width: 90,
+                                    height: 90,
+                                  ), //
+                                ],
                               ),
-                            ),
-                          ),
-                        ),
+                            )),
                       ],
                     )
                   ],
