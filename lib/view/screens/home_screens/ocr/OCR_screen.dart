@@ -1,4 +1,6 @@
+import 'dart:developer';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +16,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/core/functions/all_actions.dart';
 import 'package:tale/core/models/file_text_model.dart';
+import 'package:tale/core/models/ocr_image.dart';
 import 'package:tale/core/services/elevenlabs_api.dart';
 import 'package:tale/core/services/file_service.dart';
+import 'package:tale/core/services/images_service.dart';
 import 'package:tale/utils/consts.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/theme/text_theme.dart';
@@ -30,6 +34,11 @@ class OCRScreen extends StatefulWidget {
 }
 
 class _OCRScreenState extends State<OCRScreen> {
+  OcrImageModel ocrImageModel = OcrImageModel(image: '');
+  final String _collectionName = "ocrImages";
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+
+  final FilesStorageService _filesStorageService = FilesStorageService();
   String TTS_OUTPUT = "Hello How can i help you?";
 
   bool imageCheck = false;
@@ -539,9 +548,11 @@ class _OCRScreenState extends State<OCRScreen> {
       source: ImageSource.gallery,
     );
     if (file != null) {
-      setState(() {
-        imageCheck = true;
-      });
+      setState(
+        () {
+          imageCheck = true;
+        },
+      );
 
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
@@ -552,6 +563,21 @@ class _OCRScreenState extends State<OCRScreen> {
           ChatMedia(url: file.path, fileName: "", type: MediaType.image)
         ],
       );
+
+      // // upload the image to Firebase Storage
+      // await _filesStorageService
+      //     .uploadImages(
+      //         imageType: "image",
+      //         folderName: ocrImageModel.id!,
+      //         pickedImages: file!)
+      //     .whenComplete(() {
+      //   _fireStore
+      //       .collection(_collectionName)
+      //       .add(ocrImageModel.toJson())
+      //       .whenComplete(() {
+      //     log("Add image Done");
+      //   });
+      // });
 
       await _sendMessage(chatMessage);
     } else {
