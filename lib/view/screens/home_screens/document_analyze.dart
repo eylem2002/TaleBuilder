@@ -215,7 +215,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: GradientText(
-          'Document Analyze',
+          'Document Parser',
           gradient: ThemeManager.title,
           style: TextStyle(
             fontSize: LayoutManager.widthNHeight0(context, 1) * 0.05,

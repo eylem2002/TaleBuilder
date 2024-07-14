@@ -57,6 +57,9 @@ dependencies:
   permission_handler: ^11.3.1
   just_audio: ^0.9.38
   firebase_storage: ^11.7.7
+  flutter_riverpod: ^2.5.1
+  image_gallery_saver: ^2.0.3
+
 
 
 dev_dependencies:

@@ -22,3 +22,6 @@ const String voiceScreen = '/voice_to_text.dart';
 
 // Route for the OCR screen
 const String oCRScreen = '/OCR_screen.dart';
+
+// Route for the chart screen
+const String chartScreen = '/chart_screen.dart';

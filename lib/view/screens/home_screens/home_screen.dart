@@ -149,7 +149,7 @@ class _HomescreenState extends State<Homescreen> {
                               child: Column(
                                 children: [
                                   Text(
-                                    'Document Analyze',
+                                    'Document Parser',
                                     style: TextStyle(
                                       color: ThemeManager.white,
                                       height: LayoutManager.widthNHeight0(
@@ -272,7 +272,7 @@ class _HomescreenState extends State<Homescreen> {
                             height:
                                 LayoutManager.widthNHeight0(context, 1) * 0.6,
                             onTap: () {
-                              Get.toNamed(oCRScreen);
+                              Get.toNamed(chartScreen);
                             },
                             child: Padding(
                               padding: EdgeInsets.all(
@@ -281,7 +281,7 @@ class _HomescreenState extends State<Homescreen> {
                               child: Column(
                                 children: [
                                   Text(
-                                    'Chart Creator',
+                                    'Image Generator',
                                     style: TextStyle(
                                       color: ThemeManager.white,
                                       height: LayoutManager.widthNHeight0(
@@ -300,7 +300,7 @@ class _HomescreenState extends State<Homescreen> {
                                         0.05,
                                   ),
                                   SvgPicture.asset(
-                                    'assets/images/chart2.svg',
+                                    'assets/images/imagecreator.svg',
                                     width: 90,
                                     height: 90,
                                   ), //
