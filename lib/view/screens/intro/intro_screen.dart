@@ -72,34 +72,8 @@ class _IntroScreenState extends State<IntroScreen> {
                         fontFamily: ThemeManager.fontFamily),
                   ),
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                          onPressed: () async {
-                            dynamic result = await _auth.signinAnon();
-                            if (result == null) {
-                              print('error signing in');
-                            } else {
-                              print('sign in');
-                              print(result);
-                              Navigator.of(context)
-                                  .pushReplacementNamed(sideBarScreen);
-                            }
-                          },
-                          child: Text(
-                            "SignIn As Guest",
-                            style: TextStyle(
-                                color: ThemeManager.primary,
-                                fontFamily: ThemeManager.fontFamily),
-                          )),
-                    ],
-                  ),
-                ),
                 SizedBox(
-                  height: LayoutManager.widthNHeight0(context, 1) * 0.08,
+                  height: LayoutManager.widthNHeight0(context, 1) * 0.14,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -149,7 +149,7 @@ class _HomescreenState extends State<Homescreen> {
                               child: Column(
                                 children: [
                                   Text(
-                                    'Document Analyze',
+                                    'Document Parser',
                                     style: TextStyle(
                                       color: ThemeManager.white,
                                       height: LayoutManager.widthNHeight0(
@@ -240,7 +240,48 @@ class _HomescreenState extends State<Homescreen> {
                               child: Column(
                                 children: [
                                   Text(
-                                    'Arabic OCR',
+                                    'Arabic Text OCR',
+                                    style: TextStyle(
+                                      color: ThemeManager.white,
+                                      height: LayoutManager.widthNHeight0(
+                                              context, 1) *
+                                          0.004,
+                                      fontSize: LayoutManager.widthNHeight0(
+                                              context, 1) *
+                                          0.05,
+                                      fontFamily: ThemeManager.fontFamily,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    height: LayoutManager.widthNHeight0(
+                                            context, 1) *
+                                        0.07,
+                                  ),
+                                  SvgPicture.asset(
+                                    'assets/images/abc.svg',
+                                    width: 90,
+                                    height: 90,
+                                  ), //
+                                ],
+                              ),
+                            )),
+                        CardDesign(
+                            width:
+                                LayoutManager.widthNHeight0(context, 1) * 0.43,
+                            height:
+                                LayoutManager.widthNHeight0(context, 1) * 0.6,
+                            onTap: () {
+                              Get.toNamed(chartScreen);
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                  LayoutManager.widthNHeight0(context, 1) *
+                                      0.05),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Image Generator',
                                     style: TextStyle(
                                       color: ThemeManager.white,
                                       height: LayoutManager.widthNHeight0(
@@ -259,30 +300,13 @@ class _HomescreenState extends State<Homescreen> {
                                         0.05,
                                   ),
                                   SvgPicture.asset(
-                                    'assets/images/abc.svg',
+                                    'assets/images/imagecreator.svg',
                                     width: 90,
                                     height: 90,
                                   ), //
                                 ],
                               ),
                             )),
-                        CardDesign(
-                          width: LayoutManager.widthNHeight0(context, 1) * 0.43,
-                          height: LayoutManager.widthNHeight0(context, 1) * 0.6,
-                          onTap: () {},
-                          child: Center(
-                            child: GradientText(
-                              'Sign Up',
-                              gradient: ThemeManager.title,
-                              style: TextStyle(
-                                fontSize:
-                                    LayoutManager.widthNHeight0(context, 1) *
-                                        0.05,
-                                fontFamily: ThemeManager.fontFamily,
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     )
                   ],

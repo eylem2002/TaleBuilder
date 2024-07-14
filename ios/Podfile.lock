@@ -1002,12 +1002,19 @@ PODS:
   - Firebase/Firestore (10.25.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.25.0)
+  - Firebase/Storage (10.25.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 10.25.0)
   - firebase_auth (4.20.0):
     - Firebase/Auth (= 10.25.0)
     - firebase_core
     - Flutter
   - firebase_core (2.32.0):
     - Firebase/CoreOnly (= 10.25.0)
+    - Flutter
+  - firebase_storage (11.7.7):
+    - Firebase/Storage (= 10.25.0)
+    - firebase_core
     - Flutter
   - FirebaseAppCheckInterop (10.28.0)
   - FirebaseAuth (10.25.0):
@@ -1017,6 +1024,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
     - RecaptchaInterop (~> 100.0)
+  - FirebaseAuthInterop (10.28.0)
   - FirebaseCore (10.25.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
@@ -1046,6 +1054,13 @@ PODS:
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30911.0, >= 2.30908.0)
   - FirebaseSharedSwift (10.28.0)
+  - FirebaseStorage (10.25.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseAuthInterop (~> 10.25)
+    - FirebaseCore (~> 10.0)
+    - FirebaseCoreExtension (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.12)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - Flutter (1.0.0)
   - flutter_js (0.1.0):
     - Flutter
@@ -1154,6 +1169,8 @@ PODS:
   - gRPC-Core/Interface (1.62.5)
   - gRPC-Core/Privacy (1.62.5)
   - GTMSessionFetcher/Core (3.4.1)
+  - image_gallery_saver (2.0.2):
+    - Flutter
   - image_picker_ios (0.0.1):
     - Flutter
   - just_audio (0.0.1):
@@ -1198,10 +1215,12 @@ DEPENDENCIES:
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
   - flutter_js (from `.symlinks/plugins/flutter_js/ios`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
   - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
+  - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -1222,12 +1241,14 @@ SPEC REPOS:
     - Firebase
     - FirebaseAppCheckInterop
     - FirebaseAuth
+    - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseFirestore
     - FirebaseFirestoreInternal
     - FirebaseSharedSwift
+    - FirebaseStorage
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
@@ -1252,6 +1273,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_storage:
+    :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: Flutter
   flutter_js:
@@ -1260,6 +1283,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_pdfview/ios"
   flutter_tts:
     :path: ".symlinks/plugins/flutter_tts/ios"
+  image_gallery_saver:
+    :path: ".symlinks/plugins/image_gallery_saver/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   just_audio:
@@ -1293,14 +1318,17 @@ SPEC CHECKSUMS:
   Firebase: 0312a2352584f782ea56f66d91606891d4607f06
   firebase_auth: 5719ddc9f654b813405899480e84971bd8e61235
   firebase_core: a626d00494efa398e7c54f25f1454a64c8abf197
+  firebase_storage: 5c0f552d6b27d621429d7fd16ebab4be94a3c954
   FirebaseAppCheckInterop: 5315f40293191bfec04b2cfab0215760e441540a
   FirebaseAuth: c0f93dcc570c9da2bffb576969d793e95c344fbb
+  FirebaseAuthInterop: cec40cbafa1f9a6e0c3334c5c750a0cae7c97f80
   FirebaseCore: 7ec4d0484817f12c3373955bc87762d96842d483
   FirebaseCoreExtension: f63147b723e2a700fe0f34ec6fb7f358d6fe83e0
   FirebaseCoreInternal: 58d07f1362fddeb0feb6a857d1d1d1c5e558e698
   FirebaseFirestore: 977ccc27a3caa5d68279f209c3b0450f85b9dc5f
   FirebaseFirestoreInternal: 04b8afa77b4e5b84e86ab5ad985193e9573239fa
   FirebaseSharedSwift: 48de4aec81a6b79bb30404e5e6db43ea74848fed
+  FirebaseStorage: 44f4e25073f6fa0d4d8c09f5bec299ee9e4eb985
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_js: 95929d4e146e8ceb1c8e1889d8c2065c5d840076
   flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
@@ -1309,6 +1337,7 @@ SPEC CHECKSUMS:
   "gRPC-C++": e725ef63c4475d7cdb7e2cf16eb0fde84bd9ee51
   gRPC-Core: eee4be35df218649fe66d721a05a7f27a28f069b
   GTMSessionFetcher: 8000756fc1c19d2e5697b90311f7832d2e33f6cd
+  image_gallery_saver: cb43cc43141711190510e92c460eb1655cd343cb
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
   leveldb-library: e8eadf9008a61f9e1dde3978c086d2b6d9b9dc28

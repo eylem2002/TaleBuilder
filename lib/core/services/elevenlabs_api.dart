@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:tale/utils/consts.dart';
 
 getVoiceFromText(String apiKey, String text, String voiceId,
     double voiceStability, double similarityBoost) async {
@@ -40,7 +41,7 @@ getVoiceFromText(String apiKey, String text, String voiceId,
 getUserInfo(String apiKey) async {
   Map<String, String>? headers = {
     "Content-Type": "application/json",
-    "xi-api-key": "sk_57e6a52e2863221282e7ea6d7019a8b771b08d38439bd549",
+    "xi-api-key": ELEVENLABS_API_KEY,
   };
   final response = await http
       .get(Uri.parse("https://api.elevenlabs.io/v1/user"), headers: headers);
