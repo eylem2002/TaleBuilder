@@ -256,7 +256,7 @@ class _HomescreenState extends State<Homescreen> {
                                   SizedBox(
                                     height: LayoutManager.widthNHeight0(
                                             context, 1) *
-                                        0.05,
+                                        0.13,
                                   ),
                                   SvgPicture.asset(
                                     'assets/images/abc.svg',
