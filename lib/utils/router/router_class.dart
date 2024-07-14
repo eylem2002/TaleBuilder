@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tale/utils/router/router_const.dart';
 import 'package:tale/view/screens/Signin/up/signin.dart';
 import 'package:tale/view/screens/Signin/up/signup.dart';
+import 'package:tale/view/screens/home_screens/ocr/OCR_screen.dart';
 import 'package:tale/view/screens/home_screens/document_analyze.dart';
 import 'package:tale/view/screens/intro/intro_screen.dart';
 import 'package:tale/view/screens/home_screens/side_screen.dart';
@@ -43,11 +44,14 @@ class MyRouter {
         {
           return _route(DocumentAnalyze());
         }
-      case VoiceScreen:
+      case voiceScreen:
         {
           return _route(VoiceToText());
         }
-
+      case oCRScreen:
+        {
+          return _route(OCRScreen());
+        }
       default:
         {
           final arg = settings.name as String;

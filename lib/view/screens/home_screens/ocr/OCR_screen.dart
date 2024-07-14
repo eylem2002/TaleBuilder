@@ -1,4 +1,6 @@
+import 'dart:developer';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -14,22 +16,29 @@ import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:tale/core/functions/all_actions.dart';
 import 'package:tale/core/models/file_text_model.dart';
+import 'package:tale/core/models/ocr_image.dart';
 import 'package:tale/core/services/elevenlabs_api.dart';
 import 'package:tale/core/services/file_service.dart';
+import 'package:tale/core/services/images_service.dart';
 import 'package:tale/utils/consts.dart';
 import 'package:tale/utils/layout_manager.dart';
 import 'package:tale/utils/theme/text_theme.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
 import 'package:tale/view/widgets/components.dart';
 
-class DocumentAnalyze extends StatefulWidget {
-  const DocumentAnalyze({Key? key}) : super(key: key);
+class OCRScreen extends StatefulWidget {
+  const OCRScreen({Key? key}) : super(key: key);
 
   @override
-  State<DocumentAnalyze> createState() => _DocumentAnalyzeState();
+  State<OCRScreen> createState() => _OCRScreenState();
 }
 
-class _DocumentAnalyzeState extends State<DocumentAnalyze> {
+class _OCRScreenState extends State<OCRScreen> {
+  OcrImageModel ocrImageModel = OcrImageModel(image: '');
+  final String _collectionName = "ocrImages";
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+
+  final FilesStorageService _filesStorageService = FilesStorageService();
   String TTS_OUTPUT = "Hello How can i help you?";
 
   bool imageCheck = false;
@@ -215,7 +224,7 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: GradientText(
-          'Document Analyze',
+          'OCR Arabic',
           gradient: ThemeManager.title,
           style: TextStyle(
             fontSize: LayoutManager.widthNHeight0(context, 1) * 0.05,
@@ -254,84 +263,182 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
   }
 
   Widget _buildUI() {
-    return Container(
-      decoration: BoxDecoration(color: Color(0xFF180D32)),
-      child: DashChat(
-        inputOptions: InputOptions(
-            inputTextStyle: TextStyle(color: ThemeManager.dark),
-            trailing: [
-              IconButton(
-                  onPressed: () {
-                    _sendMediaMessage();
-                    isGeminiTyping = true;
-                  },
-                  icon: const Icon(Icons.description, color: Colors.white)),
-              IconButton(
-                  onPressed: () {
-                    _sendMediaMessageImage();
-                    isGeminiTyping = true;
-                  },
-                  icon:
-                      const Icon(Icons.image_search_sharp, color: Colors.white))
-            ],
-            leading: [
-              Obx(
-                () => GestureDetector(
-                    onTap: onTextToVoice,
-                    child: Stack(
-                      children: [
-                        isGeneratingVoice.value
-                            ? Center(
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                      color: ThemeManager.primary,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [shadowGlow]),
-                                  child: CircularProgressIndicator(
-                                    color: ThemeManager.primary,
-                                  ),
-                                ),
-                              )
-                            : Center(
-                                child: Container(
-                                  height: 30,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: ThemeManager.second,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [shadowGlow]),
-                                  child: Icon(
-                                    Icons.multitrack_audio_rounded,
-                                    color: ThemeManager.dark,
-                                  ),
-                                ),
-                              ),
-                      ],
-                    )),
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(color: Color(0xFF180D32)),
+          child: DashChat(
+            inputOptions: InputOptions(
+              inputDecoration: InputDecoration(
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                contentPadding: EdgeInsets.zero,
               ),
-              SizedBox(width: LayoutManager.widthNHeight0(context, 1) * 0.02),
-            ]),
-        messageOptions: MessageOptions(
-          textBeforeMedia: false,
-          currentUserContainerColor: Color(0xFF180D32),
-          currentUserTextColor: Color(0xFF180D32),
-          containerColor: ThemeManager.second,
+              inputTextStyle: TextStyle(height: 0),
+              alwaysShowSend: false,
+              inputMaxLines: 1,
+              trailing: [],
+              leading: [],
+            ),
+            messageOptions: MessageOptions(
+              textBeforeMedia: false,
+              currentUserContainerColor: Color(0xFF180D32),
+              currentUserTextColor: Color(0xFF180D32),
+              containerColor: ThemeManager.second,
+            ),
+            currentUser: currentUser,
+            typingUsers: isGeminiTyping ? [geminiUser] : [],
+            onSend: (chatMessage) async {
+              await _sendMessage(chatMessage);
+              setState(() {
+                imageCheck = false;
+                isGeminiTyping = true;
+              });
+            },
+            messages: messages,
+          ),
         ),
-        currentUser: currentUser,
-        typingUsers: isGeminiTyping ? [geminiUser] : [],
-        onSend: (chatMessage) async {
-          await _sendMessage(chatMessage);
-          setState(() {
-            imageCheck = false;
-            isGeminiTyping = true;
-          });
-        },
-        messages: messages,
-      ),
+        Padding(
+          padding: const EdgeInsets.only(top: 640.0, right: 20, left: 20),
+          child: Container(
+            decoration: BoxDecoration(
+              color: ThemeManager.second.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: onTextToVoice,
+                    child: Obx(
+                      () => isGeneratingVoice.value
+                          ? Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                color: ThemeManager.primary,
+                                shape: BoxShape.circle,
+                                boxShadow: [shadowGlow],
+                              ),
+                              child: CircularProgressIndicator(
+                                color: ThemeManager.primary,
+                              ),
+                            )
+                          : Container(
+                              height: 35,
+                              width: 45,
+                              decoration: BoxDecoration(
+                                color: ThemeManager.second,
+                                shape: BoxShape.circle,
+                                boxShadow: [shadowGlow],
+                              ),
+                              child: Icon(
+                                Icons.multitrack_audio_rounded,
+                                color: ThemeManager.dark,
+                              ),
+                            ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      isGeminiTyping = true;
+                      _sendMediaMessageImage();
+                    },
+                    icon: Icon(
+                      Icons.document_scanner_rounded,
+                      color: Colors.white,
+                      size: 27,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
+
+  // Widget _buildUI() {
+  //   return Container(
+  //     decoration: BoxDecoration(color: Color(0xFF180D32)),
+  //     child: DashChat(
+  //       inputOptions: InputOptions(
+  //           inputDisabled: true,
+  //           inputTextStyle: TextStyle(color: ThemeManager.dark, height: 0),
+  //           trailing: [
+  //             IconButton(
+  //                 onPressed: () {
+  //                   _sendMediaMessageImage();
+  //                   isGeminiTyping = true;
+  //                 },
+  //                 icon: const Icon(
+  //                   Icons.document_scanner_rounded,
+  //                   color: Colors.white,
+  //                 ))
+  //           ],
+  //           leading: [
+  //             Obx(
+  //               () => GestureDetector(
+  //                   onTap: onTextToVoice,
+  //                   child: Stack(
+  //                     children: [
+  //                       isGeneratingVoice.value
+  //                           ? Center(
+  //                               child: Container(
+  //                                 height: 30,
+  //                                 width: 30,
+  //                                 decoration: BoxDecoration(
+  //                                     color: ThemeManager.primary,
+  //                                     shape: BoxShape.circle,
+  //                                     boxShadow: [shadowGlow]),
+  //                                 child: CircularProgressIndicator(
+  //                                   color: ThemeManager.primary,
+  //                                 ),
+  //                               ),
+  //                             )
+  //                           : Center(
+  //                               child: Container(
+  //                                 height: 30,
+  //                                 width: 40,
+  //                                 decoration: BoxDecoration(
+  //                                     color: ThemeManager.second,
+  //                                     shape: BoxShape.circle,
+  //                                     boxShadow: [shadowGlow]),
+  //                                 child: Icon(
+  //                                   Icons.multitrack_audio_rounded,
+  //                                   color: ThemeManager.dark,
+  //                                 ),
+  //                               ),
+  //                             ),
+  //                     ],
+  //                   )),
+  //             ),
+  //             SizedBox(width: LayoutManager.widthNHeight0(context, 1) * 0.02),
+  //           ]),
+  //       messageOptions: MessageOptions(
+  //         textBeforeMedia: false,
+  //         currentUserContainerColor: Color(0xFF180D32),
+  //         currentUserTextColor: Color(0xFF180D32),
+  //         containerColor: ThemeManager.second,
+  //       ),
+  //       currentUser: currentUser,
+  //       typingUsers: isGeminiTyping ? [geminiUser] : [],
+  //       onSend: (chatMessage) async {
+  //         await _sendMessage(chatMessage);
+  //         setState(() {
+  //           imageCheck = false;
+  //           isGeminiTyping = true;
+  //         });
+  //       },
+  //       messages: messages,
+  //     ),
+  //   );
+  // }
 
   Future<void> _sendMessage(ChatMessage chatMessage,
       {bool hideInChat = false}) async {
@@ -415,78 +522,6 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
     ];
   }
 
-  Future<void> _sendMediaMessage() async {
-    String Extraction_text = "";
-    bool flag = true;
-    FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-
-    if (pickedFile != null) {
-      file = File(pickedFile.files.single.path!);
-
-      try {
-        Uint8List fileBytes = await _readDocumentData(file!.path);
-        PdfDocument document = PdfDocument(inputBytes: fileBytes);
-        PdfTextExtractor extractor = PdfTextExtractor(document);
-        Extraction_text = extractor.extractText();
-      } catch (e) {
-        _showErrorDialog('Error', 'Failed to load the PDF document.');
-      }
-    } else {
-      _showErrorDialog(
-          'No File Selected', 'Please select a PDF file to upload.');
-    }
-
-    if (Extraction_text != "") {
-      setState(() {
-        imageCheck = true;
-      });
-      fileService.addFileText(FileTextModel(text: Extraction_text));
-    } else {
-      imageCheck = false;
-      flag = false;
-    }
-
-    if (file != null && flag) {
-      ChatMessage chatMessage = ChatMessage(
-        user: currentUser,
-        createdAt: DateTime.now(),
-        text:
-            "I want you to be my data analyst and make a compelling storytelling based on the pdf provided and give me a conclusion.\n" +
-                Extraction_text,
-      );
-      _sendMessage(chatMessage, hideInChat: true);
-    }
-  }
-
-  Future<Uint8List> _readDocumentData(String filePath) async {
-    try {
-      File file = File(filePath);
-      return await file.readAsBytes();
-    } catch (e) {
-      throw Exception('Failed to read file data: $e');
-    }
-  }
-
-  void _showResult(String text) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Extracted text'),
-            content: Scrollbar(
-              child: SingleChildScrollView(
-                child: Text(text),
-                physics: BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-              ),
-            ),
-          );
-        });
-  }
-
   void _showErrorDialog(String title, String message) {
     showDialog(
       context: context,
@@ -513,19 +548,36 @@ class _DocumentAnalyzeState extends State<DocumentAnalyze> {
       source: ImageSource.gallery,
     );
     if (file != null) {
-      setState(() {
-        imageCheck = true;
-      });
+      setState(
+        () {
+          imageCheck = true;
+        },
+      );
 
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
         createdAt: DateTime.now(),
         text:
-            "I want you to be my data analyst and make a full compelling storytelling based on the image of the chart provided and give each part title.",
+            "I have an image containing Arabic text. Please extract the exact text in Arabic without change and ensure the following: Accuracy: Extract the text accurately, ", //including diacritics (vowel markings). Grammar: Check the extracted text for grammatical errors and correct them. Completeness: Provide the entire extracted text in its corrected form. Note to not change the text meaning and try as possable to use the words in the image",
         medias: [
           ChatMedia(url: file.path, fileName: "", type: MediaType.image)
         ],
       );
+
+      // // upload the image to Firebase Storage
+      // await _filesStorageService
+      //     .uploadImages(
+      //         imageType: "image",
+      //         folderName: ocrImageModel.id!,
+      //         pickedImages: file!)
+      //     .whenComplete(() {
+      //   _fireStore
+      //       .collection(_collectionName)
+      //       .add(ocrImageModel.toJson())
+      //       .whenComplete(() {
+      //     log("Add image Done");
+      //   });
+      // });
 
       await _sendMessage(chatMessage);
     } else {

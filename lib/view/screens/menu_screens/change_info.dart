@@ -232,7 +232,7 @@ class _ChangeInfoState extends State<ChangeInfo> {
                             } else {
                               if (signUpController.formKey.currentState!
                                   .validate()) {
-                                oldemail = sharedUser.email.toString();
+                                oldEmail = sharedUser.email.toString();
                                 if (name == "") {
                                   name = sharedUser.name.toString();
                                 }

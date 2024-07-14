@@ -18,4 +18,7 @@ const String personalScreen = '/personal.dart';
 const String documentScreen = '/document_analyze.dart';
 
 // Route for the Voice screen
-const String VoiceScreen = '/voice_to_text.dart';
+const String voiceScreen = '/voice_to_text.dart';
+
+// Route for the OCR screen
+const String oCRScreen = '/OCR_screen.dart';
