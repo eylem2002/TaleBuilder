@@ -300,7 +300,10 @@ class _OCRScreenState extends State<OCRScreen> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 640.0, right: 20, left: 20),
+          padding: EdgeInsets.only(
+              top: LayoutManager.widthNHeight0(context, 1) * 1.33,
+              right: 20,
+              left: 20),
           child: Container(
             decoration: BoxDecoration(
               color: ThemeManager.second.withOpacity(0.07),

@@ -41,22 +41,7 @@ class TermsScreenState extends State<TermsScreen> {
                     child: Column(
                       children: [
                         Text(
-                          'Problem',
-                          style: TextStyle(
-                            color: ThemeManager.second,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: ThemeManager.fontFamily,
-                            fontSize:
-                                LayoutManager.widthNHeight0(context, 1) * 0.04,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(
-                          height:
-                              LayoutManager.widthNHeight0(context, 1) * 0.03,
-                        ),
-                        Text(
-                          'Many travelers, both local and international, often overlook lesser-known places in Jordanian cities because there isnt enough easy-to-find information about them.The main issue is that people who want to explore something face a problem because they must deal with a confusing mix of information from different sources. This complicated situation not only makes people less interested in exploring but also takes up a lot of their time that could be better used for enjoying the experience.  Its like solving a tricky puzzle with pieces scattered everywhere.',
+                          'Welcome to TaleBuilder. By accessing or using our platform, you agree to comply with and be bound by the following terms and conditions. Please review them carefully.',
                           style: TextStyle(
                             color: ThemeManager.second,
                             fontWeight: FontWeight.bold,
@@ -70,92 +55,100 @@ class TermsScreenState extends State<TermsScreen> {
               SizedBox(
                 height: LayoutManager.widthNHeight0(context, 1) * 0.1,
               ),
-              Container(
-                  padding: EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: ThemeManager.textColor,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Our Values',
-                        style: TextStyle(
-                          color: ThemeManager.second,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: ThemeManager.fontFamily,
-                          fontSize:
-                              LayoutManager.widthNHeight0(context, 1) * 0.04,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: LayoutManager.widthNHeight0(context, 1) * 0.03,
-                      ),
-                      Text(
-                        'We want to make it simple for everyone to discover and learn about historical places in Jordan without having to search all over the place, in a way thats easy to understand to avoid makes them confusing , feel lost and stressed.',
-                        style: TextStyle(
-                          color: ThemeManager.second,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: ThemeManager.fontFamily,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  )),
+              _buildTermsSection(context, 'Acceptance of Terms',
+                  'By using TaleBuilder, you agree to these terms of use. If you do not agree, do not use our platform.'),
               SizedBox(
                 height: LayoutManager.widthNHeight0(context, 1) * 0.1,
               ),
-              Container(
-                  padding: EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: ThemeManager.textColor,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Overview",
-                        style: TextStyle(
-                          color: ThemeManager.second,
-                          fontWeight: FontWeight.bold,
-                          fontSize:
-                              LayoutManager.widthNHeight0(context, 1) * 0.05,
-                          fontFamily: ThemeManager.fontFamily,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: LayoutManager.widthNHeight0(context, 1) * 0.03,
-                      ),
-                      Text(
-                        " Tourism within Jordan plays a vital role in the country's income. Our app is like your friendly guide, providing a complete tour package to explore hidden spots in Jordan.Our main mission is to make information easy to find and organized",
-                        style: TextStyle(
-                          color: ThemeManager.second,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: ThemeManager.fontFamily,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  )),
+              _buildTermsSection(context, 'Service Description',
+                  'At TaleBuilder, we transform complex data findings into compelling narrative stories, enabling data scientists and analysts to communicate their results effectively to stakeholders. Our AI-driven tool simplifies the storytelling process, ensuring clarity and understanding.'),
+              SizedBox(
+                height: LayoutManager.widthNHeight0(context, 1) * 0.1,
+              ),
+              _buildTermsSection(context, 'User Responsibilities',
+                  'Users are responsible for the content they upload and must ensure it complies with all applicable laws and regulations. You agree not to use TaleBuilder for any unlawful or prohibited activities.'),
+              SizedBox(
+                height: LayoutManager.widthNHeight0(context, 1) * 0.1,
+              ),
+              _buildTermsSection(context, 'Intellectual Property',
+                  'All content and services provided by TaleBuilder are the intellectual property of TaleBuilder and its licensors. You agree not to reproduce, distribute, or create derivative works without explicit permission.'),
+              SizedBox(
+                height: LayoutManager.widthNHeight0(context, 1) * 0.1,
+              ),
+              _buildTermsSection(context, 'Privacy',
+                  'Your privacy is important to us. Please review our Privacy Policy to understand how we collect, use, and protect your information.'),
+              SizedBox(
+                height: LayoutManager.widthNHeight0(context, 1) * 0.1,
+              ),
+              _buildTermsSection(context, 'Limitation of Liability',
+                  'TaleBuilder is provided "as is" without any warranties, express or implied. We do not guarantee that the service will be error-free or uninterrupted. TaleBuilder is not liable for any damages arising from the use or inability to use our platform.'),
+              SizedBox(
+                height: LayoutManager.widthNHeight0(context, 1) * 0.1,
+              ),
+              _buildTermsSection(context, 'Modifications to Terms',
+                  'We reserve the right to modify these terms at any time. Your continued use of TaleBuilder constitutes acceptance of any changes.'),
+              SizedBox(
+                height: LayoutManager.widthNHeight0(context, 1) * 0.1,
+              ),
+              _buildTermsSection(context, 'Termination',
+                  'We reserve the right to terminate or suspend access to TaleBuilder without notice for conduct that we believe violates these terms or is harmful to other users of the platform.'),
+              SizedBox(
+                height: LayoutManager.widthNHeight0(context, 1) * 0.1,
+              ),
+              _buildTermsSection(context, 'Governing Law',
+                  'These terms are governed by the laws of the jurisdiction in which TaleBuilder operates. Any disputes will be resolved in the appropriate courts of that jurisdiction.'),
+              SizedBox(
+                height: LayoutManager.widthNHeight0(context, 1) * 0.1,
+              ),
+              _buildTermsSection(context, 'Contact Information',
+                  'For any questions or concerns regarding these terms, please contact us at [contact information].'),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTermsSection(
+      BuildContext context, String title, String content) {
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: ThemeManager.textColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: ThemeManager.second,
+              fontWeight: FontWeight.bold,
+              fontSize: LayoutManager.widthNHeight0(context, 1) * 0.035,
+              fontFamily: ThemeManager.fontFamily,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: LayoutManager.widthNHeight0(context, 1) * 0.03,
+          ),
+          Text(
+            content,
+            style: TextStyle(
+              color: ThemeManager.second,
+              fontWeight: FontWeight.bold,
+              fontFamily: ThemeManager.fontFamily,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
