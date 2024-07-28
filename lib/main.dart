@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tale/core/providers/chart_provider.dart';
+import 'package:tale/firebase_options.dart';
 import 'package:tale/utils/consts.dart';
 import 'package:tale/utils/router/router_class.dart';
 import 'package:tale/utils/theme/theme_manager.dart';
@@ -17,7 +18,8 @@ int? initScreen = 0;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   Gemini.init(apiKey: GEMINI_API_KEY);
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
