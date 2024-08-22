@@ -5,6 +5,8 @@ At TaleBuilder, we transform complex data findings into compelling narrative sto
 Harnessing Al to Transform Data Insights into Powerful Narratives for
 Clear Communication.
 
+https://youtu.be/jGW-G8D7Ko4?si=aEyvFS_1uSz6-B6V
+
 
 ## **Getting Started**
 Dependencies
